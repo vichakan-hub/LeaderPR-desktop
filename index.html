@@ -4922,8 +4922,16 @@ async function processDashboard(){
       ? `${dashboardData.subjectCode} · ${dashboardData.subjectName}`
       : dashboardData.subjectName || 'ภาพรวมผลการเรียน';
 
-    $('heroSubject').textContent = title;
-    $('subjectTitle').textContent = title;
+const heroSubjectNode = $('heroSubject');
+const subjectTitleNode = $('subjectTitle');
+
+if(heroSubjectNode){
+  heroSubjectNode.textContent = title;
+}
+
+if(subjectTitleNode){
+  subjectTitleNode.textContent = title;
+}
 
 $('subjectMeta').textContent =
   `ปี ${d.years} · ${d.terms} · ${d.classes} · ${d.areas} · ${d.types} · ${d.subjects}`;
