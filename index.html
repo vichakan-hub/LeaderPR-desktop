@@ -3135,6 +3135,287 @@ td{
   }
 }
 
+  /* =====================================================
+   LEADERPR TOPBAR — MATCH TEACHERPR
+   ===================================================== */
+
+.leader-main{
+  min-width:0 !important;
+  padding:18px !important;
+}
+
+.leader-main .wrap{
+  max-width:none !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+.leader-mobile-bar{
+  display:none !important;
+}
+
+/* Topbar หลัก */
+.leader-topbar{
+  min-height:70px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+
+  margin-bottom:18px;
+  padding:12px 16px;
+
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:24px;
+
+  background:rgba(255,255,255,.72);
+
+  box-shadow:
+    0 10px 30px rgba(18,38,63,.08);
+
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+
+/* ฝั่งซ้าย */
+.leader-topbar-left{
+  min-width:0;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+/* ปุ่มเปิดและย่อ Sidebar */
+.leader-sidebar-toggle-btn{
+  width:46px !important;
+  height:46px !important;
+  flex:0 0 46px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:0 !important;
+
+  color:#1d4ed8 !important;
+  background:#eef4ff !important;
+
+  border:0 !important;
+  border-radius:16px !important;
+
+  box-shadow:none !important;
+
+  font-family:'Kanit',sans-serif;
+  font-size:21px !important;
+  font-weight:900 !important;
+}
+
+.leader-sidebar-toggle-btn:hover{
+  transform:none !important;
+  color:#fff !important;
+  background:#2563eb !important;
+}
+
+.leader-topbar-title-wrap{
+  min-width:0;
+}
+
+.leader-topbar-title{
+  color:#17263c;
+
+  font-size:22px;
+  font-weight:900;
+  line-height:1.25;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.leader-topbar-subtitle{
+  margin-top:2px;
+
+  color:#6b7a90;
+
+  font-size:13px;
+  font-weight:500;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* ฝั่งขวา */
+.leader-topbar-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.leader-topbar-user{
+  min-height:44px;
+
+  display:flex;
+  align-items:center;
+
+  padding:8px 18px;
+
+  color:#17263c;
+  background:#f8fbff;
+
+  border:1px solid #d9e3ee;
+  border-radius:15px;
+
+  font-size:14px;
+  font-weight:700;
+
+  white-space:nowrap;
+}
+
+.leader-topbar-logout{
+  height:44px !important;
+
+  padding:0 18px !important;
+
+  color:#d92d20 !important;
+  background:#fff0ef !important;
+
+  border:1px solid #ffd2cf !important;
+  border-radius:15px !important;
+
+  box-shadow:none !important;
+
+  font-family:'Kanit',sans-serif !important;
+  font-size:15px !important;
+  font-weight:700 !important;
+}
+
+.leader-topbar-logout:hover{
+  transform:none !important;
+  background:#ffe7e5 !important;
+}
+
+/* =====================================================
+   COLLAPSED SIDEBAR
+   ===================================================== */
+
+body.leader-sidebar-collapsed{
+  --leader-sidebar-width:82px;
+}
+
+body.leader-sidebar-collapsed .leader-sidebar{
+  width:82px !important;
+}
+
+body.leader-sidebar-collapsed .leader-main{
+  margin-left:82px !important;
+}
+
+body.leader-sidebar-collapsed .leader-brand{
+  justify-content:center !important;
+  padding-left:0 !important;
+  padding-right:0 !important;
+}
+
+body.leader-sidebar-collapsed .leader-brand-text,
+body.leader-sidebar-collapsed .leader-profile-text,
+body.leader-sidebar-collapsed .leader-profile-settings,
+body.leader-sidebar-collapsed .leader-sidebar-chevron,
+body.leader-sidebar-collapsed .leader-menu-section,
+body.leader-sidebar-collapsed
+  .leader-sidebar-link > span:nth-child(2),
+body.leader-sidebar-collapsed
+  .leader-logout > span:nth-child(2){
+  display:none !important;
+}
+
+body.leader-sidebar-collapsed .leader-profile{
+  justify-content:center !important;
+
+  padding-left:0 !important;
+  padding-right:0 !important;
+}
+
+body.leader-sidebar-collapsed .leader-sidebar-link{
+  justify-content:center !important;
+
+  padding-left:0 !important;
+  padding-right:0 !important;
+}
+
+body.leader-sidebar-collapsed .leader-sidebar-icon{
+  width:25px !important;
+  flex:0 0 25px !important;
+}
+
+body.leader-sidebar-collapsed .leader-logout{
+  padding-left:0 !important;
+  padding-right:0 !important;
+}
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width:900px){
+
+  body.leader-sidebar-collapsed .leader-sidebar{
+    width:min(310px, calc(100vw - 46px)) !important;
+  }
+
+  body.leader-sidebar-collapsed .leader-main{
+    margin-left:0 !important;
+  }
+
+  body.leader-sidebar-collapsed .leader-brand-text,
+  body.leader-sidebar-collapsed .leader-profile-text,
+  body.leader-sidebar-collapsed .leader-profile-settings,
+  body.leader-sidebar-collapsed
+    .leader-sidebar-link > span:nth-child(2),
+  body.leader-sidebar-collapsed
+    .leader-logout > span:nth-child(2){
+    display:block !important;
+  }
+
+  body.leader-sidebar-collapsed .leader-menu-section{
+    display:flex !important;
+  }
+
+  .leader-main{
+    margin-left:0 !important;
+    padding:14px !important;
+  }
+
+  .leader-topbar{
+    min-height:66px;
+
+    margin-bottom:14px;
+    padding:10px 12px;
+
+    border-radius:22px;
+  }
+
+  .leader-sidebar-toggle-btn{
+    width:42px !important;
+    height:42px !important;
+    flex-basis:42px;
+  }
+
+  .leader-topbar-title{
+    font-size:18px;
+  }
+
+  .leader-topbar-subtitle{
+    font-size:12px;
+  }
+
+  .leader-topbar-actions{
+    display:none;
+  }
+}
+
   </style>
 </head>
 
@@ -3327,12 +3608,63 @@ td{
 
     <div class="leader-menu-backdrop" id="leaderMenuBackdrop"></div>
 
-    <header class="leader-mobile-bar">
-      <button class="leader-mobile-menu" id="leaderMobileMenuBtn" type="button" aria-label="เปิดเมนู">☰</button>
-      <div class="leader-mobile-title">LeaderPR</div>
-    </header>
+<main class="leader-main">
 
-    <main class="leader-main">
+  <header class="leader-topbar">
+
+    <div class="leader-topbar-left">
+
+      <button
+        id="leaderSidebarToggleBtn"
+        class="leader-sidebar-toggle-btn"
+        type="button"
+        title="เปิดหรือย่อเมนู"
+        aria-label="เปิดหรือย่อเมนู"
+      >
+        ☰
+      </button>
+
+      <div class="leader-topbar-title-wrap">
+
+        <div
+          id="leaderPageTitle"
+          class="leader-topbar-title"
+        >
+          สถิติผลการเรียน
+        </div>
+
+        <div
+          id="leaderPageSubtitle"
+          class="leader-topbar-subtitle"
+        >
+          โรงเรียนท่าใหม่ “พูลสวัสดิ์ราษฎร์นุกูล”
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="leader-topbar-actions">
+
+      <div
+        id="leaderTopUserBox"
+        class="leader-topbar-user"
+      >
+        L024
+      </div>
+
+      <button
+        id="leaderTopLogoutBtn"
+        class="leader-topbar-logout"
+        type="button"
+      >
+        ออกจากระบบ
+      </button>
+
+    </div>
+
+  </header>
       <section class="leader-page-placeholder" id="leaderHomePage" hidden>
         <h1>หน้าแรก LeaderPR</h1>
         <p>พื้นที่สรุปข้อมูลสำคัญสำหรับผู้บริหารและหัวหน้างานฝ่ายวิชาการ</p>
@@ -5011,11 +5343,25 @@ function renderDashboard(){
   // ================================
   // LeaderPR sidebar navigation
   // ================================
-  const leaderPageMap = {
-    home: document.getElementById('leaderHomePage'),
-    dashboard: document.getElementById('leaderDashboardPage'),
-    retest: document.getElementById('leaderRetestPage')
-  };
+const leaderPageMeta = {
+  home: {
+    title: 'หน้าแรก',
+    subtitle:
+      'โรงเรียนท่าใหม่ “พูลสวัสดิ์ราษฎร์นุกูล”'
+  },
+
+  dashboard: {
+    title: 'สถิติผลการเรียน',
+    subtitle:
+      'ภาพรวมผลการเรียนและข้อมูลประกอบการบริหาร'
+  },
+
+  retest: {
+    title: 'สถิติผลการสอบแก้ตัว',
+    subtitle:
+      'ติดตามสถานะการแก้ไขผลการเรียน 0 ร มส และ มผ'
+  }
+};
 
   function closeLeaderMenu(){
     document.body.classList.remove('leader-menu-open');
@@ -5032,6 +5378,26 @@ function renderDashboard(){
       btn.classList.toggle('active', btn.dataset.leaderPage === pageName);
     });
 
+    const pageMeta =
+  leaderPageMeta[pageName] ||
+  leaderPageMeta.dashboard;
+
+const pageTitleNode =
+  document.getElementById('leaderPageTitle');
+
+const pageSubtitleNode =
+  document.getElementById('leaderPageSubtitle');
+
+if(pageTitleNode){
+  pageTitleNode.textContent =
+    pageMeta.title;
+}
+
+if(pageSubtitleNode){
+  pageSubtitleNode.textContent =
+    pageMeta.subtitle;
+}
+
     try{
       localStorage.setItem('leaderpr_active_page', pageName);
     }catch(_err){}
@@ -5044,9 +5410,85 @@ function renderDashboard(){
     btn.addEventListener('click', () => showLeaderPage(btn.dataset.leaderPage));
   });
 
-  document.getElementById('leaderMobileMenuBtn')?.addEventListener('click', () => {
-    document.body.classList.toggle('leader-menu-open');
+document
+  .getElementById('leaderSidebarToggleBtn')
+  ?.addEventListener('click', () => {
+
+    /*
+      มือถือ: เปิด Drawer
+      คอมพิวเตอร์: ย่อหรือขยาย Sidebar
+    */
+    if(window.innerWidth <= 900){
+      document.body.classList.toggle(
+        'leader-menu-open'
+      );
+
+      return;
+    }
+
+    document.body.classList.toggle(
+      'leader-sidebar-collapsed'
+    );
+
+    try{
+      localStorage.setItem(
+        'leaderpr_sidebar_collapsed',
+        document.body.classList.contains(
+          'leader-sidebar-collapsed'
+        )
+          ? '1'
+          : '0'
+      );
+    }catch(_error){}
   });
+
+  document
+  .getElementById('leaderSidebarToggleBtn')
+  ?.addEventListener('click', () => {
+
+    /*
+      มือถือ: เปิด Drawer
+      คอมพิวเตอร์: ย่อหรือขยาย Sidebar
+    */
+    if(window.innerWidth <= 900){
+      document.body.classList.toggle(
+        'leader-menu-open'
+      );
+
+      return;
+    }
+
+    document.body.classList.toggle(
+      'leader-sidebar-collapsed'
+    );
+
+    try{
+      localStorage.setItem(
+        'leaderpr_sidebar_collapsed',
+        document.body.classList.contains(
+          'leader-sidebar-collapsed'
+        )
+          ? '1'
+          : '0'
+      );
+    }catch(_error){}
+  });
+
+  try{
+  const sidebarCollapsed =
+    localStorage.getItem(
+      'leaderpr_sidebar_collapsed'
+    );
+
+  if(
+    sidebarCollapsed === '1' &&
+    window.innerWidth > 900
+  ){
+    document.body.classList.add(
+      'leader-sidebar-collapsed'
+    );
+  }
+}catch(_error){}
 
   document.getElementById('leaderMenuBackdrop')?.addEventListener('click', closeLeaderMenu);
 
@@ -5566,10 +6008,23 @@ document.addEventListener('keydown', event => {
 
     const nameNode = document.getElementById('leaderProfileName');
     const codeNode = document.getElementById('leaderProfileCode');
+    const topUserNode =
+  document.getElementById('leaderTopUserBox');
 
-    if(nameNode) nameNode.textContent = fullName;
-    if(codeNode) codeNode.textContent = code || '-';
-  }
+if(nameNode){
+  nameNode.textContent = fullName;
+}
+
+if(codeNode){
+  codeNode.textContent = code || '-';
+}
+
+if(topUserNode){
+  topUserNode.textContent =
+    code
+      ? `${fullName} · ${code}`
+      : '-';
+}
 
   async function openLeaderApp(user){
     leaderCurrentUser = user;
@@ -5683,6 +6138,13 @@ document.addEventListener('keydown', event => {
   });
 
   document.getElementById('leaderLogoutBtn')?.addEventListener('click', handleLeaderLogout);
+
+  document
+  .getElementById('leaderTopLogoutBtn')
+  ?.addEventListener(
+    'click',
+    handleLeaderLogout
+  );
 
   let initialLeaderPage = 'dashboard';
   try{
