@@ -2236,6 +2236,12 @@ body.leader-password-open{
   }
 }
 
+    .leader-password-input-wrap input.invalid{
+  border-color:#d92d20 !important;
+  background:#fff8f7;
+  box-shadow:0 0 0 4px rgba(217,45,32,.10) !important;
+}
+
   </style>
 </head>
 
@@ -4123,6 +4129,27 @@ function setLeaderPasswordStatus(message = '', type = ''){
   statusNode.textContent = message;
 }
 
+function clearLeaderPasswordInvalidState(){
+  [
+    'leaderCurrentPassword',
+    'leaderNewPassword',
+    'leaderConfirmPassword'
+  ].forEach(id => {
+    document.getElementById(id)?.classList.remove('invalid');
+  });
+}
+
+function markLeaderPasswordInvalid(inputId, message){
+  const input = document.getElementById(inputId);
+
+  if(input){
+    input.classList.add('invalid');
+    input.focus();
+  }
+
+  throw new Error(message);
+}
+
 function resetLeaderPasswordForm(){
   const form = document.getElementById('leaderChangePasswordForm');
 
@@ -4130,6 +4157,7 @@ function resetLeaderPasswordForm(){
     form.reset();
   }
 
+  clearLeaderPasswordInvalidState();
   setLeaderPasswordStatus();
 
   const saveBtn = document.getElementById('leaderPasswordSaveBtn');
@@ -4139,6 +4167,266 @@ function resetLeaderPasswordForm(){
     saveBtn.textContent = 'บันทึกรหัสผ่านใหม่';
   }
 }
+
+  function validateLeaderPasswordForm(){
+  clearLeaderPasswordInvalidState();
+
+  const currentPassword =
+    document.getElementById('leaderCurrentPassword')?.value || '';
+
+  const newPassword =
+    document.getElementById('leaderNewPassword')?.value || '';
+
+  const confirmPassword =
+    document.getElementById('leaderConfirmPassword')?.value || '';
+
+  const leaderCode = normalizeLeaderCode(
+    leaderCurrentUser?.teacher_code ||
+    leaderCurrentUser?.user_code ||
+    leaderCurrentUser?.code
+  );
+
+  if(!leaderCode){
+    throw new Error('ไม่พบรหัสผู้ใช้งานปัจจุบัน กรุณาเข้าสู่ระบบใหม่');
+  }
+
+  if(!leaderCode.startsWith('B')){
+    throw new Error('บัญชีนี้ไม่มีสิทธิ์เปลี่ยนรหัสผ่านผ่าน LeaderPR');
+  }
+
+  if(!currentPassword){
+    markLeaderPasswordInvalid(
+      'leaderCurrentPassword',
+      'กรุณากรอกรหัสผ่านปัจจุบัน'
+    );
+  }
+
+  if(!newPassword){
+    markLeaderPasswordInvalid(
+      'leaderNewPassword',
+      'กรุณากรอกรหัสผ่านใหม่'
+    );
+  }
+
+  if(newPassword.length < 6){
+    markLeaderPasswordInvalid(
+      'leaderNewPassword',
+      'รหัสผ่านใหม่ต้องมีอย่างน้อย 6 ตัวอักษร'
+    );
+  }
+
+  if(newPassword.length > 64){
+    markLeaderPasswordInvalid(
+      'leaderNewPassword',
+      'รหัสผ่านใหม่ต้องไม่เกิน 64 ตัวอักษร'
+    );
+  }
+
+  if(newPassword === currentPassword){
+    markLeaderPasswordInvalid(
+      'leaderNewPassword',
+      'รหัสผ่านใหม่ต้องไม่ซ้ำกับรหัสผ่านปัจจุบัน'
+    );
+  }
+
+  if(!confirmPassword){
+    markLeaderPasswordInvalid(
+      'leaderConfirmPassword',
+      'กรุณายืนยันรหัสผ่านใหม่'
+    );
+  }
+
+  if(newPassword !== confirmPassword){
+    document
+      .getElementById('leaderNewPassword')
+      ?.classList.add('invalid');
+
+    markLeaderPasswordInvalid(
+      'leaderConfirmPassword',
+      'รหัสผ่านใหม่และการยืนยันรหัสผ่านไม่ตรงกัน'
+    );
+  }
+
+  return {
+    leaderCode,
+    currentPassword,
+    newPassword
+  };
+}
+
+function normalizeLeaderPasswordResponse(data){
+  let result = Array.isArray(data)
+    ? data[0]
+    : data;
+
+  // เผื่อ RPC ส่ง JSON กลับมาเป็นข้อความ
+  if(typeof result === 'string'){
+    try{
+      result = JSON.parse(result);
+    }catch(_error){
+      return {
+        ok: false,
+        message: result || 'เปลี่ยนรหัสผ่านไม่สำเร็จ'
+      };
+    }
+  }
+
+  if(result === true){
+    return {
+      ok: true,
+      message: 'เปลี่ยนรหัสผ่านสำเร็จ'
+    };
+  }
+
+  if(!result){
+    return {
+      ok: false,
+      message: 'ไม่ได้รับผลลัพธ์จากระบบ'
+    };
+  }
+
+  if(
+    result.ok === true ||
+    result.success === true
+  ){
+    return {
+      ok: true,
+      message:
+        result.message ||
+        'เปลี่ยนรหัสผ่านสำเร็จ'
+    };
+  }
+
+  return {
+    ok: false,
+    message:
+      result.message ||
+      result.error ||
+      'เปลี่ยนรหัสผ่านไม่สำเร็จ'
+  };
+}
+
+async function handleLeaderPasswordSubmit(event){
+  event.preventDefault();
+
+  const saveBtn =
+    document.getElementById('leaderPasswordSaveBtn');
+
+  try{
+    const {
+      leaderCode,
+      currentPassword,
+      newPassword
+    } = validateLeaderPasswordForm();
+
+    if(saveBtn){
+      saveBtn.disabled = true;
+      saveBtn.textContent = '⏳ กำลังบันทึก...';
+    }
+
+    setLeaderPasswordStatus(
+      'กำลังตรวจสอบรหัสผ่านปัจจุบันและบันทึกรหัสผ่านใหม่...',
+      'info'
+    );
+
+    const { data, error } =
+      await supabaseClient.rpc(
+        'change_teacher_password',
+        {
+          p_teacher_code: leaderCode,
+          p_current_password: currentPassword,
+          p_new_password: newPassword
+        }
+      );
+
+    if(error){
+      throw error;
+    }
+
+    const result =
+      normalizeLeaderPasswordResponse(data);
+
+    if(!result.ok){
+      throw new Error(result.message);
+    }
+
+    setLeaderPasswordStatus(
+      result.message,
+      'success'
+    );
+
+    if(saveBtn){
+      saveBtn.disabled = true;
+      saveBtn.textContent = '✅ เปลี่ยนรหัสผ่านแล้ว';
+    }
+
+    /*
+      ปิด Modal และออกจากระบบ
+      เพื่อให้เข้าสู่ระบบใหม่ด้วยรหัสผ่านใหม่
+    */
+    window.setTimeout(() => {
+      closeLeaderChangePasswordModal();
+      handleLeaderLogout();
+    }, 1300);
+
+  }catch(error){
+    console.error(
+      'LeaderPR change password error',
+      error
+    );
+
+    const message =
+      error?.message ||
+      'เปลี่ยนรหัสผ่านไม่สำเร็จ';
+
+    /*
+      ถ้ารหัสผ่านปัจจุบันผิด
+      ให้ขึ้นกรอบแดงที่ช่องแรก
+    */
+    if(
+      /รหัสผ่านปัจจุบัน|รหัสผ่านเดิม|current password|incorrect password|ไม่ถูกต้อง/i
+        .test(message)
+    ){
+      document
+        .getElementById('leaderCurrentPassword')
+        ?.classList.add('invalid');
+
+      document
+        .getElementById('leaderCurrentPassword')
+        ?.focus();
+    }
+
+    setLeaderPasswordStatus(
+      message,
+      'error'
+    );
+
+    if(saveBtn){
+      saveBtn.disabled = false;
+      saveBtn.textContent = 'บันทึกรหัสผ่านใหม่';
+    }
+  }
+}
+
+document
+  .getElementById('leaderChangePasswordForm')
+  ?.addEventListener('submit', handleLeaderPasswordSubmit);
+  [
+  'leaderCurrentPassword',
+  'leaderNewPassword',
+  'leaderConfirmPassword'
+].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', event => {
+    event.target.classList.remove('invalid');
+
+    const statusNode =
+      document.getElementById('leaderPasswordStatus');
+
+    if(statusNode?.classList.contains('error')){
+      setLeaderPasswordStatus();
+    }
+  });
+});
 
 function openLeaderChangePasswordModal(){
   const modal = document.getElementById('leaderChangePasswordModal');
