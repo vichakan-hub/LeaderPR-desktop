@@ -5343,6 +5343,17 @@ function renderDashboard(){
   // ================================
   // LeaderPR sidebar navigation
   // ================================
+
+const leaderPageMap = {
+  home:
+    document.getElementById('leaderHomePage'),
+
+  dashboard:
+    document.getElementById('leaderDashboardPage'),
+
+  retest:
+    document.getElementById('leaderRetestPage')
+};
 const leaderPageMeta = {
   home: {
     title: 'หน้าแรก',
@@ -5410,37 +5421,7 @@ if(pageSubtitleNode){
     btn.addEventListener('click', () => showLeaderPage(btn.dataset.leaderPage));
   });
 
-document
-  .getElementById('leaderSidebarToggleBtn')
-  ?.addEventListener('click', () => {
 
-    /*
-      มือถือ: เปิด Drawer
-      คอมพิวเตอร์: ย่อหรือขยาย Sidebar
-    */
-    if(window.innerWidth <= 900){
-      document.body.classList.toggle(
-        'leader-menu-open'
-      );
-
-      return;
-    }
-
-    document.body.classList.toggle(
-      'leader-sidebar-collapsed'
-    );
-
-    try{
-      localStorage.setItem(
-        'leaderpr_sidebar_collapsed',
-        document.body.classList.contains(
-          'leader-sidebar-collapsed'
-        )
-          ? '1'
-          : '0'
-      );
-    }catch(_error){}
-  });
 
   document
   .getElementById('leaderSidebarToggleBtn')
@@ -6024,6 +6005,7 @@ if(topUserNode){
     code
       ? `${fullName} · ${code}`
       : '-';
+}
 }
 
   async function openLeaderApp(user){
