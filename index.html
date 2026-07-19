@@ -3474,11 +3474,13 @@ body.leader-sidebar-collapsed .leader-logout{
             </div>
           </div>
 
+
+          <form id="leaderLoginForm" novalidate>
           <div class="leader-login-field">
             <label for="leaderLoginCode">ชื่อผู้ใช้</label>
             <div class="leader-login-input-wrap">
               <span class="leader-login-input-icon">👤</span>
-              <input id="leaderLoginCode" type="text" placeholder="เช่น L024" autocomplete="username" autocapitalize="characters">
+              <input id="leaderLoginCode" name="username"  type="text" placeholder="เช่น L024" autocomplete="username" autocapitalize="characters">
             </div>
           </div>
 
@@ -3486,7 +3488,7 @@ body.leader-sidebar-collapsed .leader-logout{
             <label for="leaderLoginPassword">รหัสผ่าน</label>
             <div class="leader-login-input-wrap">
               <span class="leader-login-input-icon">🔒</span>
-              <input id="leaderLoginPassword" type="password" placeholder="กรอกรหัสผ่าน" autocomplete="current-password">
+              <input  id="leaderLoginPassword"  name="password"  type="password" placeholder="กรอกรหัสผ่าน" autocomplete="current-password">
               <span id="leaderTogglePasswordBtn" class="leader-login-input-action" role="button" tabindex="0" aria-label="แสดงหรือซ่อนรหัสผ่าน">👁️</span>
             </div>
           </div>
@@ -3496,8 +3498,9 @@ body.leader-sidebar-collapsed .leader-logout{
             <span>จดจำฉันไว้ในอุปกรณ์นี้</span>
           </label>
 
-          <button id="leaderLoginBtn" class="leader-login-submit" type="button">↪ เข้าสู่ระบบ</button>
+          <button id="leaderLoginBtn" class="leader-login-submit" type="submit">↪ เข้าสู่ระบบ</button>
           <div id="leaderLoginStatus" class="leader-login-status info"></div>
+          </form>
         </section>
 
         <section class="leader-login-info">
