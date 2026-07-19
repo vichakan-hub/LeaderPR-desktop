@@ -2602,6 +2602,539 @@ td{
   }
 }
 
+    /* =====================================================
+   LEADERPR SIDEBAR — MATCH TEACHERPR
+   ===================================================== */
+
+:root{
+  --leader-sidebar-width:292px;
+}
+
+/* Sidebar หลัก */
+.leader-sidebar{
+  position:fixed !important;
+  top:0 !important;
+  bottom:0 !important;
+  left:0 !important;
+
+  width:var(--leader-sidebar-width) !important;
+  height:100vh !important;
+
+  padding:14px 12px !important;
+
+  display:flex !important;
+  flex-direction:column !important;
+  gap:10px !important;
+
+  overflow:hidden !important;
+
+  background:rgba(255,255,255,.78) !important;
+  border-right:1px solid rgba(255,255,255,.65) !important;
+
+  box-shadow:
+    0 14px 35px rgba(18,38,63,.10) !important;
+
+  backdrop-filter:blur(16px) !important;
+  -webkit-backdrop-filter:blur(16px) !important;
+
+  z-index:1000 !important;
+}
+
+/* ส่วนที่เลื่อนได้ */
+.leader-sidebar-scroll{
+  flex:1 !important;
+  min-height:0 !important;
+
+  padding:0 !important;
+
+  display:flex !important;
+  flex-direction:column !important;
+
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+
+  scrollbar-width:none !important;
+}
+
+.leader-sidebar-scroll::-webkit-scrollbar{
+  width:0 !important;
+  height:0 !important;
+}
+
+/* =====================================================
+   BRAND
+   ===================================================== */
+
+.leader-brand{
+  min-height:56px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  gap:12px !important;
+
+  padding:8px !important;
+}
+
+/* กรอบโลโก้ */
+.leader-school-logo-box{
+  width:48px;
+  height:48px;
+  flex:0 0 48px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:3px;
+
+  overflow:hidden;
+
+  border-radius:999px;
+
+  background:#fff;
+
+  border:
+    1px solid rgba(37,99,235,.14);
+
+  box-shadow:
+    0 6px 16px rgba(37,99,235,.12),
+    inset 0 0 0 2px rgba(255,255,255,.85);
+}
+
+.leader-school-logo{
+  display:block;
+  width:100%;
+  height:100%;
+
+  object-fit:contain;
+  border-radius:999px;
+}
+
+.leader-brand-text{
+  min-width:0;
+}
+
+/* LeaderPR */
+.leader-brand-name{
+  display:flex !important;
+  align-items:baseline !important;
+  gap:0 !important;
+
+  margin:0 !important;
+
+  color:#17263c !important;
+
+  font-size:18px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  letter-spacing:-.45px !important;
+
+  white-space:nowrap;
+}
+
+.leader-brand-word{
+  color:#17263c;
+}
+
+.leader-brand-p{
+  color:#38bdf8;
+}
+
+.leader-brand-r{
+  color:#f472b6;
+}
+
+.leader-brand-subtitle{
+  margin-top:5px !important;
+
+  color:#6b7a90 !important;
+
+  font-size:11px !important;
+  font-weight:600 !important;
+  line-height:1.25 !important;
+
+  white-space:normal !important;
+}
+
+/* =====================================================
+   USER CARD
+   ===================================================== */
+
+.leader-profile{
+  width:100% !important;
+  min-height:60px !important;
+  height:auto !important;
+
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+
+  margin:0 !important;
+  padding:9px 10px !important;
+
+  color:#17263c !important;
+
+  text-align:left !important;
+  font-family:'Kanit',sans-serif !important;
+
+  border:1px solid #d9e3ee !important;
+  border-radius:18px !important;
+
+  background:#f8fbff !important;
+
+  box-shadow:none !important;
+
+  cursor:pointer !important;
+
+  transition:
+    background .16s ease,
+    border-color .16s ease,
+    box-shadow .16s ease,
+    transform .16s ease !important;
+}
+
+.leader-profile:hover{
+  transform:translateY(-1px) !important;
+
+  background:#eef4ff !important;
+  border-color:#b9cff5 !important;
+
+  box-shadow:
+    0 8px 18px rgba(37,99,235,.10) !important;
+}
+
+.leader-profile:focus-visible{
+  outline:none !important;
+
+  border-color:#60a5fa !important;
+
+  box-shadow:
+    0 0 0 4px rgba(37,99,235,.14) !important;
+}
+
+.leader-profile-avatar{
+  width:38px !important;
+  height:38px !important;
+  flex:0 0 38px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  border-radius:14px !important;
+
+  color:#2563eb !important;
+  background:#dbeafe !important;
+
+  font-size:20px !important;
+}
+
+.leader-profile-text{
+  min-width:0;
+  flex:1;
+
+  display:block;
+}
+
+.leader-profile-name{
+  display:block !important;
+
+  color:#17263c !important;
+
+  font-size:13px !important;
+  font-weight:900 !important;
+  line-height:1.25 !important;
+
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+
+.leader-profile-code{
+  display:block !important;
+
+  margin-top:2px !important;
+
+  color:#6b7a90 !important;
+
+  font-size:11px !important;
+  font-weight:600 !important;
+
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+}
+
+.leader-profile-settings{
+  width:32px !important;
+  height:32px !important;
+  flex:0 0 32px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+
+  margin-left:auto !important;
+
+  border-radius:11px !important;
+
+  color:#1d4ed8 !important;
+  background:#e8f1ff !important;
+
+  font-size:17px !important;
+
+  transition:
+    transform .18s ease,
+    background .18s ease !important;
+}
+
+.leader-profile:hover .leader-profile-settings{
+  background:#dbeafe !important;
+  transform:rotate(20deg) !important;
+}
+
+/* =====================================================
+   MENU
+   ===================================================== */
+
+.leader-menu{
+  flex:1 !important;
+
+  display:flex !important;
+  flex-direction:column !important;
+  gap:4px !important;
+
+  margin-top:4px !important;
+  padding-right:0 !important;
+
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+
+  scrollbar-width:none !important;
+}
+
+.leader-menu::-webkit-scrollbar{
+  width:0 !important;
+  height:0 !important;
+}
+
+/* หัวข้อแบ่งกลุ่ม */
+.leader-menu-section{
+  min-height:30px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+
+  margin:0 !important;
+  padding:12px 12px 4px !important;
+
+  color:#64748b !important;
+
+  font-size:12px !important;
+  font-weight:900 !important;
+  letter-spacing:.04em !important;
+
+  white-space:nowrap !important;
+  user-select:none !important;
+}
+
+.leader-menu-section::after{
+  content:'' !important;
+
+  height:1px !important;
+  flex:1 !important;
+
+  margin-left:4px !important;
+
+  background:#d8e4ef !important;
+}
+
+/* จุดหน้าหัวข้อ */
+.leader-dot{
+  width:9px !important;
+  height:9px !important;
+  flex:0 0 9px !important;
+
+  border-radius:999px !important;
+
+  background:#2563eb !important;
+
+  box-shadow:
+    0 0 0 4px rgba(37,99,235,.10) !important;
+}
+
+.leader-dot.green{
+  background:#0f9d58 !important;
+
+  box-shadow:
+    0 0 0 4px rgba(15,157,88,.10) !important;
+}
+
+/* ปุ่มเมนู */
+.leader-sidebar-link{
+  width:100% !important;
+  min-height:43px !important;
+  height:43px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+
+  padding:0 11px !important;
+
+  color:#41536c !important;
+  background:transparent !important;
+
+  border:0 !important;
+  border-radius:14px !important;
+
+  box-shadow:none !important;
+
+  text-align:left !important;
+  font-family:'Kanit',sans-serif !important;
+  font-size:14px !important;
+  font-weight:800 !important;
+
+  transition:
+    color .16s ease,
+    background .16s ease,
+    box-shadow .16s ease !important;
+}
+
+.leader-sidebar-link:hover{
+  transform:none !important;
+
+  color:#1d4ed8 !important;
+  background:#eef4ff !important;
+}
+
+/* เมนูที่เลือก */
+.leader-sidebar-link.active{
+  color:#fff !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #3b82f6
+    ) !important;
+
+  box-shadow:
+    0 10px 22px rgba(37,99,235,.20) !important;
+}
+
+/* ไอคอน */
+.leader-sidebar-icon{
+  width:25px !important;
+  flex:0 0 25px !important;
+
+  text-align:center !important;
+  font-size:18px !important;
+}
+
+/* ข้อความเมนู */
+.leader-sidebar-link > span:nth-child(2){
+  min-width:0;
+  flex:1;
+
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.leader-sidebar-chevron{
+  width:auto !important;
+  margin-left:auto !important;
+
+  text-align:right !important;
+  font-size:11px !important;
+}
+
+/* =====================================================
+   FOOTER / LOGOUT
+   ===================================================== */
+
+.leader-sidebar-footer{
+  flex:0 0 auto !important;
+
+  padding:6px 0 0 !important;
+
+  border-top:1px solid #d9e3ee !important;
+
+  background:transparent !important;
+}
+
+.leader-logout{
+  width:100% !important;
+  min-height:42px !important;
+  height:42px !important;
+
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:8px !important;
+
+  padding:0 14px !important;
+
+  color:#d92d20 !important;
+  background:#fff0ef !important;
+
+  border:1px solid #ffd2cf !important;
+  border-radius:14px !important;
+
+  box-shadow:none !important;
+
+  font-family:'Kanit',sans-serif !important;
+  font-size:14px !important;
+  font-weight:900 !important;
+}
+
+.leader-logout:hover{
+  transform:none !important;
+  background:#ffe7e5 !important;
+}
+
+/* =====================================================
+   MAIN CONTENT POSITION
+   ===================================================== */
+
+.leader-main{
+  margin-left:var(--leader-sidebar-width) !important;
+  min-width:0 !important;
+}
+
+.leader-main .wrap{
+  padding:18px !important;
+}
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width:900px){
+
+  .leader-sidebar{
+    width:min(310px, calc(100vw - 46px)) !important;
+
+    transform:translateX(-105%) !important;
+    transition:transform .22s ease !important;
+  }
+
+  body.leader-menu-open .leader-sidebar{
+    transform:translateX(0) !important;
+  }
+
+  .leader-main{
+    margin-left:0 !important;
+  }
+
+  .leader-menu-backdrop{
+    background:rgba(15,23,42,.42) !important;
+    backdrop-filter:none !important;
+  }
+}
+
   </style>
 </head>
 
@@ -2686,21 +3219,66 @@ td{
     <aside class="leader-sidebar" id="leaderSidebar">
       <div class="leader-sidebar-scroll">
         <div class="leader-brand">
-          <img class="leader-brand-logo" src="assets/school-logo.png" alt="ตราโรงเรียน" onerror="this.style.display='none'">
-          <div>
-            <div class="leader-brand-name">Leader<span class="pr">PR</span></div>
-            <div class="leader-brand-subtitle">ระบบสารสนเทศสำหรับผู้นำงานวิชาการ</div>
-          </div>
-        </div>
+<div class="leader-brand">
 
-        <div class="leader-profile">
-          <div class="leader-profile-avatar">👨‍💼</div>
-          <div>
-            <div class="leader-profile-name" id="leaderProfileName">ผู้บริหาร / หัวหน้างาน</div>
-            <div class="leader-profile-code" id="leaderProfileCode">L024</div>
-          </div>
-          <button class="leader-profile-settings" id="leaderSettingsBtn" type="button" title="ตั้งค่าบัญชี">⚙️</button>
-        </div>
+  <div class="leader-school-logo-box">
+    <img
+      class="leader-school-logo"
+      src="./assets/school-logo.png"
+      alt="ตราโรงเรียนท่าใหม่ พูลสวัสดิ์ราษฎร์นุกูล"
+      loading="eager"
+    >
+  </div>
+
+  <div class="leader-brand-text">
+    <div
+      class="leader-brand-name"
+      aria-label="LeaderPR"
+    >
+      <span class="leader-brand-word">Leader</span><span class="leader-brand-p">P</span><span class="leader-brand-r">R</span>
+    </div>
+
+    <div class="leader-brand-subtitle">
+      ระบบสารสนเทศสำหรับผู้นำงานวิชาการ
+    </div>
+  </div>
+
+</div>
+
+<button
+  class="leader-profile"
+  id="leaderSettingsBtn"
+  type="button"
+  title="ตั้งค่าบัญชีและเปลี่ยนรหัสผ่าน"
+  aria-label="ตั้งค่าบัญชีและเปลี่ยนรหัสผ่าน"
+>
+  <span class="leader-profile-avatar">
+    👨‍💼
+  </span>
+
+  <span class="leader-profile-text">
+    <span
+      class="leader-profile-name"
+      id="leaderProfileName"
+    >
+      ผู้บริหาร / หัวหน้างาน
+    </span>
+
+    <span
+      class="leader-profile-code"
+      id="leaderProfileCode"
+    >
+      L024
+    </span>
+  </span>
+
+  <span
+    class="leader-profile-settings"
+    aria-hidden="true"
+  >
+    ⚙️
+  </span>
+</button>
 
         <nav class="leader-menu" aria-label="เมนู LeaderPR">
           <button class="leader-sidebar-link" type="button" data-leader-page="home">
