@@ -2281,7 +2281,7 @@ body.leader-password-open{
             <label for="leaderLoginCode">ชื่อผู้ใช้</label>
             <div class="leader-login-input-wrap">
               <span class="leader-login-input-icon">👤</span>
-              <input id="leaderLoginCode" type="text" placeholder="เช่น B024" autocomplete="username" autocapitalize="characters">
+              <input id="leaderLoginCode" type="text" placeholder="เช่น L024" autocomplete="username" autocapitalize="characters">
             </div>
           </div>
 
@@ -4190,7 +4190,7 @@ function resetLeaderPasswordForm(){
     throw new Error('ไม่พบรหัสผู้ใช้งานปัจจุบัน กรุณาเข้าสู่ระบบใหม่');
   }
 
-  if(!leaderCode.startsWith('B')){
+  if(!leaderCode.startsWith('L')){
     throw new Error('บัญชีนี้ไม่มีสิทธิ์เปลี่ยนรหัสผ่านผ่าน LeaderPR');
   }
 
@@ -4606,7 +4606,7 @@ document.addEventListener('keydown', event => {
       const user = JSON.parse(raw);
       const code = normalizeLeaderCode(user?.teacher_code || user?.user_code || user?.code);
 
-      if(!code.startsWith('B')){
+      if(!code.startsWith('L')){
         clearLeaderSession();
         return null;
       }
@@ -4668,8 +4668,8 @@ document.addEventListener('keydown', event => {
       return;
     }
 
-    if(!code.startsWith('B')){
-      setLeaderLoginStatus('LeaderPR อนุญาตเฉพาะรหัสที่ขึ้นต้นด้วย B เท่านั้น', 'error');
+    if(!code.startsWith('L')){
+      setLeaderLoginStatus('LeaderPR อนุญาตเฉพาะรหัสที่ขึ้นต้นด้วย L เท่านั้น', 'error');
       return;
     }
 
@@ -4690,7 +4690,7 @@ document.addEventListener('keydown', event => {
       }
 
       const returnedCode = normalizeLeaderCode(result.user.teacher_code);
-      if(!returnedCode.startsWith('B')){
+      if(!returnedCode.startsWith('L')){
         setLeaderLoginStatus('บัญชีนี้ไม่มีสิทธิ์เข้าใช้งาน LeaderPR', 'error');
         return;
       }
