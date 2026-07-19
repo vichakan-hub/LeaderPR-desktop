@@ -3434,6 +3434,18 @@ body.leader-sidebar-collapsed .leader-logout{
   color:#f472b6;
 }
 
+    .leader-a11y-username{
+  position:absolute !important;
+  width:1px !important;
+  height:1px !important;
+  padding:0 !important;
+  margin:-1px !important;
+  overflow:hidden !important;
+  clip:rect(0,0,0,0) !important;
+  white-space:nowrap !important;
+  border:0 !important;
+}
+
   </style>
 </head>
 
@@ -4036,6 +4048,17 @@ body.leader-sidebar-collapsed .leader-logout{
       </div>
 
       <form id="leaderChangePasswordForm" novalidate>
+        
+
+  <input
+    id="leaderPasswordUsername"
+    class="leader-a11y-username"
+    name="username"
+    type="text"
+    autocomplete="username"
+    tabindex="-1"
+    aria-hidden="true"
+  >
         <div class="leader-password-field">
           <label for="leaderCurrentPassword">
             รหัสผ่านปัจจุบัน
@@ -5829,6 +5852,15 @@ function openLeaderChangePasswordModal(){
     userCodeNode.textContent = currentCode || '-';
   }
 
+  const usernameNode =
+  document.getElementById(
+    'leaderPasswordUsername'
+  );
+
+if(usernameNode){
+  usernameNode.value = currentCode || '';
+}
+
   modal.hidden = false;
   modal.setAttribute('aria-hidden', 'false');
 
@@ -6113,7 +6145,12 @@ if(topUserNode){
     openLeaderLogin('ออกจากระบบเรียบร้อยแล้ว');
   }
 
-  document.getElementById('leaderLoginBtn')?.addEventListener('click', handleLeaderLogin);
+  document
+  .getElementById('leaderLoginForm')
+  ?.addEventListener('submit', event => {
+    event.preventDefault();
+    handleLeaderLogin();
+  });
 
   document.getElementById('leaderLoginCode')?.addEventListener('input', event => {
     event.target.value = normalizeLeaderCode(event.target.value);
@@ -6123,9 +6160,7 @@ if(topUserNode){
     if(event.key === 'Enter') document.getElementById('leaderLoginPassword')?.focus();
   });
 
-  document.getElementById('leaderLoginPassword')?.addEventListener('keydown', event => {
-    if(event.key === 'Enter') handleLeaderLogin();
-  });
+
 
   function toggleLeaderPassword(){
     const input = document.getElementById('leaderLoginPassword');
