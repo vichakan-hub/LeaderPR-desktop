@@ -3446,7 +3446,300 @@ body.leader-sidebar-collapsed .leader-logout{
   border:0 !important;
 }
 
-  </style>
+  
+
+    /* =========================================================
+       LeaderPR - DashboardPR style filter status
+       ========================================================= */
+    /* สถานะด้านล่างของ Filter Overlay ก่อนปุ่มยกเลิก */
+.action-status{
+  margin:0;
+  height:44px;
+  max-width:560px;
+  padding:0 14px;
+  border-radius:14px;
+  font-size:13px;
+  line-height:1.2;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  box-shadow:none;
+  white-space:nowrap;
+}
+
+    .action-status.info,
+    .action-status.success,
+    .action-status.error,
+    .action-status.warning{
+      display:inline-flex;
+    }
+
+    .action-status::before{
+      flex:0 0 auto;
+      width:22px;
+      height:22px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-family:'Sarabun',sans-serif;
+      font-size:13px;
+      font-weight:800;
+      line-height:1;
+      background:rgba(255,255,255,.72);
+    }
+
+    .action-status.info::before{ content:'…'; }
+    .action-status.success::before{ content:'✓'; }
+    .action-status.warning::before{ content:'!'; }
+    .action-status.error::before{ content:'×'; }
+
+/* =========================================================
+   Dashboard Filter Overlay
+   ========================================================= */
+.filter-launch-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:18px;
+  padding:14px 16px;
+  border-radius:22px;
+  background:rgba(255,255,255,.90);
+  border:1px solid rgba(255,255,255,.78);
+  box-shadow:var(--soft-shadow);
+  backdrop-filter:blur(10px);
+}
+
+.filter-launch-info{
+  min-width:0;
+  flex:1;
+}
+
+.filter-launch-title{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:5px;
+  color:#17324a;
+  font-size:15px;
+  font-weight:800;
+}
+
+.filter-launch-summary{
+  color:#5f7289;
+  font-size:13px;
+  line-height:1.55;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.filter-launch-actions{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex:0 0 auto;
+}
+
+.filter-open-btn{
+  flex:0 0 auto;
+  min-width:215px;
+}
+
+.filter-overlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:4vh 2vw;
+  visibility:hidden;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .20s ease, visibility .20s ease;
+}
+
+.filter-overlay.open{
+  visibility:visible;
+  opacity:1;
+  pointer-events:auto;
+}
+
+.filter-overlay-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(15,23,42,.58);
+  backdrop-filter:blur(4px);
+}
+
+.filter-modal{
+  position:relative;
+  z-index:1;
+  width:min(1380px,96vw);
+  max-height:92vh;
+  overflow:auto;
+  margin:0;
+  padding:22px;
+  border-radius:28px;
+  background:#f8fbff;
+  border:1px solid rgba(255,255,255,.88);
+  box-shadow:0 28px 80px rgba(15,23,42,.28);
+  transform:translateY(22px) scale(.985);
+  opacity:0;
+  transition:transform .22s ease, opacity .22s ease;
+  overscroll-behavior:contain;
+}
+
+.filter-overlay.open .filter-modal{
+  transform:translateY(0) scale(1);
+  opacity:1;
+}
+
+.filter-modal .builder-head{
+  position:sticky;
+  top:-22px;
+  z-index:20;
+  margin:-22px -22px 16px;
+  padding:19px 22px 15px;
+  background:rgba(248,251,255,.96);
+  border-bottom:1px solid #dbe7f3;
+  backdrop-filter:blur(10px);
+}
+
+.filter-modal-head-actions{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  flex:0 0 auto;
+}
+
+.filter-close-btn{
+  width:42px;
+  min-width:42px;
+  height:42px;
+  padding:0;
+  border-radius:14px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  line-height:1;
+  color:#41536c;
+  background:#fff;
+  border:1px solid #d9e3ee;
+  box-shadow:none;
+}
+
+.filter-close-btn:hover{
+  color:#b42318;
+  background:#fff1f0;
+  border-color:#ffd2cf;
+}
+
+.filter-modal .builder-actions{
+  position:sticky;
+  bottom:-22px;
+  z-index:19;
+  margin:14px -22px -22px;
+  padding:12px 22px 18px;
+  background:rgba(248,251,255,.97);
+  border-top:1px solid #dbe7f3;
+  backdrop-filter:blur(10px);
+}
+
+.filter-modal .actions-right{
+  margin-left:auto;
+  justify-content:flex-end;
+  align-items:center;
+  flex-wrap:nowrap;
+}
+
+body.filter-modal-open{
+  overflow:hidden;
+}
+
+@media (max-width:760px){
+  .filter-launch-bar{
+    align-items:stretch;
+    flex-direction:column;
+    border-radius:20px;
+  }
+
+  .filter-launch-summary{
+    white-space:normal;
+  }
+
+  .filter-launch-actions{
+    width:100%;
+  }
+
+  .filter-launch-actions button{
+    flex:1 1 auto;
+  }
+
+  .filter-open-btn{
+    width:auto;
+    min-width:0;
+  }
+
+  .filter-overlay{
+    align-items:stretch;
+    padding:0;
+  }
+
+  .filter-modal{
+    width:100%;
+    max-height:100vh;
+    min-height:100vh;
+    border-radius:0;
+    padding:16px;
+  }
+
+  .filter-modal .builder-head{
+    top:-16px;
+    margin:-16px -16px 14px;
+    padding:15px 16px 13px;
+  }
+
+  .filter-modal-head-actions .badge{
+    display:none;
+  }
+
+  .filter-modal .builder-actions{
+    bottom:-16px;
+    margin:14px -16px -16px;
+    padding:10px 16px 16px;
+  }
+
+  .filter-modal .actions-left,
+  .filter-modal .actions-right{
+    width:100%;
+  }
+
+  .filter-modal .actions-right{
+    justify-content:stretch;
+  }
+
+  .filter-modal .action-status{
+    flex:1 1 100%;
+    max-width:none;
+    width:100%;
+  }
+
+  .filter-modal .actions-right button{
+    flex:1 1 auto;
+  }
+}
+
+@media print{
+  .filter-launch-bar,
+  .filter-overlay{
+    display:none !important;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -3712,16 +4005,31 @@ body.leader-sidebar-collapsed .leader-logout{
         <div class="wrap">
 
 
-    <section class="card builder-card">
+    <div class="filter-launch-bar" aria-label="ตัวกรอง Dashboard">
+      <div class="filter-launch-info">
+        <div class="filter-launch-title">🔎 ข้อมูลที่ใช้ประมวลผล</div>
+        <div class="filter-launch-summary" id="currentFilterSummary">กำลังโหลดเงื่อนไข...</div>
+      </div>
+      <div class="filter-launch-actions">
+        <button class="btn-secondary" onclick="window.print()" type="button">🖨️ พิมพ์</button>
+        <button class="btn-primary filter-open-btn" id="openFilterBtn" type="button">⚙️ เลือกข้อมูลที่ต้องการประมวลผล</button>
+      </div>
+    </div>
+
+    <div class="filter-overlay" id="filterOverlay" aria-hidden="true">
+      <div class="filter-overlay-backdrop" aria-hidden="true"></div>
+
+      <section class="card builder-card filter-modal" role="dialog" aria-modal="true" aria-labelledby="filterModalTitle">
       <div class="builder-head">
         <div>
-          <h2>เลือกข้อมูลที่ต้องการประมวลผล</h2>
+          <h2 id="filterModalTitle">เลือกข้อมูลที่ต้องการประมวลผล</h2>
           <p>ถ้าเลือก “ทั้งหมด” ระบบจะไม่กรองเงื่อนไขนั้น เช่น ทุกเทอม ทุกชั้น ทุกกลุ่มสาระ หรือทุกวิชา</p>
         </div>
-        <span class="badge orange">Step 1 · Filter Builder</span>
+        <div class="filter-modal-head-actions">
+          <span class="badge orange">Filter Builder</span>
+          <button class="filter-close-btn" id="closeFilterBtn" type="button" aria-label="ปิดหน้าต่างเลือกข้อมูล">×</button>
+        </div>
       </div>
-
-      <div id="dashboardStatus" class="status info">กำลังโหลดตัวเลือก...</div>
 
 <div class="builder-grid">
   <div class="filter-card">
@@ -3823,14 +4131,15 @@ body.leader-sidebar-collapsed .leader-logout{
       <div class="builder-actions">
 <div class="actions-left">
   <button class="btn-secondary" id="defaultBtn" type="button">กลับสู่ค่าเริ่มต้น</button>
-  
 </div>
         <div class="actions-right">
+          <div id="dashboardStatus" class="status action-status info" role="status" aria-live="polite">กำลังโหลดตัวเลือก...</div>
+          <button class="btn-secondary" id="cancelFilterBtn" type="button">ยกเลิก</button>
           <button class="btn-success" id="processBtn" type="button">ประมวลผล Dashboard</button>
-          <button class="btn-secondary" onclick="window.print()" type="button">พิมพ์</button>
         </div>
       </div>
     </section>
+    </div>
 
     <section class="card" id="dashboardResult">
       <div class="subject-head">
@@ -4169,6 +4478,7 @@ rows: []
   };
 
 let dashboardData = JSON.parse(JSON.stringify(emptyDashboardData));
+let appliedFilterSummary = 'ยังไม่ได้ประมวลผล';
 let subjectOptions = [];
 let roomsByClass = [];
 let gradeChart, meanChart, donutChart;
@@ -4201,7 +4511,8 @@ let gradeChart, meanChart, donutChart;
 
   function setStatus(text, type='info'){
     const node = $('dashboardStatus');
-    node.className = `status ${type || 'info'}`;
+    if(!node) return;
+    node.className = `status action-status ${type || 'info'}`;
     node.textContent = text || '';
   }
 
@@ -4395,7 +4706,7 @@ function buildPayload(){
     const payload = buildPayload();
 
 return {
-  years: payload.academic_years.length ? payload.academic_years.join(', ') : 'ยังไม่ได้เลือกปี',
+  years: payload.academic_years.length ? payload.academic_years.join(', ') : 'ทุกปีการศึกษา',
   terms: payload.terms.length ? payload.terms.map(t => `เทอม ${t}`).join(', ') : 'ทุกเทอม',
   classes: payload.class_levels.length ? payload.class_levels.join(', ') : 'ทุกชั้น',
   areas: payload.learning_areas.length ? payload.learning_areas.join(', ') : 'ทุกกลุ่มสาระ',
@@ -4564,22 +4875,29 @@ function isTimeoutError(err){
 async function rpcUntilSuccess(fn, options = {}){
   const delayMs = options.delayMs ?? 1200;
   const maxDelayMs = options.maxDelayMs ?? 5000;
+  const maxAttempts = options.maxAttempts ?? 10;
+  const statusText = options.statusText || 'กำลังเตรียมข้อมูล กรุณารอสักครู่...';
 
   let attempt = 0;
 
-  while(true){
+  while(attempt < maxAttempts){
     try{
       return await fn();
     }catch(err){
       attempt++;
 
-      // ถ้าไม่ใช่ timeout ให้ throw ทันที เพราะ retry ไปก็ไม่น่าหาย
+      // Retry เฉพาะ statement timeout เท่านั้น
       if(!isTimeoutError(err)){
         throw err;
       }
 
-      // ไม่บอกว่าโหลดช้า ให้บอกแบบสุภาพ/กลาง ๆ
-      setStatus('กำลังเตรียมข้อมูลตัวเลือก กรุณารอสักครู่...', 'info');
+      // ครบจำนวนครั้งแล้ว จึงส่ง error กลับไปให้ส่วนเรียกใช้งานแสดงผล
+      if(attempt >= maxAttempts){
+        throw err;
+      }
+
+      // ไม่แสดงเลขครั้ง เช่น 2/10, 3/10
+      setStatus(statusText, 'info');
 
       const wait = Math.min(delayMs * attempt, maxDelayMs);
       await sleep(wait);
@@ -4600,8 +4918,10 @@ const { data } = await rpcUntilSuccess(async () => {
 
   return { data };
 }, {
+  maxAttempts: 10,
   delayMs: 1200,
-  maxDelayMs: 5000
+  maxDelayMs: 5000,
+  statusText: 'กำลังโหลดตัวเลือก กรุณารอสักครู่...'
 });
 
     const res = data || {};
@@ -4809,6 +5129,7 @@ updateSelectedSummary();
 
   function resetBuilder(){
     dashboardData = deepClone(emptyDashboardData);
+    appliedFilterSummary = 'ยังไม่ได้ประมวลผล';
     subjectOptions = [];
     $('subjectSearch').value = '';
     $('subjectChecks').innerHTML = `<div class="text-muted">กด “โหลดรายวิชา” เพื่อเลือกวิชาเฉพาะ</div>`;
@@ -4875,31 +5196,63 @@ if($('allRoomsCheck')) $('allRoomsCheck').checked = true;
     };
   }
 
+function openFilterOverlay(){
+  const overlay = $('filterOverlay');
+  if(!overlay) return;
+
+  overlay.classList.add('open');
+  overlay.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('filter-modal-open');
+
+  requestAnimationFrame(() => {
+    $('closeFilterBtn')?.focus();
+  });
+}
+
+function closeFilterOverlay(){
+  const overlay = $('filterOverlay');
+  if(!overlay) return;
+
+  overlay.classList.remove('open');
+  overlay.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('filter-modal-open');
+
+  $('openFilterBtn')?.focus();
+}
+
 async function processDashboard(){
   const payload = buildPayload();
 
   $('processBtn').disabled = true;
-  setStatus('กำลังประมวลผล Dashboard จาก Supabase RPC...', 'info');
+  setStatus('กำลังประมวลผล Dashboard กรุณารอสักครู่...', 'info');
 
   try{
-    const { data, error } = await supabaseClient.rpc(
-      'get_dashboard_checkbox_summary',
-      {
-        p_filters: payload
-      }
-    );
+    const { data } = await rpcUntilSuccess(async () => {
+      const { data, error } = await supabaseClient.rpc(
+        'get_dashboard_checkbox_summary',
+        {
+          p_filters: payload
+        }
+      );
 
-    if(error) throw error;
+      if(error) throw error;
+      return { data };
+    }, {
+      maxAttempts: 10,
+      delayMs: 1500,
+      maxDelayMs: 4000,
+      statusText: 'กำลังประมวลผล Dashboard กรุณารอสักครู่...'
+    });
 
     const raw = data && data.data ? data.data : data;
     dashboardData = normalizeDashboardData(raw);
 
-    renderDashboard();
+    const applied = describeSelection();
+    appliedFilterSummary =
+      `ปี ${applied.years} · ${applied.terms} · ${applied.classes} · ` +
+      `${applied.types} · ${applied.areas} · ${applied.subjects} · ${applied.rooms}`;
 
-    document.getElementById('dashboardResult')?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
+    renderDashboard();
 
     const label = dashboardData.countLabel || 'จำนวนผลการเรียน';
     const unit = dashboardData.countUnit || 'รายการ';
@@ -4908,10 +5261,19 @@ async function processDashboard(){
       `ประมวลผลสำเร็จ ${label} ${fmtInt(dashboardData.totalStudents)} ${unit} · นักเรียนไม่ซ้ำ ${fmtInt(dashboardData.uniqueStudents)} คน`,
       'success'
     );
+
+    closeFilterOverlay();
+
+    document.getElementById('dashboardResult')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+
   }catch(err){
     console.error('processDashboard ERROR', err);
 
     dashboardData = deepClone(emptyDashboardData);
+    appliedFilterSummary = 'ยังไม่ได้ประมวลผล';
     renderDashboard();
 
     setStatus(
@@ -4943,6 +5305,11 @@ async function processDashboard(){
   function renderSubjectHeader(){
     const d = describeSelection();
     const isSubjectMode = dashboardData.mode === 'subject';
+
+    const mainSummary = $('currentFilterSummary');
+    if(mainSummary){
+      mainSummary.textContent = appliedFilterSummary;
+    }
 
     const title = isSubjectMode
       ? `${dashboardData.subjectCode} · ${dashboardData.subjectName}`
@@ -5335,6 +5702,7 @@ function renderLearningAreaKpis(){
 
 function resetToDefaultBuilder(){
   dashboardData = deepClone(emptyDashboardData);
+  appliedFilterSummary = 'ยังไม่ได้ประมวลผล';
   subjectOptions = [];
 
   $('subjectSearch').value = '';
@@ -5367,6 +5735,16 @@ function renderDashboard(){
   renderInsights(rows, summary);
   syncTeacherColumnVisibility();
 }
+
+  $('openFilterBtn').addEventListener('click', openFilterOverlay);
+  $('closeFilterBtn').addEventListener('click', closeFilterOverlay);
+  $('cancelFilterBtn').addEventListener('click', closeFilterOverlay);
+
+  document.addEventListener('keydown', function(event){
+    if(event.key === 'Escape' && $('filterOverlay')?.classList.contains('open')){
+      closeFilterOverlay();
+    }
+  });
 
   $('loadSubjectsBtn').addEventListener('click', loadSubjectOptions);
   $('processBtn').addEventListener('click', processDashboard);
