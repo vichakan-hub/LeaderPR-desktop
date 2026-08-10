@@ -7,6 +7,7 @@
   <title>LeaderPR - สถิติผลการเรียน</title>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1533,6 +1534,7 @@
 
     #leaderDashboardPage[hidden],
     #leaderRetestPage[hidden],
+    #leaderQrPage[hidden],
     #leaderHomePage[hidden]{
       display:none !important;
     }
@@ -3739,6 +3741,47 @@ body.filter-modal-open{
     display:none !important;
   }
 }
+
+
+/* =====================================================
+   LEADERPR QR CODE GENERATOR
+   ===================================================== */
+.leader-qr-page{ min-height:calc(100vh - 106px); }
+.leader-qr-shell{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr); gap:18px; }
+.leader-qr-card{ background:rgba(255,255,255,.78); border:1px solid rgba(255,255,255,.62); border-radius:24px; box-shadow:0 10px 30px rgba(18,38,63,.08); padding:22px; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+.leader-qr-head{ display:flex; align-items:flex-start; gap:14px; margin-bottom:20px; }
+.leader-qr-head-icon{ width:52px; height:52px; flex:0 0 52px; display:flex; align-items:center; justify-content:center; border-radius:17px; color:#1d4ed8; background:#e8f1ff; font-size:25px; }
+.leader-qr-head h2{ margin:0; color:#17263c; font-size:24px; line-height:1.25; }
+.leader-qr-head p{ margin:4px 0 0; color:#6b7a90; font-size:13px; line-height:1.6; }
+.leader-qr-field{ margin-bottom:14px; }
+.leader-qr-field label{ display:block; margin-bottom:7px; color:#41536c; font-size:14px; font-weight:800; }
+.leader-qr-textarea{ width:100%; min-height:150px; resize:vertical; padding:13px 14px; border:1px solid #bfd1e3; border-radius:16px; background:#fff; color:#17263c; outline:none; font:500 14px/1.6 'Kanit',sans-serif; }
+.leader-qr-textarea:focus{ border-color:#2563eb; box-shadow:0 0 0 4px rgba(37,99,235,.12); }
+.leader-qr-helper-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:7px; color:#6b7a90; font-size:12px; }
+.leader-qr-option-row{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:12px; align-items:end; margin-top:14px; }
+.leader-qr-select{ width:100%; height:46px; padding:0 12px; border:1px solid #bfd1e3; border-radius:14px; background:#fff; color:#17263c; font:600 14px 'Kanit',sans-serif; outline:none; }
+.leader-qr-inline-actions,.leader-qr-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+.leader-qr-inline-actions{ margin-top:12px; }
+.leader-qr-actions{ margin-top:18px; }
+.leader-qr-btn{ height:46px; padding:0 16px; border:0; border-radius:15px; font:800 14px 'Kanit',sans-serif; }
+.leader-qr-generate{ flex:1 1 220px; color:#fff; background:linear-gradient(135deg,#2563eb,#38bdf8); box-shadow:0 8px 18px rgba(37,99,235,.20); }
+.leader-qr-secondary{ color:#24405f; background:#ecf2f8; border:1px solid #d9e3ee; box-shadow:none; }
+.leader-qr-download{ width:100%; margin-top:16px; color:#fff; background:linear-gradient(135deg,#0f9d58,#22c55e); box-shadow:0 8px 18px rgba(15,157,88,.18); }
+.leader-qr-btn:disabled{ opacity:.5; cursor:not-allowed; transform:none; box-shadow:none; }
+.leader-qr-status{ display:none; margin-top:14px; padding:10px 12px; border-radius:13px; font-size:13px; font-weight:700; line-height:1.55; }
+.leader-qr-status.info{ display:block; color:#1d4ed8; background:#eef4ff; border:1px solid #cfe0ff; }
+.leader-qr-status.success{ display:block; color:#0f9d58; background:#ebf9f1; border:1px solid #c7efd9; }
+.leader-qr-status.error{ display:block; color:#d92d20; background:#fff1f0; border:1px solid #ffd2cf; }
+.leader-qr-preview-card{ display:flex; flex-direction:column; min-height:520px; }
+.leader-qr-preview-stage{ flex:1; min-height:355px; display:flex; align-items:center; justify-content:center; padding:18px; border:1px dashed #bfd1e3; border-radius:20px; background:#f8fbff; overflow:auto; }
+.leader-qr-empty{ max-width:300px; text-align:center; color:#718096; font-size:13px; line-height:1.7; }
+.leader-qr-empty-icon{ display:block; margin-bottom:10px; font-size:54px; opacity:.75; }
+#leaderQrCode{ display:flex; align-items:center; justify-content:center; padding:14px; border-radius:18px; background:#fff; box-shadow:0 8px 22px rgba(18,38,63,.08); }
+#leaderQrCode canvas,#leaderQrCode img{ display:block; max-width:100%; height:auto !important; }
+.leader-qr-value-preview{ margin-top:12px; min-height:42px; padding:9px 11px; border-radius:12px; background:#f8fbff; color:#5f7289; font-size:12px; line-height:1.55; overflow-wrap:anywhere; }
+@media (max-width:1100px){ .leader-qr-shell{ grid-template-columns:1fr; } .leader-qr-preview-card{ min-height:0; } }
+@media (max-width:620px){ .leader-qr-card{ padding:16px; border-radius:20px; } .leader-qr-option-row{ grid-template-columns:1fr; } .leader-qr-inline-actions,.leader-qr-actions{ flex-direction:column; } .leader-qr-btn{ width:100%; } .leader-qr-preview-stage{ min-height:310px; padding:12px; } }
+
 </style>
 </head>
 
@@ -3920,6 +3963,12 @@ body.filter-modal-open{
             <span class="leader-dot green"></span>
             <span>งานทั่วไป</span>
           </div>
+
+          <button class="leader-sidebar-link" type="button" data-leader-page="qrcode">
+            <span class="leader-sidebar-icon">🔳</span>
+            <span>สร้าง QR Code</span>
+            <span class="leader-sidebar-chevron"></span>
+          </button>
 
           <button class="leader-sidebar-link" type="button" id="leaderChangePasswordBtn">
             <span class="leader-sidebar-icon">🔐</span>
@@ -4312,6 +4361,37 @@ body.filter-modal-open{
       </div>
     </section>
   </div>
+      </section>
+
+      <section class="leader-qr-page" id="leaderQrPage" hidden>
+        <div class="leader-qr-shell">
+          <section class="leader-qr-card">
+            <div class="leader-qr-head">
+              <div class="leader-qr-head-icon">🔳</div>
+              <div><h2>QR Code Generator</h2><p>สร้าง QR Code จากลิงก์หรือข้อความ แล้วดาวน์โหลดเป็นไฟล์ PNG ได้ทันที</p></div>
+            </div>
+            <div class="leader-qr-field">
+              <label for="leaderQrText">ลิงก์หรือข้อความ</label>
+              <textarea id="leaderQrText" class="leader-qr-textarea" maxlength="2000" placeholder="เช่น https://example.com หรือข้อความที่ต้องการสร้าง QR Code"></textarea>
+              <div class="leader-qr-helper-row"><span>รองรับทั้ง URL และข้อความทั่วไป</span><span id="leaderQrCharCount">0 / 2000</span></div>
+            </div>
+            <div class="leader-qr-inline-actions">
+              <button class="leader-qr-btn leader-qr-secondary" id="leaderQrUseCurrentUrlBtn" type="button">🔗 ใช้ลิงก์หน้านี้</button>
+              <button class="leader-qr-btn leader-qr-secondary" id="leaderQrPasteBtn" type="button">📋 วางจากคลิปบอร์ด</button>
+            </div>
+            <div class="leader-qr-option-row">
+              <div class="leader-qr-field" style="margin-bottom:0;"><label for="leaderQrSize">ขนาด QR Code</label><select id="leaderQrSize" class="leader-qr-select"><option value="220">220 × 220 px</option><option value="300" selected>300 × 300 px</option><option value="400">400 × 400 px</option><option value="500">500 × 500 px</option></select></div>
+            </div>
+            <div class="leader-qr-actions"><button class="leader-qr-btn leader-qr-secondary" id="leaderQrClearBtn" type="button">ล้างข้อมูล</button><button class="leader-qr-btn leader-qr-generate" id="leaderQrGenerateBtn" type="button">สร้าง QR Code</button></div>
+            <div id="leaderQrStatus" class="leader-qr-status" role="status" aria-live="polite"></div>
+          </section>
+          <section class="leader-qr-card leader-qr-preview-card">
+            <div class="leader-qr-head"><div class="leader-qr-head-icon">👁️</div><div><h2>ตัวอย่าง QR Code</h2><p>ตรวจสอบก่อนดาวน์โหลดและนำไปใช้งาน</p></div></div>
+            <div class="leader-qr-preview-stage"><div class="leader-qr-empty" id="leaderQrEmpty"><span class="leader-qr-empty-icon">▦</span>กรอกลิงก์หรือข้อความด้านซ้าย แล้วกด “สร้าง QR Code”</div><div id="leaderQrCode" hidden aria-label="QR Code ที่สร้างแล้ว"></div></div>
+            <div class="leader-qr-value-preview" id="leaderQrValuePreview">ยังไม่ได้สร้าง QR Code</div>
+            <button class="leader-qr-btn leader-qr-download" id="leaderQrDownloadBtn" type="button" disabled>⬇ ดาวน์โหลด PNG</button>
+          </section>
+        </div>
       </section>
 
       <section class="leader-page-placeholder" id="leaderRetestPage" hidden>
@@ -5763,6 +5843,126 @@ function renderDashboard(){
     await loadFilterOptions();
   }
 
+
+  // ================================
+  // LeaderPR QR Code Generator
+  // ================================
+  function setLeaderQrStatus(message = '', type = ''){
+    const node = document.getElementById('leaderQrStatus');
+    if(!node) return;
+    node.className = 'leader-qr-status';
+    if(type) node.classList.add(type);
+    node.textContent = message;
+  }
+
+  function updateLeaderQrCharCount(){
+    const input = document.getElementById('leaderQrText');
+    const counter = document.getElementById('leaderQrCharCount');
+    if(input && counter) counter.textContent = `${input.value.length} / 2000`;
+  }
+
+  function resetLeaderQrPreview(){
+    const box = document.getElementById('leaderQrCode');
+    const empty = document.getElementById('leaderQrEmpty');
+    const preview = document.getElementById('leaderQrValuePreview');
+    const downloadBtn = document.getElementById('leaderQrDownloadBtn');
+    if(box){ box.innerHTML = ''; box.hidden = true; }
+    if(empty) empty.hidden = false;
+    if(preview) preview.textContent = 'ยังไม่ได้สร้าง QR Code';
+    if(downloadBtn) downloadBtn.disabled = true;
+  }
+
+  function clearLeaderQrGenerator(){
+    const input = document.getElementById('leaderQrText');
+    if(input) input.value = '';
+    updateLeaderQrCharCount();
+    resetLeaderQrPreview();
+    setLeaderQrStatus();
+    input?.focus();
+  }
+
+  function generateLeaderQrCode(){
+    const input = document.getElementById('leaderQrText');
+    const sizeSelect = document.getElementById('leaderQrSize');
+    const box = document.getElementById('leaderQrCode');
+    const empty = document.getElementById('leaderQrEmpty');
+    const preview = document.getElementById('leaderQrValuePreview');
+    const downloadBtn = document.getElementById('leaderQrDownloadBtn');
+    const value = String(input?.value || '').trim();
+    const size = Number(sizeSelect?.value || 300);
+
+    if(!value){
+      setLeaderQrStatus('กรุณากรอกลิงก์หรือข้อความก่อนสร้าง QR Code', 'error');
+      input?.focus();
+      return;
+    }
+    if(typeof QRCode === 'undefined'){
+      setLeaderQrStatus('ไม่สามารถโหลดตัวสร้าง QR Code ได้ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'error');
+      return;
+    }
+
+    try{
+      if(box){ box.innerHTML = ''; box.hidden = false; }
+      if(empty) empty.hidden = true;
+      new QRCode(box, { text:value, width:size, height:size, colorDark:'#17263c', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.M });
+      if(preview) preview.textContent = value;
+      if(downloadBtn) downloadBtn.disabled = false;
+      setLeaderQrStatus('สร้าง QR Code สำเร็จแล้ว', 'success');
+    }catch(error){
+      console.error('LeaderPR QR generation error', error);
+      resetLeaderQrPreview();
+      setLeaderQrStatus(error?.message || 'สร้าง QR Code ไม่สำเร็จ', 'error');
+    }
+  }
+
+  function downloadLeaderQrCode(){
+    const box = document.getElementById('leaderQrCode');
+    if(!box) return;
+    const canvas = box.querySelector('canvas');
+    const image = box.querySelector('img');
+    const dataUrl = canvas?.toDataURL('image/png') || image?.src || '';
+    if(!dataUrl){ setLeaderQrStatus('ยังไม่มี QR Code สำหรับดาวน์โหลด', 'error'); return; }
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = `LeaderPR_QR_${Date.now()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setLeaderQrStatus('ดาวน์โหลด QR Code แล้ว', 'success');
+  }
+
+  async function pasteLeaderQrText(){
+    const input = document.getElementById('leaderQrText');
+    if(!input) return;
+    try{
+      if(!navigator.clipboard?.readText) throw new Error('เบราว์เซอร์นี้ไม่รองรับการอ่านคลิปบอร์ดอัตโนมัติ');
+      const value = await navigator.clipboard.readText();
+      input.value = value || '';
+      updateLeaderQrCharCount();
+      setLeaderQrStatus(value ? 'วางข้อความจากคลิปบอร์ดแล้ว' : 'ไม่พบข้อความในคลิปบอร์ด', value ? 'info' : 'error');
+      input.focus();
+    }catch(error){
+      setLeaderQrStatus(error?.message || 'ไม่สามารถอ่านคลิปบอร์ดได้', 'error');
+      input.focus();
+    }
+  }
+
+  document.getElementById('leaderQrText')?.addEventListener('input', () => { updateLeaderQrCharCount(); setLeaderQrStatus(); });
+  document.getElementById('leaderQrText')?.addEventListener('keydown', event => { if((event.ctrlKey || event.metaKey) && event.key === 'Enter'){ event.preventDefault(); generateLeaderQrCode(); } });
+  document.getElementById('leaderQrGenerateBtn')?.addEventListener('click', generateLeaderQrCode);
+  document.getElementById('leaderQrClearBtn')?.addEventListener('click', clearLeaderQrGenerator);
+  document.getElementById('leaderQrDownloadBtn')?.addEventListener('click', downloadLeaderQrCode);
+  document.getElementById('leaderQrPasteBtn')?.addEventListener('click', pasteLeaderQrText);
+  document.getElementById('leaderQrUseCurrentUrlBtn')?.addEventListener('click', () => {
+    const input = document.getElementById('leaderQrText');
+    if(!input) return;
+    input.value = window.location.href;
+    updateLeaderQrCharCount();
+    setLeaderQrStatus('ใส่ลิงก์หน้าปัจจุบันแล้ว', 'info');
+    input.focus();
+  });
+  updateLeaderQrCharCount();
+
   // ================================
   // LeaderPR sidebar navigation
   // ================================
@@ -5775,7 +5975,10 @@ const leaderPageMap = {
     document.getElementById('leaderDashboardPage'),
 
   retest:
-    document.getElementById('leaderRetestPage')
+    document.getElementById('leaderRetestPage'),
+
+  qrcode:
+    document.getElementById('leaderQrPage')
 };
 const leaderPageMeta = {
   home: {
@@ -5794,6 +5997,12 @@ const leaderPageMeta = {
     title: 'สถิติผลการสอบแก้ตัว',
     subtitle:
       'ติดตามสถานะการแก้ไขผลการเรียน 0 ร มส และ มผ'
+  },
+
+  qrcode: {
+    title: 'สร้าง QR Code',
+    subtitle:
+      'สร้าง QR Code จากลิงก์หรือข้อความสำหรับนำไปใช้งาน'
   }
 };
 
@@ -5838,6 +6047,12 @@ if(pageSubtitleNode){
 
     closeLeaderMenu();
     window.scrollTo({top:0, behavior:'smooth'});
+
+    if(pageName === 'qrcode'){
+      window.setTimeout(() => {
+        document.getElementById('leaderQrText')?.focus();
+      }, 120);
+    }
   }
 
   document.querySelectorAll('[data-leader-page]').forEach(btn => {
