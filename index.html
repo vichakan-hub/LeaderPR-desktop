@@ -6776,29 +6776,189 @@ function clearLeaderSession(){
   }catch(_err){}
 }
 
-  function readLeaderSession(){
-    try{
-      const raw = sessionStorage.getItem(LEADER_SESSION_KEY) || localStorage.getItem(LEADER_REMEMBER_KEY);
-      if(!raw) return null;
+async function restoreLeaderSession(){
 
-      const user = JSON.parse(raw);
-      const code = normalizeLeaderCode(user?.teacher_code || user?.user_code || user?.code);
+  try{
 
-      if(!code.startsWith('L')){
-        clearLeaderSession();
-        return null;
-      }
+    /*
+     * ==========================================
+     * 1) อ่านเฉพาะ opaque token
+     * ==========================================
+     */
 
-      return {
-        ...user,
-        teacher_code:code,
-        full_name:String(user.full_name || [user.first_name, user.last_name].filter(Boolean).join(' ') || code).trim()
-      };
-    }catch(_err){
+    const sessionToken =
+      String(
+        sessionStorage.getItem(
+          LEADER_SESSION_TOKEN_KEY
+        ) || ''
+      ).trim();
+
+    const rememberedToken =
+      String(
+        localStorage.getItem(
+          LEADER_SESSION_TOKEN_KEY
+        ) || ''
+      ).trim();
+
+    const token =
+      sessionToken ||
+      rememberedToken;
+
+
+    /*
+     * ไม่มี token = ไม่มี session
+     */
+    if(!token){
+
       clearLeaderSession();
+
       return null;
     }
+
+
+    /*
+     * ==========================================
+     * 2) ส่ง token ให้ Database ตรวจ
+     * ==========================================
+     */
+
+    const { data, error } =
+      await supabaseClient.rpc(
+        'get_teacher_session_context',
+        {
+          p_token: token
+        }
+      );
+
+
+    if(error){
+      throw error;
+    }
+
+
+    const result =
+      Array.isArray(data)
+        ? data[0]
+        : data;
+
+
+    /*
+     * ==========================================
+     * 3) Session ต้อง valid
+     * ==========================================
+     */
+
+    if(
+      !result ||
+      result.ok !== true ||
+      !result.user
+    ){
+
+      clearLeaderSession();
+
+      return null;
+    }
+
+
+    /*
+     * ==========================================
+     * 4) ใช้ User ที่ Database คืนมาเท่านั้น
+     * ==========================================
+     */
+
+    const user =
+      result.user || {};
+
+    const code =
+      normalizeLeaderCode(
+        user.teacher_code || ''
+      );
+
+
+    /*
+     * LeaderPR อนุญาตเฉพาะ
+     * L / account_type = leader
+     */
+    if(
+      !code.startsWith('L') ||
+      String(
+        user.account_type || ''
+      ) !== 'leader'
+    ){
+
+      /*
+       * Token valid แต่ role ไม่ใช่ Leader
+       * revoke token ทิ้ง
+       */
+      try{
+
+        await supabaseClient.rpc(
+          'logout_teacher_session',
+          {
+            p_token: token
+          }
+        );
+
+      }catch(logoutError){
+
+        console.warn(
+          'LeaderPR invalid role logout error',
+          logoutError
+        );
+
+      }
+
+      clearLeaderSession();
+
+      return null;
+    }
+
+
+    /*
+     * ==========================================
+     * 5) อัปเดต state จากข้อมูล DB
+     * ==========================================
+     */
+
+    leaderSessionToken =
+      token;
+
+    leaderSessionExpiresAt =
+      result.expires_at || null;
+
+
+    return {
+      ...user,
+
+      teacher_code:
+        code,
+
+      full_name:
+        String(
+          user.full_name ||
+          [
+            user.first_name,
+            user.last_name
+          ]
+            .filter(Boolean)
+            .join(' ') ||
+          code
+        ).trim()
+    };
+
+
+  }catch(error){
+
+    console.warn(
+      'LeaderPR restore session error',
+      error
+    );
+
+    clearLeaderSession();
+
+    return null;
   }
+}
 
   function renderLeaderUser(user){
     const code = normalizeLeaderCode(user?.teacher_code || user?.user_code || user?.code);
@@ -6960,13 +7120,28 @@ if(topUserNode){
   }catch(_err){}
   showLeaderPage(initialLeaderPage);
 
-  const restoredLeaderUser = readLeaderSession();
+(async function initLeaderSession(){
+
+  const restoredLeaderUser =
+    await restoreLeaderSession();
+
   if(restoredLeaderUser){
-    openLeaderApp(restoredLeaderUser);
+
+    await openLeaderApp(
+      restoredLeaderUser
+    );
+
   }else{
+
     openLeaderLogin();
-    document.getElementById('leaderLoginCode')?.focus();
+
+    document
+      .getElementById('leaderLoginCode')
+      ?.focus();
+
   }
+
+})();
 
 </script>
 </body>
