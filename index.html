@@ -6562,29 +6562,91 @@ document.addEventListener('keydown', event => {
     };
   }
 
-  async function loginLeaderWithSupabase(leaderCode, password){
-    const attempts = [
-      { p_teacher_code:leaderCode, p_password:password },
-      { p_teacher_code:leaderCode, p_plain_password:password },
-      { teacher_code:leaderCode, password:password },
-      { p_code:leaderCode, p_password:password }
-    ];
-
-    let lastError = null;
-
-    for(const args of attempts){
-      const { data, error } = await supabaseClient.rpc('login_teacher', args);
-
-      if(error){
-        lastError = error;
-        continue;
+async function loginLeaderWithSupabase(
+  leaderCode,
+  password
+){
+  const { data, error } =
+    await supabaseClient.rpc(
+      'login_teacher_session',
+      {
+        p_teacher_code: leaderCode,
+        p_password: password
       }
+    );
 
-      return normalizeLeaderLoginResponse(data);
-    }
-
-    throw lastError || new Error('ไม่พบ RPC login_teacher');
+  if(error){
+    throw error;
   }
+
+  const raw =
+    Array.isArray(data)
+      ? data[0]
+      : data;
+
+  if(!raw){
+    return {
+      ok: false,
+      message: 'เข้าสู่ระบบไม่สำเร็จ'
+    };
+  }
+
+  if(raw.ok !== true){
+    return {
+      ok: false,
+      message:
+        raw.message ||
+        raw.error ||
+        'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'
+    };
+  }
+
+  const user = raw.user || {};
+
+  const teacherCode =
+    normalizeLeaderCode(
+      user.teacher_code
+    );
+
+  if(!teacherCode){
+    return {
+      ok: false,
+      message:
+        'ไม่พบรหัสผู้ใช้งานจากระบบ'
+    };
+  }
+
+  return {
+    ok: true,
+
+    sessionToken:
+      String(
+        raw.session_token || ''
+      ),
+
+    expiresAt:
+      raw.expires_at || null,
+
+    user: {
+      ...user,
+
+      teacher_code:
+        teacherCode,
+
+      full_name:
+        String(
+          user.full_name ||
+          [
+            user.first_name,
+            user.last_name
+          ]
+            .filter(Boolean)
+            .join(' ') ||
+          teacherCode
+        ).trim()
+    }
+  };
+}
 
   function saveLeaderSession(user, remember){
     const value = JSON.stringify(user);
