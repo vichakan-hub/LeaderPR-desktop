@@ -6507,9 +6507,21 @@ document.addEventListener('keydown', event => {
   }
 });
 
-  const LEADER_SESSION_KEY = 'leaderpr_session_user';
-  const LEADER_REMEMBER_KEY = 'leaderpr_remember_user';
-  let leaderCurrentUser = null;
+const LEADER_SESSION_KEY =
+  'leaderpr_session_user';
+
+const LEADER_REMEMBER_KEY =
+  'leaderpr_remember_user';
+
+const LEADER_SESSION_TOKEN_KEY =
+  'leaderpr_session_token';
+
+const LEADER_SESSION_EXPIRES_KEY =
+  'leaderpr_session_expires_at';
+
+let leaderCurrentUser = null;
+let leaderSessionToken = '';
+let leaderSessionExpiresAt = null;
 
   function normalizeLeaderCode(value){
     return String(value || '').trim().toUpperCase().replace(/\s+/g, '');
@@ -6648,25 +6660,121 @@ async function loginLeaderWithSupabase(
   };
 }
 
-  function saveLeaderSession(user, remember){
-    const value = JSON.stringify(user);
+function saveLeaderSession(
+  user,
+  sessionToken,
+  expiresAt,
+  remember
+){
+  const userValue =
+    JSON.stringify(user);
 
-    try{
-      sessionStorage.setItem(LEADER_SESSION_KEY, value);
-      if(remember){
-        localStorage.setItem(LEADER_REMEMBER_KEY, value);
+  const tokenValue =
+    String(sessionToken || '');
+
+  const expiresValue =
+    expiresAt
+      ? String(expiresAt)
+      : '';
+
+  leaderSessionToken =
+    tokenValue;
+
+  leaderSessionExpiresAt =
+    expiresValue || null;
+
+  try{
+    sessionStorage.setItem(
+      LEADER_SESSION_KEY,
+      userValue
+    );
+
+    sessionStorage.setItem(
+      LEADER_SESSION_TOKEN_KEY,
+      tokenValue
+    );
+
+    if(expiresValue){
+      sessionStorage.setItem(
+        LEADER_SESSION_EXPIRES_KEY,
+        expiresValue
+      );
+    }else{
+      sessionStorage.removeItem(
+        LEADER_SESSION_EXPIRES_KEY
+      );
+    }
+
+    if(remember){
+      localStorage.setItem(
+        LEADER_REMEMBER_KEY,
+        userValue
+      );
+
+      localStorage.setItem(
+        LEADER_SESSION_TOKEN_KEY,
+        tokenValue
+      );
+
+      if(expiresValue){
+        localStorage.setItem(
+          LEADER_SESSION_EXPIRES_KEY,
+          expiresValue
+        );
       }else{
-        localStorage.removeItem(LEADER_REMEMBER_KEY);
+        localStorage.removeItem(
+          LEADER_SESSION_EXPIRES_KEY
+        );
       }
-    }catch(_err){}
-  }
 
-  function clearLeaderSession(){
-    try{
-      sessionStorage.removeItem(LEADER_SESSION_KEY);
-      localStorage.removeItem(LEADER_REMEMBER_KEY);
-    }catch(_err){}
-  }
+    }else{
+      localStorage.removeItem(
+        LEADER_REMEMBER_KEY
+      );
+
+      localStorage.removeItem(
+        LEADER_SESSION_TOKEN_KEY
+      );
+
+      localStorage.removeItem(
+        LEADER_SESSION_EXPIRES_KEY
+      );
+    }
+
+  }catch(_err){}
+}
+
+function clearLeaderSession(){
+  leaderSessionToken = '';
+  leaderSessionExpiresAt = null;
+
+  try{
+    sessionStorage.removeItem(
+      LEADER_SESSION_KEY
+    );
+
+    sessionStorage.removeItem(
+      LEADER_SESSION_TOKEN_KEY
+    );
+
+    sessionStorage.removeItem(
+      LEADER_SESSION_EXPIRES_KEY
+    );
+
+    localStorage.removeItem(
+      LEADER_REMEMBER_KEY
+    );
+
+    localStorage.removeItem(
+      LEADER_SESSION_TOKEN_KEY
+    );
+
+    localStorage.removeItem(
+      LEADER_SESSION_EXPIRES_KEY
+    );
+
+  }catch(_err){}
+}
 
   function readLeaderSession(){
     try{
@@ -6784,7 +6892,12 @@ if(topUserNode){
         teacher_code:returnedCode
       };
 
-      saveLeaderSession(user, remember);
+      saveLeaderSession(
+  user,
+  result.sessionToken,
+  result.expiresAt,
+  remember
+);
       setLeaderLoginStatus('เข้าสู่ระบบสำเร็จ', 'success');
       await openLeaderApp(user);
     }catch(err){
