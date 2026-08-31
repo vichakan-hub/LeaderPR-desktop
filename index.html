@@ -7068,10 +7068,58 @@ if(topUserNode){
     }
   }
 
-  function handleLeaderLogout(){
+async function handleLeaderLogout(){
+
+  /*
+   * เก็บ token ไว้ก่อน
+   * เพราะ clearLeaderSession()
+   * จะล้าง leaderSessionToken
+   */
+  const token =
+    String(
+      leaderSessionToken || ''
+    ).trim();
+
+  try{
+
+    /*
+     * ถ้ามี token ให้ revoke ที่ Database
+     */
+    if(token){
+
+      const { error } =
+        await supabaseClient.rpc(
+          'logout_teacher_session',
+          {
+            p_token: token
+          }
+        );
+
+      if(error){
+        throw error;
+      }
+    }
+
+  }catch(error){
+
+    /*
+     * ต่อให้ revoke ไม่สำเร็จจากปัญหา network
+     * ก็ต้องออกจากระบบฝั่ง Browser
+     */
+    console.warn(
+      'LeaderPR logout session error',
+      error
+    );
+
+  }finally{
+
     clearLeaderSession();
-    openLeaderLogin('ออกจากระบบเรียบร้อยแล้ว');
+
+    openLeaderLogin(
+      'ออกจากระบบเรียบร้อยแล้ว'
+    );
   }
+}
 
   document
   .getElementById('leaderLoginForm')
