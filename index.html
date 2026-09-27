@@ -4985,6 +4985,13 @@ async function rpcUntilSuccess(fn, options = {}){
   }
 }
 
+async function loadFilterOptions(){
+
+  setStatus(
+    'กำลังโหลดตัวเลือกจากฐานข้อมูล...',
+    'info'
+  );
+
 try{
 
   const { data } =
