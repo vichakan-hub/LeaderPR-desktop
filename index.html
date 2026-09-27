@@ -4985,48 +4985,55 @@ async function rpcUntilSuccess(fn, options = {}){
   }
 }
 
-async function loadFilterOptions(){
-  setStatus('กำลังโหลดตัวเลือกจากฐานข้อมูล...', 'info');
+try{
 
-  try{
-const { data } = await rpcUntilSuccess(async () => {
+  const { data } =
+    await rpcUntilSuccess(
+      async () => {
 
-  const token =
-    String(
-      leaderSessionToken ||
-      ''
-    ).trim();
+        const token =
+          String(
+            leaderSessionToken ||
+            ''
+          ).trim();
 
-  if(!token){
-    throw new Error(
-      'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่'
-    );
-  }
+        if(!token){
+          throw new Error(
+            'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่'
+          );
+        }
 
-  const { data, error } =
-    await supabaseClient.rpc(
-      'leader_get_dashboard_checkbox_summary_session',
+        const {
+          data,
+          error
+        } =
+          await supabaseClient.rpc(
+            'leader_get_dashboard_checkbox_filter_options_session',
+            {
+              p_token: token
+            }
+          );
+
+        if(error){
+          throw error;
+        }
+
+        return {
+          data
+        };
+
+      },
       {
-        p_token: token,
-        p_filters: payload
+        maxAttempts: 10,
+        delayMs: 1200,
+        maxDelayMs: 5000,
+        statusText:
+          'กำลังโหลดตัวเลือก กรุณารอสักครู่...'
       }
     );
 
-  if(error){
-    throw error;
-  }
 
-  return {
-    data
-  };
 
-}, {
-  maxAttempts: 10,
-  delayMs: 1500,
-  maxDelayMs: 4000,
-  statusText:
-    'กำลังประมวลผล Dashboard กรุณารอสักครู่...'
-});
 
     const res = data || {};
 
