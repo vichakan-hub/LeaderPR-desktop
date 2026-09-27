@@ -4991,15 +4991,24 @@ async function loadFilterOptions(){
   try{
 const { data } = await rpcUntilSuccess(async () => {
 
+  const token =
+    String(
+      leaderSessionToken ||
+      ''
+    ).trim();
+
+  if(!token){
+    throw new Error(
+      'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่'
+    );
+  }
+
   const { data, error } =
     await supabaseClient.rpc(
-      'leader_get_dashboard_checkbox_filter_options_session',
+      'leader_get_dashboard_checkbox_summary_session',
       {
-        p_token:
-          String(
-            leaderSessionToken ||
-            ''
-          ).trim()
+        p_token: token,
+        p_filters: payload
       }
     );
 
@@ -5013,10 +5022,10 @@ const { data } = await rpcUntilSuccess(async () => {
 
 }, {
   maxAttempts: 10,
-  delayMs: 1200,
-  maxDelayMs: 5000,
+  delayMs: 1500,
+  maxDelayMs: 4000,
   statusText:
-    'กำลังโหลดตัวเลือก กรุณารอสักครู่...'
+    'กำลังประมวลผล Dashboard กรุณารอสักครู่...'
 });
 
     const res = data || {};
