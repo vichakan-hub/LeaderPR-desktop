@@ -4990,18 +4990,33 @@ async function loadFilterOptions(){
 
   try{
 const { data } = await rpcUntilSuccess(async () => {
-  const { data, error } = await supabaseClient.rpc(
-    'get_dashboard_checkbox_filter_options'
-  );
 
-  if(error) throw error;
+  const { data, error } =
+    await supabaseClient.rpc(
+      'leader_get_dashboard_checkbox_filter_options_session',
+      {
+        p_token:
+          String(
+            leaderSessionToken ||
+            ''
+          ).trim()
+      }
+    );
 
-  return { data };
+  if(error){
+    throw error;
+  }
+
+  return {
+    data
+  };
+
 }, {
   maxAttempts: 10,
   delayMs: 1200,
   maxDelayMs: 5000,
-  statusText: 'กำลังโหลดตัวเลือก กรุณารอสักครู่...'
+  statusText:
+    'กำลังโหลดตัวเลือก กรุณารอสักครู่...'
 });
 
     const res = data || {};
@@ -5115,14 +5130,27 @@ async function loadSubjectOptions(){
   setStatus('กำลังโหลดรายวิชาตามเงื่อนไขที่เลือก...', 'info');
 
   try{
-    const { data, error } = await supabaseClient.rpc(
-      'get_dashboard_checkbox_subject_options',
-      {
-        p_filters: payload
-      }
-    );
+const {
+  data,
+  error
+} =
+  await supabaseClient.rpc(
+    'leader_get_dashboard_checkbox_subject_options_session',
+    {
+      p_token:
+        String(
+          leaderSessionToken ||
+          ''
+        ).trim(),
 
-    if(error) throw error;
+      p_filters:
+        payload
+    }
+  );
+
+if(error){
+  throw error;
+}
 
     const res = data || {};
 
@@ -5307,23 +5335,45 @@ async function processDashboard(){
   setStatus('กำลังประมวลผล Dashboard กรุณารอสักครู่...', 'info');
 
   try{
-    const { data } = await rpcUntilSuccess(async () => {
-      const { data, error } = await supabaseClient.rpc(
-        'get_dashboard_checkbox_summary',
-        {
-          p_filters: payload
-        }
-      );
+    const { data } =
+  await rpcUntilSuccess(
+    async () => {
 
-      if(error) throw error;
-      return { data };
-    }, {
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.rpc(
+          'leader_get_dashboard_checkbox_summary_session',
+          {
+            p_token:
+              String(
+                leaderSessionToken ||
+                ''
+              ).trim(),
+
+            p_filters:
+              payload
+          }
+        );
+
+      if(error){
+        throw error;
+      }
+
+      return {
+        data
+      };
+
+    },
+    {
       maxAttempts: 10,
       delayMs: 1500,
       maxDelayMs: 4000,
-      statusText: 'กำลังประมวลผล Dashboard กรุณารอสักครู่...'
-    });
-
+      statusText:
+        'กำลังประมวลผล Dashboard กรุณารอสักครู่...'
+    }
+  );
     const raw = data && data.data ? data.data : data;
     dashboardData = normalizeDashboardData(raw);
 
