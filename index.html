@@ -3782,6 +3782,333 @@ body.filter-modal-open{
 @media (max-width:1100px){ .leader-qr-shell{ grid-template-columns:1fr; } .leader-qr-preview-card{ min-height:0; } }
 @media (max-width:620px){ .leader-qr-card{ padding:16px; border-radius:20px; } .leader-qr-option-row{ grid-template-columns:1fr; } .leader-qr-inline-actions,.leader-qr-actions{ flex-direction:column; } .leader-qr-btn{ width:100%; } .leader-qr-preview-stage{ min-height:310px; padding:12px; } }
 
+
+
+/* =====================================================
+   LEADERPR — วิเคราะห์ 0 / ร / มส (Phase 1 UI Mockup)
+   ===================================================== */
+#leaderRiskAnalyticsPage[hidden]{ display:none !important; }
+
+.risk-analytics-page{
+  min-height:calc(100vh - 106px);
+  font-family:'Kanit',sans-serif;
+}
+
+.risk-shell{ display:flex; flex-direction:column; gap:16px; }
+
+.risk-demo-banner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding:13px 16px;
+  border:1px solid #f7d69d;
+  border-radius:18px;
+  background:#fff8e8;
+  color:#7b4d00;
+  box-shadow:0 8px 20px rgba(18,38,63,.05);
+}
+.risk-demo-banner strong{ color:#9a6200; }
+.risk-demo-banner small{ display:block; margin-top:2px; color:#8c6b31; font-size:12px; }
+.risk-demo-badge{
+  flex:0 0 auto;
+  padding:6px 11px;
+  border-radius:999px;
+  border:1px solid #f7cc81;
+  background:#fff;
+  color:#9a6200;
+  font-size:12px;
+  font-weight:900;
+}
+
+.risk-filter-card,
+.risk-panel{
+  border:1px solid rgba(255,255,255,.62);
+  border-radius:22px;
+  background:rgba(255,255,255,.80);
+  box-shadow:0 10px 30px rgba(18,38,63,.08);
+  backdrop-filter:blur(12px);
+}
+
+.risk-filter-card{ padding:16px; }
+.risk-filter-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:13px;
+}
+.risk-filter-head h2{ margin:0; color:#17263c; font-size:19px; }
+.risk-filter-head p{ margin:3px 0 0; color:#6b7a90; font-size:12px; }
+.risk-filter-grid{
+  display:grid;
+  grid-template-columns:
+    1fr
+    .8fr
+    1fr
+    1fr
+    1.3fr
+    1fr
+    auto;
+  gap:10px;
+  align-items:end;
+}
+.risk-filter-field label{
+  display:block;
+  margin-bottom:6px;
+  color:#52667e;
+  font-size:12px;
+  font-weight:800;
+}
+.risk-filter-field select{
+  width:100%;
+  height:42px;
+  padding:0 11px;
+  border:1px solid #bfd1e3;
+  border-radius:13px;
+  background:#fff;
+  color:#17263c;
+  font:700 13px 'Kanit',sans-serif;
+}
+.risk-filter-btn{
+  height:42px !important;
+  padding:0 16px !important;
+  border:0 !important;
+  border-radius:13px !important;
+  color:#fff !important;
+  background:linear-gradient(135deg,#2563eb,#3b82f6) !important;
+  box-shadow:0 7px 16px rgba(37,99,235,.18) !important;
+}
+.risk-filter-summary{
+  margin-top:11px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+.risk-filter-chip{
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  padding:4px 9px;
+  border:1px solid #dbe7f3;
+  border-radius:999px;
+  background:#f8fbff;
+  color:#52667e;
+  font-size:11px;
+  font-weight:800;
+}
+
+.risk-kpi-grid{
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:12px;
+}
+
+/* แถวที่ 1 = 3 อัน */
+.risk-kpi-grid > .risk-kpi-card:nth-child(-n+3){
+  grid-column:span 4;
+}
+
+/* แถวที่ 2 = 4 อัน */
+.risk-kpi-grid > .risk-kpi-card:nth-child(n+4){
+  grid-column:span 3;
+}
+.risk-kpi-card{
+  position:relative;
+  overflow:hidden;
+  min-height:132px;
+  padding:16px;
+  border:1px solid #dbe7f3;
+  border-radius:19px;
+  background:#fff;
+  box-shadow:0 7px 20px rgba(18,38,63,.06);
+}
+.risk-kpi-card::before{
+  content:'';
+  position:absolute;
+  inset:0 auto 0 0;
+  width:5px;
+  background:#2563eb;
+}
+.risk-kpi-card.red::before{ background:#dc2626; }
+.risk-kpi-card.orange::before{ background:#f59e0b; }
+.risk-kpi-card.violet::before{ background:#7c3aed; }
+.risk-kpi-card.green::before{ background:#0f9d58; }
+.risk-kpi-card.dark::before{ background:#334155; }
+.risk-kpi-icon{
+  width:38px; height:38px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:13px;
+  background:#eef4ff;
+  font-size:19px;
+  margin-bottom:8px;
+}
+.risk-kpi-card.red .risk-kpi-icon{ background:#fff0ef; }
+.risk-kpi-card.orange .risk-kpi-icon{ background:#fff7ea; }
+.risk-kpi-card.violet .risk-kpi-icon{ background:#f3efff; }
+.risk-kpi-card.green .risk-kpi-icon{ background:#e9f8ef; }
+.risk-kpi-card.dark .risk-kpi-icon{ background:#eef2f7; }
+.risk-kpi-label{ color:#6b7a90; font-size:12px; font-weight:800; line-height:1.35; }
+.risk-kpi-value{ margin-top:3px; color:#17263c; font:900 29px/1.05 'Sarabun',sans-serif; }
+.risk-kpi-sub{ margin-top:6px; color:#718096; font-size:11px; line-height:1.45; }
+
+.risk-progress-row{
+  display:grid;
+  grid-template-columns:1.2fr repeat(3,1fr);
+  gap:12px;
+}
+.risk-progress-main,
+.risk-mini-stat{
+  padding:15px 16px;
+  border:1px solid #dbe7f3;
+  border-radius:18px;
+  background:#fff;
+}
+.risk-progress-top{ display:flex; justify-content:space-between; gap:10px; align-items:flex-end; }
+.risk-progress-top b{ color:#17263c; font-size:15px; }
+.risk-progress-top strong{ color:#0f9d58; font:900 24px 'Sarabun',sans-serif; }
+.risk-progress-track{ height:10px; margin-top:10px; overflow:hidden; border-radius:999px; background:#e7eef5; }
+.risk-progress-track span{ display:block; width:65.1%; height:100%; border-radius:999px; background:linear-gradient(90deg,#0f9d58,#22c55e); }
+.risk-progress-note{ margin-top:7px; color:#6b7a90; font-size:11px; }
+.risk-mini-stat .k{ color:#6b7a90; font-size:12px; font-weight:800; }
+.risk-mini-stat .v{ margin-top:5px; color:#17263c; font:900 25px 'Sarabun',sans-serif; }
+.risk-mini-stat .s{ margin-top:4px; color:#718096; font-size:11px; }
+
+.risk-chart-grid-2{ display:grid; grid-template-columns:1.25fr .75fr; gap:14px; }
+.risk-chart-grid-equal{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.risk-panel{ padding:17px; }
+.risk-panel-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:10px;
+}
+.risk-panel-head h2{ margin:0; color:#17263c; font-size:18px; }
+.risk-panel-head p{ margin:3px 0 0; color:#6b7a90; font-size:12px; }
+.risk-tag{
+  flex:0 0 auto;
+  padding:5px 9px;
+  border:1px solid #dbe7f3;
+  border-radius:999px;
+  background:#f8fbff;
+  color:#52667e;
+  font-size:10px;
+  font-weight:900;
+}
+.risk-chart-box{ position:relative; height:285px; }
+.risk-chart-box.tall{ height:330px; }
+
+.risk-heatmap-wrap{ overflow:auto; }
+.risk-heatmap{
+  min-width:820px;
+  display:grid;
+  grid-template-columns:120px repeat(10,minmax(58px,1fr));
+  gap:7px;
+  align-items:center;
+}
+.risk-heat-label{ color:#52667e; font-size:12px; font-weight:900; text-align:center; }
+.risk-heat-rowlabel{ color:#17263c; font-size:13px; font-weight:900; padding-left:4px; }
+.risk-heat-cell{
+  min-height:48px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  border:1px solid rgba(15,23,42,.06);
+  font:900 16px 'Sarabun',sans-serif;
+  cursor:default;
+}
+.risk-heat-cell small{ margin-top:1px; font:700 9px 'Kanit',sans-serif; opacity:.76; }
+.risk-heat-empty{
+  min-height:48px;
+}
+.risk-h0{
+  background:#dcfce7;
+  color:#15803d;
+  border-color:#86efac;
+  box-shadow:
+    inset 0 0 0 2px rgba(34,197,94,.10);
+}
+.risk-h1{
+  background:#fef9c3;
+  color:#854d0e;
+}
+.risk-h2{ background:#fef9c3; color:#8a6500; }
+.risk-h3{ background:#ffedd5; color:#b45309; }
+.risk-h4{ background:#fee2e2; color:#b91c1c; }
+.risk-h5{ background:#fecaca; color:#991b1b; box-shadow:inset 0 0 0 2px rgba(185,28,28,.08); }
+.risk-heat-legend{ display:flex; justify-content:flex-end; gap:10px; flex-wrap:wrap; margin-top:10px; color:#6b7a90; font-size:10px; }
+.risk-legend-dot{ width:10px; height:10px; display:inline-block; border-radius:3px; margin-right:4px; vertical-align:-1px; }
+
+.risk-table-wrap{ overflow:auto; border:1px solid #dbe7f3; border-radius:16px; background:#fff; }
+.risk-table{ width:100%; min-width:880px; border-collapse:collapse; font-family:'Sarabun',sans-serif; }
+.risk-table th,.risk-table td{ padding:9px 10px; border-bottom:1px solid #e7edf4; text-align:center; font-size:13px; }
+.risk-table th{ position:sticky; top:0; background:#f8fbff !important; color:#52667e !important; font-weight:900; }
+.risk-table td:first-child,.risk-table th:first-child{ position:static; text-align:left; color:#17263c; background:inherit; font-weight:800; }
+.risk-table tbody tr:hover td{ background:#fbfdff; }
+.risk-level{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:86px; padding:4px 8px; border-radius:999px;
+  font:800 11px 'Kanit',sans-serif;
+}
+.risk-level.critical{ color:#b42318; background:#fff0ef; border:1px solid #ffd2cf; }
+.risk-level.high{ color:#b45309; background:#fff7ea; border:1px solid #ffe0aa; }
+.risk-level.watch{ color:#8a6500; background:#fef9c3; border:1px solid #f4e58d; }
+.risk-student-btn{
+  border:0; padding:0; height:auto; background:transparent; color:#1d4ed8;
+  font:800 13px 'Sarabun',sans-serif; box-shadow:none; text-decoration:underline; text-underline-offset:2px;
+}
+.risk-student-btn:hover{ transform:none; }
+
+.risk-repeat-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+.risk-repeat-card{ padding:13px; border:1px solid #dbe7f3; border-radius:16px; background:#f8fbff; }
+.risk-repeat-card b{ display:block; color:#17263c; font-size:13px; }
+.risk-repeat-card span{ display:block; margin-top:4px; color:#6b7a90; font-size:11px; line-height:1.5; }
+.risk-repeat-count{ margin-top:7px !important; color:#b42318 !important; font:900 22px 'Sarabun',sans-serif !important; }
+
+.risk-insight-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+.risk-insight{
+  display:grid;
+  grid-template-columns:38px 1fr;
+  gap:10px;
+  padding:13px;
+  border:1px solid #dbe7f3;
+  border-radius:16px;
+  background:#f9fbff;
+}
+.risk-insight-icon{ width:38px; height:38px; display:flex; align-items:center; justify-content:center; border-radius:12px; background:#eef4ff; font-size:18px; }
+.risk-insight b{ display:block; margin-bottom:3px; color:#17263c; font-size:12px; }
+.risk-insight span{ color:#64748b; font-size:10px; line-height:1.55; }
+
+@media (max-width:1300px){
+  .risk-kpi-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .risk-kpi-grid > .risk-kpi-card{
+  grid-column:auto;
+}
+  .risk-filter-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .risk-filter-btn{ width:100%; }
+  .risk-insight-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:980px){
+  .risk-chart-grid-2,.risk-chart-grid-equal{ grid-template-columns:1fr; }
+  .risk-progress-row{ grid-template-columns:1fr 1fr; }
+  .risk-repeat-grid{ grid-template-columns:1fr; }
+}
+@media (max-width:700px){
+  .risk-demo-banner,.risk-filter-head{ flex-direction:column; align-items:flex-start; }
+  .risk-filter-grid{ grid-template-columns:1fr 1fr; }
+  .risk-filter-btn{ grid-column:1/-1; }
+  .risk-kpi-grid{ grid-template-columns:1fr 1fr; }
+  .risk-progress-row{ grid-template-columns:1fr; }
+  .risk-insight-grid{ grid-template-columns:1fr; }
+  .risk-chart-box{ height:250px; }
+}
+@media (max-width:480px){
+  .risk-filter-grid,.risk-kpi-grid{ grid-template-columns:1fr; }
+}
+
 </style>
 </head>
 
@@ -3950,6 +4277,12 @@ body.filter-modal-open{
           <button class="leader-sidebar-link active" type="button" data-leader-page="dashboard">
             <span class="leader-sidebar-icon">📈</span>
             <span>สถิติผลการเรียน</span>
+            <span class="leader-sidebar-chevron"></span>
+          </button>
+
+          <button class="leader-sidebar-link" type="button" data-leader-page="risk-analytics">
+            <span class="leader-sidebar-icon">⚠️</span>
+            <span>วิเคราะห์ 0 / ร / มส</span>
             <span class="leader-sidebar-chevron"></span>
           </button>
 
@@ -4361,6 +4694,396 @@ body.filter-modal-open{
       </div>
     </section>
   </div>
+      </section>
+
+
+      <section class="risk-analytics-page" id="leaderRiskAnalyticsPage" hidden>
+        <div class="risk-shell">
+         <div class="risk-demo-banner" id="riskLiveBanner">
+  <div>
+    <strong>📊 วิเคราะห์ 0 / ร / มส จากข้อมูลจริง</strong>
+    <small id="riskLiveStatusText">
+      เลือกเงื่อนไขแล้วกด “ประมวลผล” เพื่ออ่านข้อมูลจาก Supabase
+    </small>
+  </div>
+  <span class="risk-demo-badge" id="riskDataBadge">LIVE DATA</span>
+</div>
+
+<section class="risk-filter-card">
+  <div class="risk-filter-head">
+    <div>
+      <h2>🔎 ข้อมูลที่ใช้วิเคราะห์</h2>
+      <p>เลือกเงื่อนไขสำหรับวิเคราะห์ผลการเรียน 0 / ร / มส</p>
+    </div>
+    <span class="risk-tag">Executive Filter</span>
+  </div>
+
+  <div class="risk-filter-grid">
+
+    <div class="risk-filter-field">
+      <label for="riskYear">ปีการศึกษา</label>
+      <select id="riskYear">
+        <option value="">กำลังโหลด...</option>
+      </select>
+    </div>
+
+    <div class="risk-filter-field">
+      <label for="riskTerm">ภาคเรียน</label>
+      <select id="riskTerm">
+        <option value="">ทุกภาคเรียน</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+      </select>
+    </div>
+
+    <div class="risk-filter-field">
+      <label for="riskClass">ระดับชั้น</label>
+      <select id="riskClass">
+        <option value="">ทุกระดับชั้น</option>
+      </select>
+    </div>
+
+    <div class="risk-filter-field">
+      <label for="riskRoom">ห้องเรียน</label>
+      <select id="riskRoom">
+        <option value="">ทุกห้อง</option>
+      </select>
+    </div>
+
+    <div class="risk-filter-field">
+      <label for="riskLearningArea">กลุ่มสาระ</label>
+      <select id="riskLearningArea">
+        <option value="">ทุกกลุ่มสาระ</option>
+      </select>
+    </div>
+
+    <div class="risk-filter-field">
+      <label for="riskSubjectType">ประเภทวิชา</label>
+      <select id="riskSubjectType">
+        <option value="">ทุกประเภทวิชา</option>
+      </select>
+    </div>
+
+    <button
+      class="risk-filter-btn"
+      id="riskProcessBtn"
+      type="button"
+    >
+      ประมวลผล
+    </button>
+
+  </div>
+
+  <div
+    class="risk-filter-summary"
+    id="riskFilterSummary"
+  >
+    <span class="risk-filter-chip">
+      รอเลือกข้อมูล
+    </span>
+  </div>
+</section>
+
+<div class="risk-kpi-grid">
+
+  <article class="risk-kpi-card dark">
+    <div class="risk-kpi-icon">👥</div>
+    <div class="risk-kpi-label">นักเรียนที่มี 0 / ร / มส / มผ</div>
+    <div class="risk-kpi-value" id="riskKpiStudents">0</div>
+    <div class="risk-kpi-sub">นับรหัสนักเรียนไม่ซ้ำ</div>
+  </article>
+
+  <article class="risk-kpi-card">
+    <div class="risk-kpi-icon">📄</div>
+    <div class="risk-kpi-label">จำนวนรายการ 0 / ร / มส / มผ</div>
+    <div class="risk-kpi-value" id="riskKpiRecords">0</div>
+    <div class="risk-kpi-sub">นักเรียน 1 คนอาจมีหลายรายการ</div>
+  </article>
+
+  <article class="risk-kpi-card red">
+    <div class="risk-kpi-icon">0</div>
+    <div class="risk-kpi-label">รายการติด 0</div>
+    <div class="risk-kpi-value" id="riskKpiGrade0">0</div>
+    <div class="risk-kpi-sub">จำนวนรายการผลการเรียน</div>
+  </article>
+
+  <article class="risk-kpi-card orange">
+    <div class="risk-kpi-icon">ร</div>
+    <div class="risk-kpi-label">รายการติด ร</div>
+    <div class="risk-kpi-value" id="riskKpiGradeR">0</div>
+    <div class="risk-kpi-sub">จำนวนรายการผลการเรียน</div>
+  </article>
+
+  <article class="risk-kpi-card violet">
+    <div class="risk-kpi-icon">มส</div>
+    <div class="risk-kpi-label">รายการติด มส</div>
+    <div class="risk-kpi-value" id="riskKpiGradeMs">0</div>
+    <div class="risk-kpi-sub">จำนวนรายการผลการเรียน</div>
+  </article>
+
+  <article class="risk-kpi-card green">
+    <div class="risk-kpi-icon">มผ</div>
+    <div class="risk-kpi-label">รายการติด มผ</div>
+    <div class="risk-kpi-value" id="riskKpiGradeMp">0</div>
+    <div class="risk-kpi-sub">จำนวนรายการผลการเรียน</div>
+  </article>
+
+  <article class="risk-kpi-card red">
+    <div class="risk-kpi-icon">🚨</div>
+    <div class="risk-kpi-label">มีปัญหา ≥ 3 วิชา</div>
+    <div class="risk-kpi-value" id="riskKpi3Plus">0</div>
+    <div class="risk-kpi-sub">กลุ่มที่ควรติดตามก่อน</div>
+  </article>
+
+</div>
+
+<div class="risk-progress-row">
+
+  <div class="risk-progress-main">
+
+    <div class="risk-progress-top">
+      <b>อัตราการแก้ไขสำเร็จ</b>
+
+      <strong id="riskResolutionRate">
+        0.0%
+      </strong>
+    </div>
+
+    <div class="risk-progress-track">
+      <span
+        id="riskResolutionBar"
+        style="width:0%;"
+      ></span>
+    </div>
+
+    <div
+      class="risk-progress-note"
+      id="riskResolutionNote"
+    >
+      รอประมวลผลข้อมูล
+    </div>
+
+  </div>
+
+
+  <div class="risk-mini-stat">
+
+    <div class="k">
+      ✅ แก้ไขแล้ว
+    </div>
+
+    <div
+      class="v"
+      id="riskResolvedRecords"
+    >
+      0
+    </div>
+
+    <div class="s">
+      รายการที่มีผลสอบแก้ตัวแล้ว
+    </div>
+
+  </div>
+
+
+  <div class="risk-mini-stat">
+
+    <div class="k">
+      ⏳ รออนุมัติ
+    </div>
+
+    <div
+      class="v"
+      id="riskPendingRecords"
+    >
+      0
+    </div>
+
+    <div class="s">
+      รายการที่ส่งผลแก้ตัวและรออนุมัติ
+    </div>
+
+  </div>
+
+
+  <div class="risk-mini-stat">
+
+    <div class="k">
+      🚨 คงค้าง
+    </div>
+
+    <div
+      class="v"
+      id="riskUnresolvedRecords"
+    >
+      0
+    </div>
+
+    <div class="s">
+      รายการที่ยังไม่ได้ดำเนินการแก้ไข
+    </div>
+
+  </div>
+
+</div>
+
+          <div class="risk-chart-grid-2">
+            <section class="risk-panel">
+              <div class="risk-panel-head"><div><h2>0 / ร / มส / มผ แยกตามระดับชั้น / ห้อง</h2>เปรียบเทียบจำนวนรายการเพื่อหาจุดที่ควรเจาะต่อ</p></div><span class="risk-tag">Stacked Bar</span></div>
+              <div class="risk-chart-box"><canvas id="riskClassChart"></canvas></div>
+            </section>
+            <section class="risk-panel">
+              <div class="risk-panel-head"><div><h2>สถานะการแก้ไข</h2><p>สัดส่วนรายการผลการเรียน แก้ไขแล้ว / รออนุมัติ / คงค้าง</p></div><span class="risk-tag">Resolution</span></div>
+              <div class="risk-chart-box"><canvas id="riskResolutionChart"></canvas></div>
+            </section>
+          </div>
+
+<section class="risk-panel">
+
+  <div class="risk-panel-head">
+    <div>
+      <h2>Heatmap ห้องเรียน</h2>
+<p>
+  จำนวน “นักเรียนไม่ซ้ำ” ที่มี 0 / ร / มส / มผ
+  — สีเข้มหมายถึงควรตรวจรายละเอียดมากขึ้น
+</p>
+    </div>
+
+    <span class="risk-tag">
+      Room Heatmap
+    </span>
+  </div>
+
+
+  <div class="risk-heatmap-wrap">
+
+    <div
+      class="risk-heatmap"
+      id="riskRoomHeatmap"
+    >
+      <div class="text-muted">
+        รอประมวลผลข้อมูล
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="risk-heat-legend">
+
+    <span>
+      <i class="risk-legend-dot risk-h0"></i>
+      0 คน
+    </span>
+
+    <span>
+      <i class="risk-legend-dot risk-h1"></i>
+      1–5
+    </span>
+
+    <span>
+      <i class="risk-legend-dot risk-h2"></i>
+      6–10
+    </span>
+
+    <span>
+      <i class="risk-legend-dot risk-h3"></i>
+      11–20
+    </span>
+
+    <span>
+      <i class="risk-legend-dot risk-h4"></i>
+      21–30
+    </span>
+
+    <span>
+      <i class="risk-legend-dot risk-h5"></i>
+      ≥ 31
+    </span>
+
+  </div>
+
+</section>
+
+          <div class="risk-chart-grid-equal">
+            <section class="risk-panel">
+              <div class="risk-panel-head">
+  <div>
+    <h2>Top 10 รายวิชาที่พบปัญหา</h2>
+    <p>เรียงตามจำนวนรายการ 0 / ร / มส / มผ</p>
+  </div>
+  <span class="risk-tag">Subject</span>
+</div>
+              <div class="risk-chart-box tall"><canvas id="riskSubjectChart"></canvas></div>
+            </section>
+            <section class="risk-panel">
+              <div class="risk-panel-head">
+  <div>
+    <h2>วิเคราะห์ตามกลุ่มสาระ</h2>
+    <p>จำนวนรายการ 0 / ร / มส / มผ แยกตามกลุ่มสาระการเรียนรู้</p>
+  </div>
+  <span class="risk-tag">Learning Area</span>
+</div>
+              <div class="risk-chart-box tall"><canvas id="riskAreaChart"></canvas></div>
+            </section>
+          </div>
+
+          <section class="risk-panel">
+            <div class="risk-panel-head"><div><h2>🚨 นักเรียนที่ควรติดตามเร่งด่วน</h2><p>เรียงตามจำนวนวิชา 0 / ร / มส / มผ จากมากไปน้อย เพื่อจัดลำดับการติดตาม</p></div><span class="risk-tag">Priority List</span></div>
+            <div class="risk-table-wrap">
+<table class="risk-table">
+
+  <thead>
+    <tr>
+      <th>นักเรียน</th>
+      <th>ชั้น</th>
+      <th>0</th>
+      <th>ร</th>
+      <th>มส</th>
+      <th>มผ</th>
+      <th>วิชาที่มีปัญหา</th>
+      <th>ระดับ</th>
+      <th>สถานะ</th>
+    </tr>
+  </thead>
+
+  <tbody id="riskUrgentStudentsBody">
+    <tr>
+      <td colspan="9" class="text-muted">
+        รอประมวลผลข้อมูล
+      </td>
+    </tr>
+  </tbody>
+
+</table>
+            </div>
+          </section>
+
+          <div class="risk-chart-grid-2">
+            <section class="risk-panel">
+              <div class="risk-panel-head"><div><h2>แนวโน้มย้อนหลัง</h2><p>เปรียบเทียบจำนวน 0 / ร / มส / มผ ย้อนหลังหลายภาคเรียน</p></div><span class="risk-tag">Trend</span></div>
+              <div class="risk-chart-box"><canvas id="riskTrendChart"></canvas></div>
+            </section>
+            <section class="risk-panel">
+              <div class="risk-panel-head"><div><h2>นักเรียนที่มีปัญหาซ้ำ</h2><p>พบ 0 / ร / มส ต่อเนื่องตั้งแต่ 2 ภาคเรียนขึ้นไป</p></div><span class="risk-tag">Repeated Risk</span></div>
+              <div class="risk-repeat-grid">
+                <div class="risk-repeat-card"><b>ต่อเนื่อง 2 ภาคเรียน</b><span>ควรตรวจประวัติและแผนช่วยเหลือเดิม</span><span class="risk-repeat-count">14 คน</span></div>
+                <div class="risk-repeat-card"><b>ต่อเนื่อง 3 ภาคเรียน</b><span>ควรส่งต่อระดับงานวิชาการ/ครูที่ปรึกษา</span><span class="risk-repeat-count">6 คน</span></div>
+                <div class="risk-repeat-card"><b>ต่อเนื่อง ≥ 4 ภาคเรียน</b><span>กลุ่มติดตามเร่งด่วนเชิงระบบ</span><span class="risk-repeat-count">2 คน</span></div>
+              </div>
+            </section>
+          </div>
+
+          <section class="risk-panel">
+            <div class="risk-panel-head"><div><h2>💡 ข้อสังเกตอัตโนมัติ</h2><p>ตัวอย่างข้อความที่ระบบสามารถสร้างจากผลวิเคราะห์จริงใน Phase เชื่อมฐานข้อมูล</p></div><span class="risk-tag">Auto Insight</span></div>
+            <div class="risk-insight-grid">
+              <div class="risk-insight"><div class="risk-insight-icon">🚨</div><div><b>ระดับชั้นที่ควรติดตาม</b><span>ม.4 มีจำนวนรายการ 0 / ร / มส สูงสุดจากข้อมูลตัวอย่าง โดยเฉพาะห้อง ม.4/3</span></div></div>
+              <div class="risk-insight"><div class="risk-insight-icon">📚</div><div><b>รายวิชาที่ควรตรวจรายละเอียด</b><span>คณิตศาสตร์พื้นฐาน 4 มีนักเรียนพบปัญหาสูงสุดในชุดข้อมูลตัวอย่าง</span></div></div>
+              <div class="risk-insight"><div class="risk-insight-icon">📉</div><div><b>แนวโน้มดีขึ้น</b><span>จำนวน 0 / ร / มส ในตัวอย่างลดลงจากภาคเรียนก่อน ควรแสดงทั้งจำนวนและร้อยละเปลี่ยนแปลง</span></div></div>
+              <div class="risk-insight"><div class="risk-insight-icon">🔁</div><div><b>พบความเสี่ยงต่อเนื่อง</b><span>มีนักเรียนตัวอย่าง 22 คนที่พบปัญหาต่อเนื่องตั้งแต่ 2 ภาคเรียนขึ้นไป</span></div></div>
+            </div>
+          </section>
+        </div>
       </section>
 
       <section class="leader-qr-page" id="leaderQrPage" hidden>
@@ -6036,6 +6759,2973 @@ function renderDashboard(){
   });
   updateLeaderQrCharCount();
 
+
+  // ================================
+  // LeaderPR 0 / ร / มส — Phase 1 mock charts
+  // ================================
+  let leaderRiskMockCharts = [];
+  let leaderRiskMockChartsReady = false;
+
+  function destroyLeaderRiskMockCharts(){
+    leaderRiskMockCharts.forEach(chart => {
+      try{ chart?.destroy(); }catch(_err){}
+    });
+    leaderRiskMockCharts = [];
+    leaderRiskMockChartsReady = false;
+  }
+
+  function initLeaderRiskMockCharts(){
+    if(leaderRiskMockChartsReady || typeof Chart === 'undefined') return;
+    const classCanvas = document.getElementById('riskClassChart');
+    if(!classCanvas) return;
+
+    const baseFont = { family:'Kanit', size:11 };
+    Chart.defaults.font.family = 'Kanit';
+    Chart.defaults.color = '#52667e';
+
+    const classChart = new Chart(classCanvas, {
+      type:'bar',
+      data:{
+        labels:['ม.1','ม.2','ม.3','ม.4','ม.5','ม.6'],
+datasets:[
+  {
+    label:'0',
+    data:[22,28,39,55,41,25],
+    backgroundColor:'#ef4444',
+    borderRadius:5
+  },
+  {
+    label:'ร',
+    data:[14,17,25,31,22,12],
+    backgroundColor:'#f59e0b',
+    borderRadius:5
+  },
+  {
+    label:'มส',
+    data:[8,11,16,24,18,9],
+    backgroundColor:'#7c3aed',
+    borderRadius:5
+  },
+  {
+    label:'มผ',
+    data:[0,0,0,0,0,0],
+    backgroundColor:'#0f9d58',
+    borderRadius:5
+  }
+]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        scales:{x:{stacked:true,grid:{display:false},ticks:{font:baseFont}},y:{stacked:true,beginAtZero:true,ticks:{precision:0,font:baseFont},grid:{color:'#edf2f7'}}},
+        plugins:{legend:{position:'bottom',labels:{usePointStyle:true,boxWidth:8,font:baseFont}},tooltip:{callbacks:{footer:(items)=>`รวม ${items.reduce((s,i)=>s+Number(i.raw||0),0)} รายการ`}}}
+      }
+    });
+
+    const resolutionChart = new Chart(document.getElementById('riskResolutionChart'), {
+      type:'doughnut',
+      data:{labels:['แก้ไขแล้ว','คงค้าง'],datasets:[{data:[121,65],backgroundColor:['#22c55e','#ef4444'],borderColor:'#ffffff',borderWidth:4}]},
+      options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{position:'bottom',labels:{usePointStyle:true,font:baseFont}},tooltip:{callbacks:{label:(c)=>`${c.label}: ${c.raw} คน`}}}}
+    });
+
+const subjectChart =
+  new Chart(
+    document.getElementById(
+      'riskSubjectChart'
+    ),
+    {
+      type: 'bar',
+
+      data: {
+        labels: [],
+
+        datasets: [
+          {
+            label: '0',
+            data: [],
+            backgroundColor: '#ef4444',
+            borderRadius: 4
+          },
+          {
+            label: 'ร',
+            data: [],
+            backgroundColor: '#f59e0b',
+            borderRadius: 4
+          },
+          {
+            label: 'มส',
+            data: [],
+            backgroundColor: '#7c3aed',
+            borderRadius: 4
+          },
+          {
+            label: 'มผ',
+            data: [],
+            backgroundColor: '#0f9d58',
+            borderRadius: 4
+          }
+        ]
+      },
+
+      options: {
+
+        indexAxis: 'y',
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        interaction: {
+          mode: 'index',
+          intersect: false
+        },
+
+        scales: {
+
+          x: {
+            stacked: true,
+            beginAtZero: true,
+
+            ticks: {
+              precision: 0,
+              font: baseFont
+            },
+
+            grid: {
+              color: '#edf2f7'
+            }
+          },
+
+          y: {
+            stacked: true,
+
+            grid: {
+              display: false
+            },
+
+            ticks: {
+              font: {
+                family: 'Kanit',
+                size: 10
+              }
+            }
+          }
+
+        },
+
+        plugins: {
+
+          legend: {
+            display: true,
+            position: 'bottom',
+
+            labels: {
+              usePointStyle: true,
+              boxWidth: 8,
+              font: baseFont
+            }
+          },
+
+          tooltip: {
+
+            callbacks: {
+
+              label: context => {
+
+                const value =
+                  Number(
+                    context.raw || 0
+                  );
+
+                return (
+                  `${context.dataset.label}: ` +
+                  `${value.toLocaleString('th-TH')} รายการ`
+                );
+
+              },
+
+              footer: items => {
+
+                const total =
+                  items.reduce(
+                    (sum, item) =>
+                      sum +
+                      Number(
+                        item.raw || 0
+                      ),
+                    0
+                  );
+
+                return (
+                  `รวม ${total.toLocaleString('th-TH')} รายการ`
+                );
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+  );
+
+const areaChart =
+  new Chart(
+    document.getElementById(
+      'riskAreaChart'
+    ),
+    {
+      type: 'bar',
+
+      data: {
+        labels: [],
+
+        datasets: [
+          {
+            label: '0',
+            data: [],
+            backgroundColor: '#ef4444',
+            borderRadius: 4
+          },
+          {
+            label: 'ร',
+            data: [],
+            backgroundColor: '#f59e0b',
+            borderRadius: 4
+          },
+          {
+            label: 'มส',
+            data: [],
+            backgroundColor: '#7c3aed',
+            borderRadius: 4
+          },
+          {
+            label: 'มผ',
+            data: [],
+            backgroundColor: '#0f9d58',
+            borderRadius: 4
+          }
+        ]
+      },
+
+      options: {
+
+        indexAxis: 'y',
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        interaction: {
+          mode: 'index',
+          intersect: false
+        },
+
+        scales: {
+
+          x: {
+            stacked: true,
+            beginAtZero: true,
+
+            ticks: {
+              precision: 0,
+              font: baseFont
+            },
+
+            grid: {
+              color: '#edf2f7'
+            }
+          },
+
+          y: {
+            stacked: true,
+
+            grid: {
+              display: false
+            },
+
+            ticks: {
+              font: {
+                family: 'Kanit',
+                size: 10
+              }
+            }
+          }
+
+        },
+
+        plugins: {
+
+          legend: {
+            display: true,
+            position: 'bottom',
+
+            labels: {
+              usePointStyle: true,
+              boxWidth: 8,
+              font: baseFont
+            }
+          },
+
+          tooltip: {
+
+            callbacks: {
+
+              label: context => {
+
+                const value =
+                  Number(
+                    context.raw || 0
+                  );
+
+                return (
+                  `${context.dataset.label}: ` +
+                  `${value.toLocaleString('th-TH')} รายการ`
+                );
+
+              },
+
+              footer: items => {
+
+                const total =
+                  items.reduce(
+                    (sum, item) =>
+                      sum +
+                      Number(item.raw || 0),
+                    0
+                  );
+
+                return (
+                  `รวม ${total.toLocaleString('th-TH')} รายการ`
+                );
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+  );
+
+const trendChart =
+  new Chart(
+    document.getElementById(
+      'riskTrendChart'
+    ),
+    {
+      type: 'line',
+
+      data: {
+        labels: [],
+
+        datasets: [
+          {
+            label: '0',
+            data: [],
+            borderColor: '#ef4444',
+            backgroundColor: '#ef4444',
+            tension: .3,
+            pointRadius: 4
+          },
+          {
+            label: 'ร',
+            data: [],
+            borderColor: '#f59e0b',
+            backgroundColor: '#f59e0b',
+            tension: .3,
+            pointRadius: 4
+          },
+          {
+            label: 'มส',
+            data: [],
+            borderColor: '#7c3aed',
+            backgroundColor: '#7c3aed',
+            tension: .3,
+            pointRadius: 4
+          },
+          {
+            label: 'มผ',
+            data: [],
+            borderColor: '#0f9d58',
+            backgroundColor: '#0f9d58',
+            tension: .3,
+            pointRadius: 4
+          }
+        ]
+      },
+
+      options: {
+
+        responsive: true,
+        maintainAspectRatio: false,
+
+        interaction: {
+          mode: 'index',
+          intersect: false
+        },
+
+        scales: {
+
+          x: {
+            grid: {
+              display: false
+            },
+
+            ticks: {
+              font: baseFont
+            }
+          },
+
+          y: {
+            beginAtZero: true,
+
+            ticks: {
+              precision: 0,
+              font: baseFont
+            },
+
+            grid: {
+              color: '#edf2f7'
+            }
+          }
+
+        },
+
+        plugins: {
+
+          legend: {
+            position: 'bottom',
+
+            labels: {
+              usePointStyle: true,
+              font: baseFont
+            }
+          },
+
+          tooltip: {
+
+            callbacks: {
+
+              label: context => {
+
+                const value =
+                  Number(
+                    context.raw || 0
+                  );
+
+                return (
+                  `${context.dataset.label}: ` +
+                  `${value.toLocaleString('th-TH')} รายการ`
+                );
+
+              },
+
+              footer: items => {
+
+                const total =
+                  items.reduce(
+                    (sum, item) =>
+                      sum +
+                      Number(item.raw || 0),
+                    0
+                  );
+
+                return (
+                  `รวม ${total.toLocaleString('th-TH')} รายการ`
+                );
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+  );
+
+    leaderRiskMockCharts = [classChart,resolutionChart,subjectChart,areaChart,trendChart];
+    leaderRiskMockChartsReady = true;
+  }
+
+// ================================================
+// LeaderPR 0 / ร / มส — Live filter options
+// ================================================
+let leaderRiskFilterOptionsLoaded = false;
+
+let leaderRiskFilterOptions = {
+  years: [],
+  terms: [],
+  classLevels: [],
+  learningAreas: [],
+  subjectTypes: [],
+  roomsByClass: []
+};
+
+
+function setRiskSelectOptions(
+  selectId,
+  items,
+  {
+    allLabel = '',
+    selectedValue = ''
+  } = {}
+){
+  const select =
+    document.getElementById(selectId);
+
+  if(!select) return;
+
+  select.innerHTML = '';
+
+  if(allLabel){
+    const option =
+      document.createElement('option');
+
+    option.value = '';
+    option.textContent = allLabel;
+
+    select.appendChild(option);
+  }
+
+  (items || []).forEach(item => {
+
+    const value =
+      String(
+        item?.value ??
+        item ??
+        ''
+      ).trim();
+
+    const label =
+      String(
+        item?.label ??
+        item ??
+        ''
+      ).trim();
+
+    if(!value) return;
+
+    const option =
+      document.createElement('option');
+
+    option.value = value;
+    option.textContent = label;
+
+    select.appendChild(option);
+
+  });
+
+  if(
+    selectedValue !== '' &&
+    Array.from(select.options)
+      .some(
+        option =>
+          option.value ===
+          String(selectedValue)
+      )
+  ){
+    select.value =
+      String(selectedValue);
+  }
+}
+
+
+function renderLeaderRiskRoomOptions(){
+
+  const classLevel =
+    String(
+      document
+        .getElementById('riskClass')
+        ?.value || ''
+    ).trim();
+
+  const roomItems = [];
+
+  (
+    leaderRiskFilterOptions
+      .roomsByClass || []
+  ).forEach(group => {
+
+    const groupClass =
+      String(
+        group?.class_level || ''
+      ).trim();
+
+    if(
+      classLevel &&
+      groupClass !== classLevel
+    ){
+      return;
+    }
+
+    const rooms =
+      Array.isArray(group?.rooms)
+        ? group.rooms
+        : [];
+
+    rooms.forEach(room => {
+
+      const roomNo =
+        String(room || '').trim();
+
+      if(
+        !groupClass ||
+        !roomNo
+      ){
+        return;
+      }
+
+      roomItems.push({
+        value:
+          `${groupClass}/${roomNo}`,
+
+        label:
+          `${groupClass}/${roomNo}`
+      });
+
+    });
+
+  });
+
+
+  roomItems.sort((a, b) => {
+
+    const classA =
+      Number(
+        (
+          a.value.match(
+            /ม\.(\d+)/
+          ) || []
+        )[1] || 99
+      );
+
+    const classB =
+      Number(
+        (
+          b.value.match(
+            /ม\.(\d+)/
+          ) || []
+        )[1] || 99
+      );
+
+    if(classA !== classB){
+      return classA - classB;
+    }
+
+    const roomA =
+      Number(
+        (
+          a.value.split('/')[1] ||
+          ''
+        ).replace(/\D/g, '')
+      );
+
+    const roomB =
+      Number(
+        (
+          b.value.split('/')[1] ||
+          ''
+        ).replace(/\D/g, '')
+      );
+
+    return roomA - roomB;
+
+  });
+
+
+  setRiskSelectOptions(
+    'riskRoom',
+    roomItems,
+    {
+      allLabel:
+        classLevel
+          ? `ทุกห้องของ ${classLevel}`
+          : 'ทุกห้อง'
+    }
+  );
+}
+
+
+function updateLeaderRiskFilterSummary(){
+
+  const year =
+    document
+      .getElementById('riskYear')
+      ?.value || '';
+
+  const term =
+    document
+      .getElementById('riskTerm')
+      ?.value || '';
+
+  const classLevel =
+    document
+      .getElementById('riskClass')
+      ?.value || '';
+
+  const room =
+    document
+      .getElementById('riskRoom')
+      ?.value || '';
+
+  const area =
+    document
+      .getElementById(
+        'riskLearningArea'
+      )
+      ?.value || '';
+
+  const subjectType =
+    document
+      .getElementById(
+        'riskSubjectType'
+      )
+      ?.value || '';
+
+  const box =
+    document.getElementById(
+      'riskFilterSummary'
+    );
+
+  if(!box) return;
+
+
+  const values = [
+    year
+      ? `ปี ${year}`
+      : 'ทุกปีการศึกษา',
+
+    term
+      ? `ภาคเรียน ${term}`
+      : 'ทุกภาคเรียน',
+
+    classLevel ||
+      'ทุกระดับชั้น',
+
+    room ||
+      'ทุกห้อง',
+
+    area ||
+      'ทุกกลุ่มสาระ',
+
+    subjectType ||
+      'ทุกประเภทวิชา'
+  ];
+
+
+  box.innerHTML =
+    values
+      .map(
+        value =>
+          `<span class="risk-filter-chip">${
+            escapeHtmlText(value)
+          }</span>`
+      )
+      .join('');
+}
+
+function buildLeaderRiskPayload(){
+
+  const year =
+    Number(
+      document
+        .getElementById('riskYear')
+        ?.value || ''
+    );
+
+  const term =
+    Number(
+      document
+        .getElementById('riskTerm')
+        ?.value || ''
+    );
+
+  const classLevel =
+    String(
+      document
+        .getElementById('riskClass')
+        ?.value || ''
+    ).trim();
+
+  const room =
+    String(
+      document
+        .getElementById('riskRoom')
+        ?.value || ''
+    ).trim();
+
+  const learningArea =
+    String(
+      document
+        .getElementById('riskLearningArea')
+        ?.value || ''
+    ).trim();
+
+  const subjectType =
+    String(
+      document
+        .getElementById('riskSubjectType')
+        ?.value || ''
+    ).trim();
+
+
+  return {
+
+    academic_years:
+      Number.isFinite(year) && year > 0
+        ? [year]
+        : [],
+
+    terms:
+      Number.isFinite(term) && term > 0
+        ? [term]
+        : [],
+
+    class_levels:
+      classLevel
+        ? [classLevel]
+        : [],
+
+    rooms:
+      room
+        ? [room]
+        : [],
+
+    learning_areas:
+      learningArea
+        ? [learningArea]
+        : [],
+
+    subject_types:
+      subjectType
+        ? [subjectType]
+        : [],
+
+    // ตอนนี้หน้า Risk ยังไม่ได้เพิ่มตัวเลือกรายวิชา
+    subject_ids: []
+
+  };
+
+}
+
+async function loadLeaderRiskKpis(){
+
+  const token =
+    String(
+      leaderSessionToken || ''
+    ).trim();
+
+  if(!token){
+    throw new Error(
+      'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่'
+    );
+  }
+
+  const payload =
+    buildLeaderRiskPayload();
+
+
+  const [
+    summaryRes,
+    urgentRes
+  ] = await Promise.all([
+
+    supabaseClient.rpc(
+      'leader_get_orms_summary_session',
+      {
+        p_token: token,
+        p_filters: payload
+      }
+    ),
+
+    supabaseClient.rpc(
+      'leader_get_orms_urgent_kpi_session',
+      {
+        p_token: token,
+        p_filters: payload
+      }
+    )
+
+  ]);
+
+
+  if(summaryRes.error){
+    throw summaryRes.error;
+  }
+
+  if(urgentRes.error){
+    throw urgentRes.error;
+  }
+
+
+  const summary =
+    summaryRes.data || {};
+
+  const urgent =
+    urgentRes.data || {};
+
+
+
+document.getElementById(
+  'riskKpiStudents'
+).textContent =
+  Number(
+    summary.total_risk_students || 0
+  ).toLocaleString('th-TH');
+
+
+document.getElementById(
+  'riskKpiRecords'
+).textContent =
+  Number(
+    summary.total_risk_records || 0
+  ).toLocaleString('th-TH');
+
+
+document.getElementById(
+  'riskKpiGrade0'
+).textContent =
+  Number(
+    summary.grade_0_records || 0
+  ).toLocaleString('th-TH');
+
+
+document.getElementById(
+  'riskKpiGradeR'
+).textContent =
+  Number(
+    summary.grade_r_records || 0
+  ).toLocaleString('th-TH');
+
+
+document.getElementById(
+  'riskKpiGradeMs'
+).textContent =
+  Number(
+    summary.grade_ms_records || 0
+  ).toLocaleString('th-TH');
+
+
+document.getElementById(
+  'riskKpiGradeMp'
+).textContent =
+  Number(
+    summary.grade_mp_records || 0
+  ).toLocaleString('th-TH');
+
+
+document.getElementById(
+  'riskKpi3Plus'
+).textContent =
+  Number(
+    urgent.students_3plus || 0
+  ).toLocaleString('th-TH');
+
+    // ================================================
+// Resolution status
+// ================================================
+
+const totalRecords =
+  Number(
+    summary.total_risk_records || 0
+  );
+
+const resolvedRecords =
+  Number(
+    summary.resolved_records || 0
+  );
+
+const pendingRecords =
+  Number(
+    summary.pending_records || 0
+  );
+
+const unresolvedRecords =
+  Number(
+    summary.unresolved_records || 0
+  );
+
+  // ================================================
+// Resolution doughnut chart
+// ================================================
+
+const resolutionChart =
+  Chart.getChart(
+    'riskResolutionChart'
+  );
+
+if(resolutionChart){
+
+  resolutionChart.data.labels = [
+    'แก้ไขแล้ว',
+    'รออนุมัติ',
+    'คงค้าง'
+  ];
+
+
+  resolutionChart
+    .data
+    .datasets[0]
+    .data = [
+      resolvedRecords,
+      pendingRecords,
+      unresolvedRecords
+    ];
+
+
+  resolutionChart
+    .data
+    .datasets[0]
+    .backgroundColor = [
+      '#22c55e',
+      '#f59e0b',
+      '#ef4444'
+    ];
+
+
+  // Tooltip ให้ใช้คำว่า "รายการ"
+  resolutionChart.options.plugins.tooltip = {
+    callbacks: {
+      label: context => {
+
+        const value =
+          Number(
+            context.raw || 0
+          );
+
+        return (
+          `${context.label}: ` +
+          `${value.toLocaleString('th-TH')} รายการ`
+        );
+
+      }
+    }
+  };
+
+
+  resolutionChart.update();
+
+}
+
+const resolutionRate =
+  totalRecords > 0
+    ? (
+        resolvedRecords /
+        totalRecords
+      ) * 100
+    : 0;
+
+
+const rateNode =
+  document.getElementById(
+    'riskResolutionRate'
+  );
+
+if(rateNode){
+  rateNode.textContent =
+    `${resolutionRate.toFixed(1)}%`;
+}
+
+
+const barNode =
+  document.getElementById(
+    'riskResolutionBar'
+  );
+
+if(barNode){
+
+  barNode.style.width =
+    `${
+      Math.max(
+        0,
+        Math.min(
+          resolutionRate,
+          100
+        )
+      )
+    }%`;
+
+}
+
+
+const resolvedNode =
+  document.getElementById(
+    'riskResolvedRecords'
+  );
+
+if(resolvedNode){
+  resolvedNode.textContent =
+    resolvedRecords
+      .toLocaleString('th-TH');
+}
+
+
+const pendingNode =
+  document.getElementById(
+    'riskPendingRecords'
+  );
+
+if(pendingNode){
+  pendingNode.textContent =
+    pendingRecords
+      .toLocaleString('th-TH');
+}
+
+
+const unresolvedNode =
+  document.getElementById(
+    'riskUnresolvedRecords'
+  );
+
+if(unresolvedNode){
+  unresolvedNode.textContent =
+    unresolvedRecords
+      .toLocaleString('th-TH');
+}
+
+
+const noteNode =
+  document.getElementById(
+    'riskResolutionNote'
+  );
+
+if(noteNode){
+
+  noteNode.textContent =
+    `ทั้งหมด ${
+      totalRecords.toLocaleString('th-TH')
+    } รายการ · แก้ไขแล้ว ${
+      resolvedRecords.toLocaleString('th-TH')
+    } · รออนุมัติ ${
+      pendingRecords.toLocaleString('th-TH')
+    } · คงค้าง ${
+      unresolvedRecords.toLocaleString('th-TH')
+    }`;
+
+}
+
+
+  console.log(
+    'RISK KPI SUMMARY:',
+    summary
+  );
+
+  console.log(
+    'RISK KPI URGENT:',
+    urgent
+  );
+
+}
+
+async function loadLeaderRiskClassRoomChart(){
+
+  const token =
+    String(
+      leaderSessionToken || ''
+    ).trim();
+
+  if(!token){
+    throw new Error(
+      'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่'
+    );
+  }
+
+
+  const payload =
+    buildLeaderRiskPayload();
+
+
+  /*
+   * ==========================================
+   * MODE
+   *
+   * ไม่มีชั้น + ไม่มีห้อง
+   *   → แสดง ม.1 - ม.6
+   *
+   * เลือกชั้น หรือ เลือกห้อง
+   *   → แสดงรายห้อง
+   * ==========================================
+   */
+
+  const roomMode =
+    payload.class_levels.length > 0 ||
+    payload.rooms.length > 0;
+
+
+  const rpcName =
+    roomMode
+      ? 'leader_get_orms_by_room_session'
+      : 'leader_get_orms_by_class_session';
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      rpcName,
+      {
+        p_token: token,
+        p_filters: payload
+      }
+    );
+
+
+  if(error){
+    throw error;
+  }
+
+
+  const rows =
+    Array.isArray(data)
+      ? data
+      : [];
+
+
+  console.log(
+    roomMode
+      ? 'RISK BY ROOM:'
+      : 'RISK BY CLASS:',
+    rows
+  );
+
+
+  let chartRows = [];
+
+
+  // ==========================================
+  // ทุกชั้น → เรียง ม.1 - ม.6
+  // ==========================================
+
+  if(!roomMode){
+
+    const classOrder = [
+      'ม.1',
+      'ม.2',
+      'ม.3',
+      'ม.4',
+      'ม.5',
+      'ม.6'
+    ];
+
+
+    const rowMap =
+      new Map(
+        rows.map(row => [
+          String(
+            row.class_level || ''
+          ).trim(),
+          row
+        ])
+      );
+
+
+    chartRows =
+      classOrder.map(
+        classLevel => {
+
+          const row =
+            rowMap.get(
+              classLevel
+            ) || {};
+
+          return {
+            label:
+              classLevel,
+
+            grade0:
+              Number(
+                row.grade_0_records || 0
+              ),
+
+            gradeR:
+              Number(
+                row.grade_r_records || 0
+              ),
+
+gradeMs:
+  Number(
+    row.grade_ms_records || 0
+  ),
+
+gradeMp:
+  Number(
+    row.grade_mp_records || 0
+  )
+          };
+
+        }
+      );
+
+  }
+
+
+  // ==========================================
+  // เลือกชั้น → แสดงรายห้อง
+  // ==========================================
+
+  else{
+
+    chartRows =
+      rows
+        .map(row => {
+
+          const classLevel =
+            String(
+              row.class_level || ''
+            ).trim();
+
+          const room =
+            String(
+              row.room || ''
+            ).trim();
+
+
+          return {
+
+            classLevel:
+              classLevel,
+
+            room:
+              room,
+
+            label:
+              `ห้อง ${room}`,
+
+            grade0:
+              Number(
+                row.grade_0_records || 0
+              ),
+
+            gradeR:
+              Number(
+                row.grade_r_records || 0
+              ),
+
+gradeMs:
+  Number(
+    row.grade_ms_records || 0
+  ),
+
+gradeMp:
+  Number(
+    row.grade_mp_records || 0
+  )
+
+          };
+
+        })
+
+        .sort((a, b) => {
+
+          const classA =
+            Number(
+              (
+                a.classLevel.match(
+                  /ม\.(\d+)/
+                ) || []
+              )[1] || 99
+            );
+
+          const classB =
+            Number(
+              (
+                b.classLevel.match(
+                  /ม\.(\d+)/
+                ) || []
+              )[1] || 99
+            );
+
+
+          if(classA !== classB){
+            return classA - classB;
+          }
+
+
+          const roomA =
+            Number(
+              String(
+                a.room || ''
+              ).replace(/\D/g, '')
+            );
+
+          const roomB =
+            Number(
+              String(
+                b.room || ''
+              ).replace(/\D/g, '')
+            );
+
+
+          return roomA - roomB;
+
+        });
+
+  }
+
+
+  const chart =
+    Chart.getChart(
+      'riskClassChart'
+    );
+
+
+  if(!chart){
+    throw new Error(
+      'ไม่พบกราฟ riskClassChart'
+    );
+  }
+
+
+  chart.data.labels =
+    chartRows.map(
+      row => row.label
+    );
+
+
+  chart.data.datasets[0].data =
+    chartRows.map(
+      row => row.grade0
+    );
+
+
+  chart.data.datasets[1].data =
+    chartRows.map(
+      row => row.gradeR
+    );
+
+
+chart.data.datasets[2].data =
+  chartRows.map(
+    row => row.gradeMs
+  );
+
+  chart.data.datasets[3].data =
+  chartRows.map(
+    row => row.gradeMp
+  );
+
+
+// ==========================================
+// ป้องกันกราฟอ้วนเกินไปเมื่อเหลือ 1 ห้อง
+// ==========================================
+chart.data.datasets.forEach(
+  dataset => {
+
+    if(chartRows.length === 1){
+
+      dataset.maxBarThickness = 72;
+
+    }else{
+
+      // กลับไปใช้ความกว้างอัตโนมัติ
+      delete dataset.maxBarThickness;
+
+    }
+
+  }
+);
+
+
+chart.update();
+
+
+  console.log(
+    'RISK CHART MODE:',
+    roomMode
+      ? 'ROOM'
+      : 'CLASS'
+  );
+
+}
+
+async function loadLeaderRiskHeatmap(){
+
+  const token =
+    String(
+      leaderSessionToken || ''
+    ).trim();
+
+  if(!token){
+    throw new Error(
+      'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่'
+    );
+  }
+
+
+  const payload =
+    buildLeaderRiskPayload();
+
+
+  // ==========================================
+  // โหลดข้อมูลความเสี่ยง + โครงสร้างห้องจริง
+  // ตามปี / เทอม พร้อมกัน
+  // ==========================================
+
+  const [
+    riskRes,
+    structureRes
+  ] = await Promise.all([
+
+    supabaseClient.rpc(
+      'leader_get_orms_by_room_session',
+      {
+        p_token: token,
+        p_filters: payload
+      }
+    ),
+
+    supabaseClient.rpc(
+      'leader_get_risk_room_structure_session',
+      {
+        p_token: token,
+        p_filters: payload
+      }
+    )
+
+  ]);
+
+
+  if(riskRes.error){
+    throw riskRes.error;
+  }
+
+  if(structureRes.error){
+    throw structureRes.error;
+  }
+
+
+  const rows =
+    Array.isArray(riskRes.data)
+      ? riskRes.data
+      : [];
+
+
+  const roomStructure =
+    Array.isArray(structureRes.data)
+      ? structureRes.data
+      : [];
+
+
+  console.log(
+    'RISK HEATMAP:',
+    rows
+  );
+
+  console.log(
+    'RISK ROOM STRUCTURE:',
+    roomStructure
+  );
+
+
+  const box =
+    document.getElementById(
+      'riskRoomHeatmap'
+    );
+
+  if(!box){
+    return;
+  }
+
+
+  // ==========================================
+  // ระดับชั้นที่มีอยู่จริง
+  // ตามปี / เทอมที่เลือก
+  // ==========================================
+
+  const classLevels =
+    roomStructure
+      .map(
+        item =>
+          String(
+            item?.class_level || ''
+          ).trim()
+      )
+      .filter(Boolean)
+      .sort(
+        (a, b) => {
+
+          const na =
+            Number(
+              (
+                a.match(/ม\.(\d+)/) ||
+                []
+              )[1] || 99
+            );
+
+          const nb =
+            Number(
+              (
+                b.match(/ม\.(\d+)/) ||
+                []
+              )[1] || 99
+            );
+
+          return na - nb;
+
+        }
+      );
+
+
+  // ==========================================
+  // ห้องที่ต้องแสดง
+  // ใช้โครงสร้างห้องจริงของปี / เทอม
+  // ==========================================
+
+  const roomSet =
+    new Set();
+
+
+  roomStructure.forEach(group => {
+
+    const rooms =
+      Array.isArray(group?.rooms)
+        ? group.rooms
+        : [];
+
+    rooms.forEach(room => {
+
+      const value =
+        String(
+          room || ''
+        ).trim();
+
+      if(value){
+        roomSet.add(value);
+      }
+
+    });
+
+  });
+
+
+  const roomNumbers =
+    Array
+      .from(roomSet)
+      .sort(
+        (a, b) => {
+
+          const na =
+            Number(
+              String(a)
+                .replace(/\D/g, '')
+            );
+
+          const nb =
+            Number(
+              String(b)
+                .replace(/\D/g, '')
+            );
+
+          return na - nb;
+
+        }
+      );
+
+
+  // ==========================================
+  // Map ข้อมูลนักเรียนเสี่ยงจริง
+  // ==========================================
+
+  const dataMap =
+    new Map();
+
+
+  rows.forEach(row => {
+
+    const classLevel =
+      String(
+        row.class_level || ''
+      ).trim();
+
+    const room =
+      String(
+        row.room || ''
+      ).trim();
+
+
+    if(
+      !classLevel ||
+      !room
+    ){
+      return;
+    }
+
+
+    dataMap.set(
+      `${classLevel}/${room}`,
+      Number(
+        row.unique_students || 0
+      )
+    );
+
+  });
+
+
+  // ==========================================
+  // ระดับสี
+  // ==========================================
+
+  function getHeatClass(value){
+
+    if(value <= 0){
+      return 'risk-h0';
+    }
+
+    if(value <= 5){
+      return 'risk-h1';
+    }
+
+    if(value <= 10){
+      return 'risk-h2';
+    }
+
+    if(value <= 20){
+      return 'risk-h3';
+    }
+
+    if(value <= 30){
+      return 'risk-h4';
+    }
+
+    return 'risk-h5';
+
+  }
+
+
+  // ==========================================
+  // ไม่มีโครงสร้างห้อง
+  // ==========================================
+
+  if(
+    !classLevels.length ||
+    !roomNumbers.length
+  ){
+
+    box.style.gridTemplateColumns =
+      '1fr';
+
+    box.style.minWidth =
+      '0';
+
+    box.innerHTML =
+      `
+        <div class="text-muted">
+          ไม่พบข้อมูลห้องเรียนตามเงื่อนไขที่เลือก
+        </div>
+      `;
+
+    return;
+  }
+
+
+  // ==========================================
+  // กำหนดขนาด Heatmap
+  // ==========================================
+
+  box.style.gridTemplateColumns =
+    `110px repeat(${roomNumbers.length}, 86px)`;
+
+
+  box.style.minWidth =
+    `${
+      110 +
+      (
+        roomNumbers.length *
+        93
+      )
+    }px`;
+
+
+  // ==========================================
+  // Header
+  // ==========================================
+
+  let html =
+    '<div></div>';
+
+
+  roomNumbers.forEach(room => {
+
+    html +=
+      `
+        <div class="risk-heat-label">
+          ห้อง ${escapeHtmlText(room)}
+        </div>
+      `;
+
+  });
+
+
+  // ==========================================
+  // Rows
+  // ==========================================
+
+  classLevels.forEach(
+    classLevel => {
+
+      html +=
+        `
+          <div class="risk-heat-rowlabel">
+            ${escapeHtmlText(classLevel)}
+          </div>
+        `;
+
+
+      const roomGroup =
+        roomStructure.find(
+          item =>
+            String(
+              item?.class_level || ''
+            ).trim() === classLevel
+        );
+
+
+      const realRooms =
+        new Set(
+          (
+            Array.isArray(
+              roomGroup?.rooms
+            )
+              ? roomGroup.rooms
+              : []
+          )
+            .map(
+              room =>
+                String(
+                  room || ''
+                ).trim()
+            )
+            .filter(Boolean)
+        );
+
+
+      roomNumbers.forEach(
+        room => {
+
+          // ห้องนี้ไม่มีจริงในปี/เทอมนี้
+          // → เว้นช่องว่าง ไม่สร้างบล็อก 0
+          if(
+            !realRooms.has(room)
+          ){
+
+            html +=
+              `
+                <div
+                  class="risk-heat-empty"
+                  aria-hidden="true"
+                ></div>
+              `;
+
+            return;
+          }
+
+
+          const key =
+            `${classLevel}/${room}`;
+
+
+          // ห้องมีอยู่จริง แต่ไม่มีนักเรียนเสี่ยง
+          // → 0 จริง
+          const value =
+            Number(
+              dataMap.has(key)
+                ? dataMap.get(key)
+                : 0
+            );
+
+
+          const heatClass =
+            getHeatClass(value);
+
+
+          html +=
+            `
+              <div
+                class="risk-heat-cell ${heatClass}"
+                title="${
+                  escapeHtmlText(key)
+                }: ${
+                  value.toLocaleString('th-TH')
+                } คน"
+              >
+                ${
+                  value.toLocaleString('th-TH')
+                }
+
+                <small>
+                  ${
+                    value === 0
+                      ? 'ปลอด 0 / ร / มส / มผ'
+                      : 'คน'
+                  }
+                </small>
+
+              </div>
+            `;
+
+        }
+      );
+
+    }
+  );
+
+
+  box.innerHTML =
+    html;
+
+}
+
+async function loadLeaderRiskTopSubjects(){
+
+  const token =
+    String(
+      leaderSessionToken || ''
+    ).trim();
+
+
+  if(!token){
+
+    throw new Error(
+      'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่'
+    );
+
+  }
+
+
+  const payload =
+    buildLeaderRiskPayload();
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      'leader_get_orms_top_subjects_session',
+      {
+        p_token: token,
+        p_filters: payload,
+        p_limit: 10
+      }
+    );
+
+
+  if(error){
+    throw error;
+  }
+
+
+  const rows =
+    Array.isArray(data)
+      ? data
+      : [];
+
+
+  console.log(
+    'RISK TOP SUBJECTS:',
+    rows
+  );
+
+
+  const chart =
+    Chart.getChart(
+      'riskSubjectChart'
+    );
+
+
+  if(!chart){
+
+    throw new Error(
+      'ไม่พบกราฟ riskSubjectChart'
+    );
+
+  }
+
+
+  chart.data.labels =
+    rows.map(row => {
+
+      const code =
+        String(
+          row.subject_code || ''
+        ).trim();
+
+      const name =
+        String(
+          row.subject_name || ''
+        ).trim();
+
+
+      return (
+        code && name
+          ? `${code} ${name}`
+          : code || name || '-'
+      );
+
+    });
+
+
+  chart.data.datasets[0].data =
+    rows.map(
+      row =>
+        Number(
+          row.grade_0_records || 0
+        )
+    );
+
+
+  chart.data.datasets[1].data =
+    rows.map(
+      row =>
+        Number(
+          row.grade_r_records || 0
+        )
+    );
+
+
+  chart.data.datasets[2].data =
+    rows.map(
+      row =>
+        Number(
+          row.grade_ms_records || 0
+        )
+    );
+
+
+  chart.data.datasets[3].data =
+    rows.map(
+      row =>
+        Number(
+          row.grade_mp_records || 0
+        )
+    );
+
+
+  chart.update();
+
+}
+
+async function loadLeaderRiskLearningAreas(){
+
+  const token =
+    String(
+      leaderSessionToken || ''
+    ).trim();
+
+
+  if(!token){
+
+    throw new Error(
+      'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่'
+    );
+
+  }
+
+
+  const payload =
+    buildLeaderRiskPayload();
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      'leader_get_orms_by_learning_area_session',
+      {
+        p_token: token,
+        p_filters: payload
+      }
+    );
+
+
+  if(error){
+    throw error;
+  }
+
+
+  const rows =
+    Array.isArray(data)
+      ? data
+      : [];
+
+
+  rows.sort(
+    (a, b) =>
+      Number(
+        b.total_records || 0
+      ) -
+      Number(
+        a.total_records || 0
+      )
+  );
+
+
+  console.log(
+    'RISK BY LEARNING AREA:',
+    rows
+  );
+
+
+  const chart =
+    Chart.getChart(
+      'riskAreaChart'
+    );
+
+
+  if(!chart){
+
+    throw new Error(
+      'ไม่พบกราฟ riskAreaChart'
+    );
+
+  }
+
+
+  chart.data.labels =
+    rows.map(
+      row =>
+        String(
+          row.learning_area || 'ไม่ระบุกลุ่มสาระ'
+        )
+    );
+
+
+  chart.data.datasets[0].data =
+    rows.map(
+      row =>
+        Number(
+          row.grade_0_records || 0
+        )
+    );
+
+
+  chart.data.datasets[1].data =
+    rows.map(
+      row =>
+        Number(
+          row.grade_r_records || 0
+        )
+    );
+
+
+  chart.data.datasets[2].data =
+    rows.map(
+      row =>
+        Number(
+          row.grade_ms_records || 0
+        )
+    );
+
+
+  chart.data.datasets[3].data =
+    rows.map(
+      row =>
+        Number(
+          row.grade_mp_records || 0
+        )
+    );
+
+
+  chart.update();
+
+}
+
+async function loadLeaderRiskUrgentStudents(){
+
+  const token =
+    String(
+      leaderSessionToken || ''
+    ).trim();
+
+
+  if(!token){
+
+    throw new Error(
+      'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่'
+    );
+
+  }
+
+
+  const payload =
+    buildLeaderRiskPayload();
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      'leader_get_orms_top_students_session',
+      {
+        p_token: token,
+        p_filters: payload,
+        p_limit: 20
+      }
+    );
+
+
+  if(error){
+    throw error;
+  }
+
+
+  const rows =
+    Array.isArray(data)
+      ? data
+      : [];
+
+
+  console.log(
+    'RISK URGENT STUDENTS:',
+    rows
+  );
+
+
+  const tbody =
+    document.getElementById(
+      'riskUrgentStudentsBody'
+    );
+
+
+  if(!tbody){
+    return;
+  }
+
+
+  if(!rows.length){
+
+    tbody.innerHTML =
+      `
+        <tr>
+          <td
+            colspan="9"
+            class="text-muted"
+          >
+            ไม่พบนักเรียนที่มีปัญหาตามเงื่อนไขที่เลือก
+          </td>
+        </tr>
+      `;
+
+    return;
+
+  }
+
+
+  tbody.innerHTML =
+    rows.map(row => {
+
+      const studentName =
+        String(
+          row.student_name || '-'
+        ).trim();
+
+
+      const roomLabel =
+        String(
+          row.room_label ||
+          (
+            `${row.class_level || ''}/${row.room || ''}`
+          )
+        ).trim();
+
+
+      const grade0 =
+        Number(
+          row.grade_0_records || 0
+        );
+
+
+      const gradeR =
+        Number(
+          row.grade_r_records || 0
+        );
+
+
+      const gradeMs =
+        Number(
+          row.grade_ms_records || 0
+        );
+
+
+      const gradeMp =
+        Number(
+          row.grade_mp_records || 0
+        );
+
+
+      const subjectCount =
+        Number(
+          row.subject_count || 0
+        );
+
+
+      const pending =
+        Number(
+          row.pending_records || 0
+        );
+
+
+      const unresolved =
+        Number(
+          row.unresolved_records || 0
+        );
+
+
+      const riskLevel =
+        String(
+          row.risk_level || 'ติดตาม'
+        ).trim();
+
+
+      let levelClass = 'watch';
+      let levelIcon = '🟡';
+
+
+      if(riskLevel === 'สูงมาก'){
+
+        levelClass = 'critical';
+        levelIcon = '🔴';
+
+      }else if(riskLevel === 'สูง'){
+
+        levelClass = 'high';
+        levelIcon = '🟠';
+
+      }
+
+
+      let statusText = 'ไม่มีรายการคงค้าง';
+
+
+      if(
+        pending > 0 &&
+        unresolved > 0
+      ){
+
+        statusText =
+          `รออนุมัติ ${
+            pending.toLocaleString('th-TH')
+          } · คงค้าง ${
+            unresolved.toLocaleString('th-TH')
+          }`;
+
+      }else if(pending > 0){
+
+        statusText =
+          `รออนุมัติ ${
+            pending.toLocaleString('th-TH')
+          } รายการ`;
+
+      }else if(unresolved > 0){
+
+        statusText =
+          `คงค้าง ${
+            unresolved.toLocaleString('th-TH')
+          } รายการ`;
+
+      }
+
+
+      return `
+        <tr>
+
+          <td>
+            <button
+              class="risk-student-btn"
+              type="button"
+            >
+              ${escapeHtmlText(studentName)}
+            </button>
+          </td>
+
+          <td>
+            ${escapeHtmlText(roomLabel)}
+          </td>
+
+          <td>
+            ${grade0.toLocaleString('th-TH')}
+          </td>
+
+          <td>
+            ${gradeR.toLocaleString('th-TH')}
+          </td>
+
+          <td>
+            ${gradeMs.toLocaleString('th-TH')}
+          </td>
+
+          <td>
+            ${gradeMp.toLocaleString('th-TH')}
+          </td>
+
+          <td>
+            <b>
+              ${subjectCount.toLocaleString('th-TH')}
+            </b>
+          </td>
+
+          <td>
+            <span class="risk-level ${levelClass}">
+              ${levelIcon}
+              ${escapeHtmlText(riskLevel)}
+            </span>
+          </td>
+
+          <td>
+            ${escapeHtmlText(statusText)}
+          </td>
+
+        </tr>
+      `;
+
+    }).join('');
+
+}
+
+async function loadLeaderRiskTrend(){
+
+  const token =
+    String(
+      leaderSessionToken || ''
+    ).trim();
+
+
+  if(!token){
+
+    throw new Error(
+      'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่'
+    );
+
+  }
+
+
+  const currentPayload =
+    buildLeaderRiskPayload();
+
+
+  /*
+   * แนวโน้มย้อนหลัง:
+   * ไม่ล็อกปี/เทอมปัจจุบัน
+   *
+   * แต่ยังใช้ filter:
+   * ชั้น / ห้อง / กลุ่มสาระ / ประเภทวิชา / รายวิชา
+   */
+  const trendPayload = {
+    ...currentPayload,
+
+    academic_years: [],
+    terms: []
+  };
+
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient.rpc(
+      'leader_get_orms_trend_session',
+      {
+        p_token: token,
+        p_filters: trendPayload
+      }
+    );
+
+
+  if(error){
+    throw error;
+  }
+
+
+  const rows =
+    Array.isArray(data)
+      ? [...data]
+      : [];
+
+
+  rows.sort(
+    (a, b) => {
+
+      const yearDiff =
+        Number(
+          a.academic_year || 0
+        ) -
+        Number(
+          b.academic_year || 0
+        );
+
+      if(yearDiff !== 0){
+        return yearDiff;
+      }
+
+      return (
+        Number(a.term || 0) -
+        Number(b.term || 0)
+      );
+
+    }
+  );
+
+
+  console.log(
+    'RISK TREND:',
+    rows
+  );
+
+
+  const chart =
+    Chart.getChart(
+      'riskTrendChart'
+    );
+
+
+  if(!chart){
+
+    throw new Error(
+      'ไม่พบกราฟ riskTrendChart'
+    );
+
+  }
+
+
+  chart.data.labels =
+    rows.map(
+      row =>
+        `${row.academic_year}/${row.term}`
+    );
+
+
+  chart.data.datasets[0].data =
+    rows.map(
+      row =>
+        Number(
+          row.grade_0_records || 0
+        )
+    );
+
+
+  chart.data.datasets[1].data =
+    rows.map(
+      row =>
+        Number(
+          row.grade_r_records || 0
+        )
+    );
+
+
+  chart.data.datasets[2].data =
+    rows.map(
+      row =>
+        Number(
+          row.grade_ms_records || 0
+        )
+    );
+
+
+  chart.data.datasets[3].data =
+    rows.map(
+      row =>
+        Number(
+          row.grade_mp_records || 0
+        )
+    );
+
+
+  chart.update();
+
+}
+
+
+
+async function loadLeaderRiskFilterOptions(){
+
+  if(
+    leaderRiskFilterOptionsLoaded
+  ){
+    return;
+  }
+
+  const statusText =
+    document.getElementById(
+      'riskLiveStatusText'
+    );
+
+  try{
+
+    if(statusText){
+      statusText.textContent =
+        'กำลังโหลดตัวเลือกจากฐานข้อมูล...';
+    }
+
+    const token =
+      String(
+        leaderSessionToken || ''
+      ).trim();
+
+    if(!token){
+      throw new Error(
+        'Session หมดอายุ กรุณาเข้าสู่ระบบใหม่'
+      );
+    }
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient.rpc(
+        'leader_get_dashboard_checkbox_filter_options_session',
+        {
+          p_token: token
+        }
+      );
+
+
+    if(error){
+      throw error;
+    }
+
+
+    const res =
+      data || {};
+
+
+    leaderRiskFilterOptions = {
+
+      years:
+        Array.isArray(res.years)
+          ? res.years
+          : [],
+
+      terms:
+        Array.isArray(res.terms)
+          ? res.terms
+          : [],
+
+      classLevels:
+        Array.isArray(
+          res.class_levels
+        )
+          ? res.class_levels
+          : [],
+
+      learningAreas:
+        Array.isArray(
+          res.learning_areas
+        )
+          ? res.learning_areas
+          : [],
+
+      subjectTypes:
+        Array.isArray(
+          res.subject_types
+        )
+          ? res.subject_types
+          : [],
+
+      roomsByClass:
+        Array.isArray(
+          res.rooms_by_class
+        )
+          ? res.rooms_by_class
+          : []
+    };
+
+
+    // =========================
+    // ปีการศึกษา
+    // =========================
+
+    const latestYear =
+      leaderRiskFilterOptions
+        .years.length
+        ? String(
+            leaderRiskFilterOptions
+              .years[0]
+          )
+        : '';
+
+
+    setRiskSelectOptions(
+      'riskYear',
+      leaderRiskFilterOptions
+        .years,
+      {
+        selectedValue:
+          latestYear
+      }
+    );
+
+
+    // =========================
+    // ภาคเรียน
+    // =========================
+
+    setRiskSelectOptions(
+      'riskTerm',
+      leaderRiskFilterOptions
+        .terms
+        .map(term => ({
+          value:
+            String(term),
+
+          label:
+            String(term)
+        })),
+      {
+        allLabel:
+          'ทุกภาคเรียน',
+
+        selectedValue:
+          leaderRiskFilterOptions
+            .terms.length
+            ? String(
+                leaderRiskFilterOptions
+                  .terms[0]
+              )
+            : ''
+      }
+    );
+
+
+    // =========================
+    // ระดับชั้น
+    // =========================
+
+    setRiskSelectOptions(
+      'riskClass',
+      leaderRiskFilterOptions
+        .classLevels,
+      {
+        allLabel:
+          'ทุกระดับชั้น'
+      }
+    );
+
+
+    // =========================
+    // กลุ่มสาระ
+    // =========================
+
+    setRiskSelectOptions(
+      'riskLearningArea',
+      leaderRiskFilterOptions
+        .learningAreas,
+      {
+        allLabel:
+          'ทุกกลุ่มสาระ'
+      }
+    );
+
+
+    // =========================
+    // ประเภทวิชา
+    // =========================
+
+    setRiskSelectOptions(
+      'riskSubjectType',
+      leaderRiskFilterOptions
+        .subjectTypes,
+      {
+        allLabel:
+          'ทุกประเภทวิชา'
+      }
+    );
+
+
+    // =========================
+    // ห้องเรียน
+    // =========================
+
+    renderLeaderRiskRoomOptions();
+
+
+    leaderRiskFilterOptionsLoaded =
+      true;
+
+
+    updateLeaderRiskFilterSummary();
+
+
+    if(statusText){
+      statusText.textContent =
+        'โหลดตัวเลือกจากฐานข้อมูลเรียบร้อยแล้ว';
+    }
+
+
+    console.log(
+      'RISK FILTER OPTIONS:',
+      leaderRiskFilterOptions
+    );
+
+
+  }catch(error){
+
+    console.error(
+      'loadLeaderRiskFilterOptions ERROR:',
+      error
+    );
+
+    if(statusText){
+      statusText.textContent =
+        `โหลดตัวเลือกไม่สำเร็จ: ${
+          error?.message ||
+          error
+        }`;
+    }
+
+  }
+}
+
+
+// เปลี่ยนชั้น → โหลดห้องเฉพาะชั้นนั้น
+document
+  .getElementById('riskClass')
+  ?.addEventListener(
+    'change',
+    () => {
+
+      renderLeaderRiskRoomOptions();
+      updateLeaderRiskFilterSummary();
+
+    }
+  );
+
+
+// Filter อื่น ๆ เปลี่ยน → อัปเดตข้อความสรุป
+[
+  'riskYear',
+  'riskTerm',
+  'riskRoom',
+  'riskLearningArea',
+  'riskSubjectType'
+].forEach(id => {
+
+  document
+    .getElementById(id)
+    ?.addEventListener(
+      'change',
+      updateLeaderRiskFilterSummary
+    );
+
+});
+
+[
+  'riskYear',
+  'riskTerm',
+  'riskRoom',
+  'riskLearningArea',
+  'riskSubjectType'
+].forEach(id => {
+
+  document
+    .getElementById(id)
+    ?.addEventListener(
+      'change',
+      updateLeaderRiskFilterSummary
+    );
+
+});
+
+
+// ================================================
+// ทดสอบ Payload ของหน้า Risk
+// ================================================
+document
+  .getElementById('riskProcessBtn')
+  ?.addEventListener(
+    'click',
+    async () => {
+
+      const btn =
+        document.getElementById(
+          'riskProcessBtn'
+        );
+
+      const statusText =
+        document.getElementById(
+          'riskLiveStatusText'
+        );
+
+      try{
+
+        if(btn){
+          btn.disabled = true;
+          btn.textContent =
+            'กำลังประมวลผล...';
+        }
+
+        if(statusText){
+          statusText.textContent =
+            'กำลังอ่านข้อมูล 0 / ร / มส จากฐานข้อมูล...';
+        }
+
+        updateLeaderRiskFilterSummary();
+
+        console.log(
+          'RISK PAYLOAD:',
+          buildLeaderRiskPayload()
+        );
+
+        await loadLeaderRiskKpis();
+        await loadLeaderRiskClassRoomChart();
+        await loadLeaderRiskHeatmap();
+        await loadLeaderRiskTopSubjects();
+        await loadLeaderRiskLearningAreas();
+        await loadLeaderRiskUrgentStudents();
+        await loadLeaderRiskTrend();
+
+        if(statusText){
+          statusText.textContent =
+            'ประมวลผลข้อมูลเรียบร้อยแล้ว';
+        }
+
+      }catch(error){
+
+        console.error(
+          'RISK PROCESS ERROR:',
+          error
+        );
+
+        if(statusText){
+          statusText.textContent =
+            `ประมวลผลไม่สำเร็จ: ${
+              error?.message ||
+              error
+            }`;
+        }
+
+      }finally{
+
+        if(btn){
+          btn.disabled = false;
+          btn.textContent =
+            'ประมวลผล';
+        }
+
+      }
+
+    }
+  );
+
+
+
+
   // ================================
   // LeaderPR sidebar navigation
   // ================================
@@ -6046,6 +9736,9 @@ const leaderPageMap = {
 
   dashboard:
     document.getElementById('leaderDashboardPage'),
+
+  'risk-analytics':
+    document.getElementById('leaderRiskAnalyticsPage'),
 
   retest:
     document.getElementById('leaderRetestPage'),
@@ -6064,6 +9757,12 @@ const leaderPageMeta = {
     title: 'สถิติผลการเรียน',
     subtitle:
       'ภาพรวมผลการเรียนและข้อมูลประกอบการบริหาร'
+  },
+
+  'risk-analytics': {
+    title: 'วิเคราะห์ 0 / ร / มส',
+    subtitle:
+      'ภาพรวมกลุ่มเสี่ยง แนวโน้ม และข้อมูลสำหรับจัดลำดับการติดตาม'
   },
 
   retest: {
@@ -6126,6 +9825,25 @@ if(pageSubtitleNode){
         document.getElementById('leaderQrText')?.focus();
       }, 120);
     }
+
+if(pageName === 'risk-analytics'){
+
+  loadLeaderRiskFilterOptions();
+
+  window.requestAnimationFrame(() => {
+
+    initLeaderRiskMockCharts();
+
+    leaderRiskMockCharts.forEach(
+      chart => {
+        try{
+          chart.resize();
+        }catch(_err){}
+      }
+    );
+
+  });
+}
   }
 
   document.querySelectorAll('[data-leader-page]').forEach(btn => {
@@ -7069,15 +10787,35 @@ if(topUserNode){
 }
 }
 
-  async function openLeaderApp(user){
-    leaderCurrentUser = user;
-    renderLeaderUser(user);
+async function openLeaderApp(user){
 
-    document.getElementById('leaderLoginView')?.classList.add('leader-hidden');
-    document.getElementById('leaderAppView')?.classList.remove('leader-hidden');
+  leaderCurrentUser = user;
 
-    await initLeaderDashboard();
-  }
+  renderLeaderUser(user);
+
+  document
+    .getElementById('leaderLoginView')
+    ?.classList.add(
+      'leader-hidden'
+    );
+
+  document
+    .getElementById('leaderAppView')
+    ?.classList.remove(
+      'leader-hidden'
+    );
+
+
+  // ตอนนี้ Session Token พร้อมแล้ว
+  await initLeaderDashboard();
+
+
+  // ค่อยเปิดหน้าที่ผู้ใช้ใช้งานล่าสุด
+  showLeaderPage(
+    initialLeaderPage
+  );
+
+}
 
   function openLeaderLogin(message=''){
     leaderCurrentUser = null;
@@ -7250,7 +10988,7 @@ async function handleLeaderLogout(){
     const savedLeaderPage = localStorage.getItem('leaderpr_active_page');
     if(savedLeaderPage && leaderPageMap[savedLeaderPage]) initialLeaderPage = savedLeaderPage;
   }catch(_err){}
-  showLeaderPage(initialLeaderPage);
+
 
 (async function initLeaderSession(){
 
