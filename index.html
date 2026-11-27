@@ -4151,6 +4151,80 @@ body{background:#f5f7fb!important;font-family:'Kanit',sans-serif!important}
 @media(max-width:380px){.lr-filter-dialog .risk-filter-grid{grid-template-columns:1fr}.lr-view-kpis{grid-template-columns:1fr}}
 @media print{#lrSharedRiskBar,#lrRiskFilterOverlay,.lr-overview-link,.lr-table-tools,.lr-selected .lr-actions,.leader-topbar{display:none!important}.leader-main{padding:0!important}.lr-table-scroll{overflow:visible}.lr-detail-table{min-width:0;font-size:10px}.lr-detail-table td,.lr-detail-table th{padding:4px;white-space:normal}.leader-main .card,.risk-panel{box-shadow:none!important}}
 
+
+/* ===== TeacherPR pastel theme : LeaderPR ===== */
+/* Visual-only overrides. Keep all navigation, RPCs and responsive sizing unchanged. */
+body{
+  background:linear-gradient(90deg,#e89ce5 0%,#b7b3ef 50%,#a7d9ea 100%) !important;
+}
+.leader-app,.leader-main{background:transparent !important;}
+.leader-sidebar{
+  background:rgba(255,255,255,.78) !important;
+  border-right:1px solid rgba(255,255,255,.65) !important;
+  box-shadow:0 14px 35px rgba(18,38,63,.10) !important;
+  backdrop-filter:blur(16px) !important;
+  -webkit-backdrop-filter:blur(16px) !important;
+}
+.leader-topbar,.leader-main .card,.risk-panel,.risk-filter-card,.lr-filterbar{
+  background:rgba(255,255,255,.72) !important;
+  border:1px solid rgba(255,255,255,.65) !important;
+  box-shadow:var(--shadow) !important;
+  border-radius:20px !important;
+}
+/* Keep dialogs and data surfaces readable. */
+#lrRiskFilterOverlay .lr-filter-dialog{background:#fff !important;}
+.lr-table-scroll,.risk-table-wrap{background:#fff;border-color:#dbe7f3;}
+.lr-detail-table th{background:#edf5ff !important;}
+.lr-detail-table tbody tr:nth-child(even){background:#f5f8fc;}
+.lr-selected{background:#f8fbff;border-color:#bfdbfe;}
+.lr-submenu{border-left-color:#c7d2fe !important;}
+.lr-parent.lr-current:not(.active){background:rgba(219,234,254,.8) !important;}
+/* Match TeacherPR's semantic KPI colors; use scoped selectors so charts are unaffected. */
+#lrOverviewResults .risk-kpi-card{
+  --lr-tint:#eff6ff;--lr-edge:#bfdbfe;--lr-ink:#1d4ed8;
+  background:var(--lr-tint) !important;border:1px solid var(--lr-edge) !important;
+  color:var(--lr-ink) !important;box-shadow:none !important;
+  border-radius:18px !important;
+}
+#lrOverviewResults .risk-kpi-card::before{display:none;}
+#lrOverviewResults .risk-kpi-card .risk-kpi-label,
+#lrOverviewResults .risk-kpi-card .risk-kpi-value{color:var(--lr-ink) !important;}
+#lrOverviewResults .risk-kpi-card .risk-kpi-sub{color:#64748b !important;}
+#lrOverviewResults .risk-kpi-card:nth-child(3){--lr-tint:#fff1f2;--lr-edge:#fecaca;--lr-ink:#dc2626;}
+#lrOverviewResults .risk-kpi-card:nth-child(4){--lr-tint:#fffbeb;--lr-edge:#fde68a;--lr-ink:#b45309;}
+#lrOverviewResults .risk-kpi-card:nth-child(5){--lr-tint:#f5f3ff;--lr-edge:#ddd6fe;--lr-ink:#7c3aed;}
+#lrOverviewResults .risk-kpi-card:nth-child(6){--lr-tint:#f1f5f9;--lr-edge:#cbd5e1;--lr-ink:#475569;}
+#lrOverviewResults .risk-kpi-card:nth-child(7){--lr-tint:#fff7ed;--lr-edge:#fed7aa;--lr-ink:#c2410c;}
+#lrOverviewResults .risk-kpi-card:nth-child(1) .risk-kpi-icon,
+#lrOverviewResults .risk-kpi-card:nth-child(2) .risk-kpi-icon,
+#lrOverviewResults .risk-kpi-card:nth-child(7) .risk-kpi-icon{display:flex;background:transparent;width:auto;height:auto;justify-content:flex-start;font-size:22px;}
+#lrOverviewResults .risk-progress-main,
+#lrOverviewResults .risk-progress-row .risk-mini-stat:nth-child(2){background:#f0fdf4 !important;border-color:#bbf7d0 !important;box-shadow:none !important;}
+#lrOverviewResults .risk-progress-row .risk-mini-stat:nth-child(3){background:#fffbeb !important;border-color:#fde68a !important;box-shadow:none !important;}
+#lrOverviewResults .risk-progress-row .risk-mini-stat:nth-child(4){background:#fff1f2 !important;border-color:#fecaca !important;box-shadow:none !important;}
+#lrOverviewResults #riskResolvedRecords,#lrOverviewResults #riskResolutionRate{color:#15803d !important;}
+#lrOverviewResults #riskPendingRecords{color:#b45309 !important;}
+#lrOverviewResults #riskUnresolvedRecords{color:#dc2626 !important;}
+/* Preview KPIs: scope count, record count, and limited data scope. */
+.lr-view-kpis>div{--lr-tint:#eff6ff;--lr-edge:#bfdbfe;--lr-ink:#1d4ed8;background:var(--lr-tint);border-color:var(--lr-edge);}
+.lr-view-kpis>div:nth-child(2){--lr-tint:#fff7ed;--lr-edge:#fed7aa;--lr-ink:#c2410c;}
+.lr-view-kpis>div:nth-child(3){--lr-tint:#f5f3ff;--lr-edge:#ddd6fe;--lr-ink:#6d28d9;}
+.lr-view-kpis strong{color:var(--lr-ink);}
+.lr-view-kpis span{color:#41536c;}
+#leaderRepeatedSection .risk-repeat-card:nth-child(1){border-color:#fde68a;}
+#leaderRepeatedSection .risk-repeat-card:nth-child(2){border-color:#fed7aa;}
+#leaderRepeatedSection .risk-repeat-card:nth-child(3){border-color:#fecaca;}
+#leaderRepeatedSection .risk-repeat-card:nth-child(1) .risk-repeat-count{color:#b45309 !important;}
+#leaderRepeatedSection .risk-repeat-card:nth-child(2) .risk-repeat-count{color:#c2410c !important;}
+#leaderRepeatedSection .risk-repeat-card:nth-child(3) .risk-repeat-count{color:#dc2626 !important;}
+.lr-status.lr-success{color:#15803d;background:rgba(220,252,231,.7);border-radius:8px;padding:8px 10px;}
+.lr-status.lr-error{color:#b91c1c;background:rgba(254,226,226,.85);border-radius:8px;padding:8px 10px;}
+@media print{
+  body,.leader-app,.leader-main{background:#fff !important;}
+  .leader-main .card,.risk-panel,.risk-filter-card,.lr-filterbar{background:#fff !important;border-color:#d9e3ee !important;box-shadow:none !important;}
+}
+/* ===== END TeacherPR pastel theme : LeaderPR ===== */
+
 </style>
 </head>
 
