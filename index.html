@@ -7,7 +7,7 @@
   <title>LeaderPR - ระบบสารสนเทศสำหรับผู้บริหาร</title>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="./vendor/qrcode.min.js" onerror="this.onerror=null;this.src='../TeacherPR-desktop/vendor/qrcode.min.js';"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -4225,6 +4225,655 @@ body{
 }
 /* ===== END TeacherPR pastel theme : LeaderPR ===== */
 
+#pageQrGenerator{
+  width:100%;
+}
+
+.qrgen-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1.65fr) minmax(320px,.85fr);
+  gap:18px;
+  align-items:stretch;
+}
+
+.qrgen-panel,
+.qrgen-preview-card{
+  background:rgba(255,255,255,.76);
+  border:1px solid rgba(255,255,255,.65);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+}
+
+.qrgen-panel{
+  padding:22px;
+}
+
+.qrgen-preview-card{
+  padding:18px;
+  position:static;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+.qrgen-heading{
+  margin-bottom:18px;
+}
+
+.qrgen-heading h2{
+  margin:0;
+  font-size:24px;
+  font-weight:800;
+  color:var(--text);
+}
+
+.qrgen-heading p{
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
+}
+
+.qrgen-field{
+  margin-bottom:14px;
+}
+
+.qrgen-label{
+  display:block;
+  margin-bottom:6px;
+  color:#4d6078;
+  font-size:14px;
+  font-weight:700;
+}
+
+.qrgen-input,
+.qrgen-select{
+  width:100%;
+  height:44px;
+  border:1px solid #c8d6e4;
+  border-radius:14px;
+  padding:0 14px;
+  font-family:'Kanit',sans-serif;
+  font-size:15px;
+  color:var(--text);
+  background:#fff;
+  outline:none;
+}
+
+.qrgen-input:focus,
+.qrgen-select:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 4px rgba(37,99,235,.12);
+}
+
+.qrgen-input:disabled,
+.qrgen-select:disabled{
+  opacity:.6;
+  background:#f4f7fa;
+  cursor:not-allowed;
+}
+
+.qrgen-file-input{
+  width:100%;
+  min-height:44px;
+  border:1px solid #c8d6e4;
+  border-radius:14px;
+  padding:8px 12px;
+  font-family:'Kanit',sans-serif;
+  font-size:14px;
+  background:#fff;
+  color:var(--text);
+}
+
+.qrgen-muted{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+}
+
+.qrgen-toggle-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-height:34px;
+  flex-wrap:wrap;
+}
+
+.qrgen-toggle-row input[type="checkbox"],
+.qrgen-toggle-row input[type="radio"]{
+  width:17px;
+  height:17px;
+  accent-color:var(--primary);
+  cursor:pointer;
+}
+
+.qrgen-toggle-row label{
+  font-size:14px;
+  font-weight:600;
+  color:#41536c;
+  cursor:pointer;
+}
+
+.qrgen-subcard{
+  margin-top:8px;
+  padding:14px;
+  border:1px solid #d8e4ef;
+  border-radius:16px;
+  background:#f8fbff;
+}
+
+.qrgen-disabled{
+  opacity:.55;
+  pointer-events:none;
+}
+
+.qrgen-radio-row{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.qrgen-radio-item{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:14px;
+  color:#41536c;
+  font-weight:600;
+}
+
+.qrgen-caption-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 150px;
+  gap:12px;
+  align-items:end;
+}
+
+.qrgen-option-grid{
+  display:grid;
+  grid-template-columns:130px 115px 115px minmax(180px,1fr);
+  gap:12px;
+  align-items:end;
+}
+
+.qrgen-color{
+  width:100%;
+  height:44px;
+  padding:4px;
+  border:1px solid #c8d6e4;
+  border-radius:14px;
+  background:#fff;
+  cursor:pointer;
+}
+
+.qrgen-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.qrgen-btn{
+  min-height:44px;
+  border:0;
+  border-radius:14px;
+  padding:0 18px;
+  font-family:'Kanit',sans-serif;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.16s ease;
+}
+
+.qrgen-btn:hover{
+  transform:translateY(-1px);
+}
+
+.qrgen-btn-primary{
+  color:#fff;
+  background:linear-gradient(135deg,#2563eb,#3b82f6);
+}
+
+.qrgen-btn-secondary{
+  color:#41536c;
+  background:#eef3f8;
+  border:1px solid #d6e2ee;
+}
+
+.qrgen-preview-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.qrgen-preview-title{
+  margin:0;
+  font-size:18px;
+  font-weight:800;
+  color:#17324d;
+}
+
+.qrgen-preview-status{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:28px;
+  padding:4px 10px;
+  border-radius:999px;
+  background:#eef4ff;
+  color:#1d4ed8;
+  font-size:11px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.qrgen-preview-box{
+  min-height:370px;
+  border:1px solid #d8e4ef;
+  border-radius:18px;
+  background:
+    linear-gradient(45deg,#f5f8fc 25%,transparent 25%),
+    linear-gradient(-45deg,#f5f8fc 25%,transparent 25%),
+    linear-gradient(45deg,transparent 75%,#f5f8fc 75%),
+    linear-gradient(-45deg,transparent 75%,#f5f8fc 75%);
+  background-size:20px 20px;
+  background-position:0 0,0 10px,10px -10px,-10px 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  padding:14px;
+}
+
+.qrgen-placeholder{
+  text-align:center;
+  color:#7b93a7;
+  font-size:13px;
+  line-height:1.7;
+}
+
+.qrgen-placeholder-icon{
+  font-size:54px;
+  margin-bottom:8px;
+}
+
+#qrgenPreviewImage{
+  max-width:100%;
+  max-height:340px;
+  object-fit:contain;
+  display:none;
+  border-radius:12px;
+}
+
+.qrgen-download{
+  width:100%;
+  margin-top:12px;
+}
+
+.qrgen-mini-tools{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:8px;
+}
+
+.qrgen-footer-note{
+  margin-top:12px;
+  text-align:center;
+  color:#7b93a7;
+  font-size:11px;
+  line-height:1.5;
+}
+
+/* =====================================================
+   QR GENERATOR : RESPONSIVE / MOBILE / PWA
+   ===================================================== */
+
+/*
+ * Sidebar กินพื้นที่บน Desktop
+ * จึงเปลี่ยนเป็น 1 คอลัมน์ก่อนถึง Mobile จริง
+ */
+@media (max-width:1180px){
+
+  .qrgen-layout{
+    grid-template-columns:1fr;
+  }
+
+  .qrgen-preview-card{
+    position:static;
+    top:auto;
+  }
+
+  .qrgen-preview-box{
+    min-height:340px;
+  }
+}
+
+
+/* =====================================================
+   TABLET / TEACHERPR MOBILE MODE
+   TeacherPR ใช้ breakpoint 900px
+   ===================================================== */
+
+@media (max-width:900px){
+
+  #pageQrGenerator{
+    width:100%;
+    min-width:0;
+  }
+
+  .qrgen-layout{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    min-width:0;
+    gap:14px;
+  }
+
+  .qrgen-panel,
+  .qrgen-preview-card{
+    width:100%;
+    min-width:0;
+    padding:18px;
+    border-radius:20px;
+  }
+
+  .qrgen-heading{
+    margin-bottom:16px;
+  }
+
+  .qrgen-heading h2{
+    font-size:22px;
+  }
+
+  .qrgen-heading p{
+    font-size:13px;
+  }
+
+
+  /*
+   * Caption
+   */
+  .qrgen-caption-grid{
+    grid-template-columns:minmax(0,1fr) 140px;
+    gap:10px;
+  }
+
+
+  /*
+   * ขนาด / สี / ชื่อไฟล์
+   */
+  .qrgen-option-grid{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+
+  /*
+   * Preview
+   */
+  .qrgen-preview-card{
+    position:static;
+  }
+
+  .qrgen-preview-box{
+    min-height:320px;
+  }
+
+  #qrgenPreviewImage{
+    max-width:100%;
+    max-height:310px;
+  }
+
+
+  /*
+   * ปุ่มให้แตะง่ายขึ้น
+   */
+  .qrgen-btn{
+    min-height:46px;
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width:640px){
+
+  .qrgen-panel,
+  .qrgen-preview-card{
+    padding:15px;
+    border-radius:18px;
+  }
+
+  .qrgen-heading h2{
+    font-size:20px;
+  }
+
+
+  /*
+   * สำคัญสำหรับ iPhone
+   *
+   * input ต่ำกว่า 16px อาจทำ Safari zoom
+   * ตอนแตะช่องกรอก
+   */
+  .qrgen-input,
+  .qrgen-select,
+  .qrgen-file-input{
+    font-size:16px;
+  }
+
+
+  .qrgen-input,
+  .qrgen-select{
+    height:48px;
+  }
+
+  .qrgen-file-input{
+    min-height:48px;
+  }
+
+
+  /*
+   * Caption เรียงลง
+   */
+  .qrgen-caption-grid{
+    grid-template-columns:1fr;
+  }
+
+
+  /*
+   * option 2 ช่อง
+   */
+  .qrgen-option-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+
+  /*
+   * ชื่อไฟล์กินเต็มแถว
+   */
+  .qrgen-option-grid
+  .qrgen-field:last-child{
+    grid-column:1 / -1;
+  }
+
+
+  /*
+   * Checkbox / Radio แตะง่าย
+   */
+  .qrgen-toggle-row{
+    min-height:42px;
+  }
+
+  .qrgen-toggle-row input[type="checkbox"],
+  .qrgen-toggle-row input[type="radio"]{
+    width:19px;
+    height:19px;
+    flex:0 0 auto;
+  }
+
+  .qrgen-radio-row{
+    gap:12px;
+  }
+
+  .qrgen-radio-item{
+    min-height:38px;
+  }
+
+
+  /*
+   * Preview
+   */
+  .qrgen-preview-box{
+    min-height:280px;
+    padding:12px;
+  }
+
+  #qrgenPreviewImage{
+    max-height:270px;
+  }
+
+
+  /*
+   * ปุ่มหลัก
+   */
+  .qrgen-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .qrgen-actions .qrgen-btn{
+    width:100%;
+  }
+
+
+  /*
+   * ปุ่มใต้ Preview
+   */
+  .qrgen-download{
+    min-height:50px;
+    font-size:15px;
+  }
+
+  .qrgen-mini-tools{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .qrgen-mini-tools .qrgen-btn{
+    min-height:46px;
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+
+  /*
+   * รองรับพื้นที่ Safe Area ของ PWA/iPhone
+   */
+  #pageQrGenerator{
+    padding-bottom:
+      max(
+        8px,
+        env(safe-area-inset-bottom)
+      );
+  }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+   ===================================================== */
+
+@media (max-width:480px){
+
+  .qrgen-layout{
+    gap:12px;
+  }
+
+  .qrgen-panel,
+  .qrgen-preview-card{
+    padding:14px;
+    border-radius:17px;
+  }
+
+
+  /*
+   * ขนาด / สี / ชื่อไฟล์
+   * เปลี่ยนเป็นหนึ่งช่องต่อแถว
+   */
+  .qrgen-option-grid{
+    grid-template-columns:1fr;
+  }
+
+  .qrgen-option-grid
+  .qrgen-field:last-child{
+    grid-column:auto;
+  }
+
+
+  /*
+   * ปุ่ม Refresh / Clear
+   */
+  .qrgen-actions{
+    grid-template-columns:1fr;
+  }
+
+
+  /*
+   * Copy image / Copy text
+   */
+  .qrgen-mini-tools{
+    grid-template-columns:1fr;
+  }
+
+
+  .qrgen-preview-head{
+    align-items:flex-start;
+  }
+
+  .qrgen-preview-title{
+    font-size:17px;
+  }
+
+  .qrgen-preview-status{
+    font-size:10px;
+  }
+
+
+  .qrgen-preview-box{
+    min-height:255px;
+  }
+
+  #qrgenPreviewImage{
+    max-height:245px;
+  }
+
+}
+
+
+
+/* ===== Independent detail filter layout / TeacherPR QR ===== */
+.lr-own-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0;align-items:end;}
+.lr-own-field{display:flex;flex-direction:column;gap:6px;font-size:14px;color:#41536c;min-width:0;font-weight:600;}
+.lr-own-field select,.lr-own-field input{width:100%;min-width:0;height:44px;border:1px solid #bfd1e3;border-radius:13px;padding:0 11px;background:#fff;color:#17263c;font:500 14px Kanit,sans-serif;}
+.lr-own-field select:disabled{background:#edf2f7;color:#64748b;}
+.lr-own-wide{grid-column:span 2;}
+.lr-own-actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0;}
+.lr-own-actions button:disabled{opacity:.55;cursor:not-allowed;}
+.lr-own-card .lr-view-kpis{margin:12px 0;}
+#qrgenMessage{margin-top:12px;color:#166534;overflow-wrap:anywhere;}
+#qrgenMessage[data-type="error"],#qrgenMessage[data-type="warn"]{color:#b45309;}
+@media(max-width:1050px){.lr-own-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media(max-width:520px){.lr-own-grid{grid-template-columns:1fr;}.lr-own-wide{grid-column:auto;}.lr-own-actions>button{flex:1 1 100%;}}
+
 </style>
 </head>
 
@@ -4392,10 +5041,7 @@ body{
           <div class="lr-nav-group" id="lrToolsMenu">
             <button class="leader-sidebar-link lr-parent" id="lrToolsParent" type="button" aria-expanded="false" aria-controls="lrToolsSubmenu" title="เครื่องมืออื่น ๆ"><span class="leader-sidebar-icon">⚙️</span><span>เครื่องมืออื่น ๆ</span><span class="lr-caret">⌄</span></button>
             <div class="lr-submenu" id="lrToolsSubmenu">
-              <button class="leader-sidebar-link" type="button" data-leader-page="home" title="หน้าแรก"><span class="leader-sidebar-icon">🏠</span><span>หน้าแรก</span></button>
-              <button class="leader-sidebar-link" type="button" data-leader-page="retest" title="สถิติผลการสอบแก้ตัว"><span class="leader-sidebar-icon">🧾</span><span>สถิติผลการสอบแก้ตัว</span></button>
               <button class="leader-sidebar-link" type="button" data-leader-page="qrcode" title="สร้าง QR Code"><span class="leader-sidebar-icon">▦</span><span>สร้าง QR Code</span></button>
-              <button class="leader-sidebar-link" type="button" id="leaderChangePasswordBtn" title="เปลี่ยนรหัสผ่าน"><span class="leader-sidebar-icon">🔐</span><span>เปลี่ยนรหัสผ่าน</span></button>
             </div>
           </div>
         </nav>
@@ -4468,10 +5114,6 @@ body{
     </div>
 
   </header>
-      <section class="leader-page-placeholder" id="leaderHomePage" hidden>
-        <h1>หน้าแรก LeaderPR</h1>
-        <p>พื้นที่สรุปข้อมูลสำคัญสำหรับผู้บริหารและหัวหน้างานฝ่ายวิชาการ</p>
-      </section>
 
       <section id="leaderDashboardPage">
         <div class="wrap">
@@ -4796,7 +5438,7 @@ body{
   <div class="risk-filter-head">
     <div>
       <h2 id="lrFilterTitle">เลือกข้อมูลที่ต้องการประมวลผล</h2>
-      <p>ใช้ตัวกรองร่วมกันทั้ง 4 มุมมอง</p>
+      <p>ตัวกรองนี้ใช้เฉพาะหน้าภาพรวม 0 ร มส และ มผ</p>
     </div>
     <button type="button" class="btn-secondary" id="lrCloseFilters" aria-label="ปิดตัวกรอง">✕</button>
   </div>
@@ -5185,67 +5827,444 @@ body{
       </section>
 
 <section class="lr-detail-page" id="lrPage_students" hidden>
- <section class="card lr-view-card"><div class="lr-view-head"><div><h2>มุมมองนักเรียน</h2><p>รายชื่อนักเรียนที่ยังมีรายการคงค้าง จาก RPC นักเรียนเร่งด่วนเดิม (สูงสุด 20 คน ไม่ใช่รายชื่อทั้งหมด)</p></div></div>
- <div class="lr-view-kpis" id="lrKpis_students"><div><span>จำนวนที่แสดง</span><strong>—</strong></div><div><span>รายการในชุดที่แสดง</span><strong>—</strong></div><div><span>ขอบเขต</span><strong>—</strong></div></div>
- <div class="lr-table-tools"><label>ค้นหาในชุดข้อมูล<input type="search" id="lrSearch_students" placeholder="ค้นหาชื่อหรือรหัส…"></label><label>เรียงตาม<select id="lrSort_students"><option value="subject_count">จำนวนวิชาคงค้าง</option><option value="total_records">จำนวนรายการคงค้าง</option><option value="grade_0_records">0</option><option value="grade_r_records">ร</option><option value="grade_ms_records">มส</option><option value="grade_mp_records">มผ</option></select></label><label>ลำดับ<select id="lrOrder_students"><option value="desc">มาก → น้อย</option><option value="asc">น้อย → มาก</option></select></label></div>
- <div id="lrViewStatus_students" class="lr-status" role="status" aria-live="polite">ยังไม่ได้ประมวลผล</div>
- <div class="lr-table-scroll"><table class="lr-detail-table"><thead><tr><th scope="col">ที่</th><th scope="col">นักเรียน / รหัส</th><th scope="col">ชั้น/ห้อง</th><th scope="col">0</th><th scope="col">ร</th><th scope="col">มส</th><th scope="col">มผ</th><th scope="col">รวมคงค้าง</th><th scope="col">จำนวนวิชา</th><th scope="col">รออนุมัติ</th><th scope="col">ยังไม่แก้</th></tr></thead><tbody id="lrRows_students"><tr><td colspan="11">ยังไม่ได้ประมวลผล</td></tr></tbody></table></div>
- <p class="lr-muted" id="lrFoot_students">การค้นหาและเรียงลำดับทำภายในชุดข้อมูลที่ส่งกลับเท่านั้น ไม่ใช่การจัดอันดับทั้งโรงเรียน</p>
- <div id="lrSelected_students" class="lr-selected" hidden></div>
- </section></section>
+  <section class="card lr-view-card lr-own-card">
+    <div class="lr-view-head"><div><h2>มุมมองนักเรียน</h2><p>เลือกภาคเรียนอ้างอิงและค้นหานักเรียน · นับสะสมภายในช่วง ม.ต้น หรือ ม.ปลาย</p></div></div>
+    <div class="lr-own-grid"><label class="lr-own-field" for="lr_students_year">ปีการศึกษา<select id="lr_students_year"><option value="">ทุกปีการศึกษา</option></select></label><label class="lr-own-field" for="lr_students_term">ภาคเรียน<select id="lr_students_term"><option value="">ทุกภาคเรียน</option><option value="1">1</option><option value="2">2</option></select></label><label class="lr-own-field" for="lr_students_class">ระดับชั้น<select id="lr_students_class"><option value="">ทุกระดับชั้น</option></select></label><label class="lr-own-field" for="lr_students_room">ห้องเรียน<select id="lr_students_room"><option value="">ทุกห้อง</option></select></label><label class="lr-own-field" for="lr_students_mode">ขอบเขตการนับ<select id="lr_students_mode"><option value="cumulative">สะสมตามช่วงการศึกษา</option><option value="period">เฉพาะภาคเรียนอ้างอิง</option></select></label><label class="lr-own-field" for="lr_students_status">สถานะการแก้ไข<select id="lr_students_status"><option value="">ทุกสถานะ</option><option value="outstanding">ยังมีรายการคงค้าง</option><option value="resolved">แก้สำเร็จ</option><option value="pending">รออนุมัติ</option><option value="unresolved">ยังไม่แก้</option></select></label><label class="lr-own-field lr-own-wide" for="lrSearch_students">ค้นหานักเรียน<input id="lrSearch_students" type="search" placeholder="ชื่อ–นามสกุล หรือเลขประจำตัวนักเรียน" autocomplete="off"></label><label class="lr-own-field" for="lr_students_sort">เรียงตาม<select id="lr_students_sort"><option value="outstanding">จำนวนรายการคงค้าง</option><option value="total">จำนวนรายการเสี่ยง</option><option value="name">ชื่อ/รหัสนักเรียน</option></select></label><label class="lr-own-field" for="lr_students_order">ลำดับ<select id="lr_students_order"><option value="desc">มาก → น้อย</option><option value="asc">น้อย → มาก</option></select></label></div>
+    <div class="lr-own-actions"><button class="btn-secondary" type="button" id="lrReload_students">โหลดตัวเลือก</button><button class="btn-secondary" type="button" id="lrReset_students">ล้างตัวกรอง</button><button class="btn-primary" type="button" id="lrRun_students" disabled>แสดงข้อมูล (รอเชื่อม RPC)</button></div>
+    <div id="lrViewStatus_students" class="lr-status" role="status" aria-live="polite">โหลดตัวเลือกทั่วไปได้จากระบบเดิม · ส่วนข้อมูลรายละเอียดอยู่ระหว่างเชื่อม RPC ใหม่</div>
+    <div class="lr-view-kpis"><div><span>จำนวนรายการที่แสดง</span><strong>—</strong></div><div><span>รายการกลุ่มเสี่ยง</span><strong>—</strong></div><div><span>รายการคงค้าง</span><strong>—</strong></div></div>
+    <div class="lr-table-scroll"><table class="lr-detail-table"><thead><tr><th scope="col">ที่</th><th scope="col">นักเรียน / รหัส</th><th scope="col">ชั้น/ห้อง</th><th scope="col">0</th><th scope="col">ร</th><th scope="col">มส</th><th scope="col">มผ</th><th scope="col">รวม</th><th scope="col">แก้สำเร็จ</th><th scope="col">รออนุมัติ</th><th scope="col">ยังไม่แก้</th><th scope="col">คงค้าง</th></tr></thead><tbody><tr><td colspan="12">ยังไม่ได้เชื่อม RPC รายละเอียด — ไม่ใช่ผลการค้นหา 0 รายการ</td></tr></tbody></table></div>
+    <p class="lr-note">ทุกปี / ทุกภาคเรียน ใช้ภาคเรียนล่าสุดที่มีข้อมูลเป็นจุดอ้างอิง · ไม่จำกัดประวัตินักเรียนที่ 4 ปี · ไม่รวมประวัติข้ามช่วง ม.ต้น–ม.ปลาย</p>
+  </section>
+</section>
 <section class="lr-detail-page" id="lrPage_teachers" hidden>
- <section class="card lr-view-card"><div class="lr-view-head"><div><h2>มุมมองครูผู้สอน</h2><p>เตรียมโครงสร้างสำหรับเปรียบเทียบครูตามรายวิชา ห้องเรียน จำนวนผลการเรียน และอัตราความเสี่ยง</p></div></div>
- <div class="lr-view-kpis" id="lrKpis_teachers"><div><span>จำนวนที่แสดง</span><strong>—</strong></div><div><span>รายการในชุดที่แสดง</span><strong>—</strong></div><div><span>ขอบเขต</span><strong>—</strong></div></div>
- <div class="lr-table-tools"><label>ค้นหาในชุดข้อมูล<input type="search" id="lrSearch_teachers" placeholder="ค้นหาชื่อหรือรหัส…" disabled></label><label>เรียงตาม<select id="lrSort_teachers" disabled><option value="total_records">จำนวนรายการเสี่ยง</option><option value="rate">อัตราความเสี่ยง</option><option value="grade_0_records">0</option><option value="grade_r_records">ร</option><option value="grade_ms_records">มส</option><option value="grade_mp_records">มผ</option></select></label><label>ลำดับ<select id="lrOrder_teachers" disabled><option value="desc">มาก → น้อย</option><option value="asc">น้อย → มาก</option></select></label></div>
- <div id="lrViewStatus_teachers" class="lr-status" role="status" aria-live="polite">ยังไม่มี RPC สรุปรายครูที่ยืนยันได้ จึงยังไม่แสดงตัวเลขหรืออันดับ</div>
- <div class="lr-table-scroll"><table class="lr-detail-table"><thead><tr><th scope="col">อันดับ</th><th scope="col">ครูผู้สอน</th><th scope="col">จำนวนวิชา</th><th scope="col">ผลการเรียนทั้งหมด</th><th scope="col">0</th><th scope="col">ร</th><th scope="col">มส</th><th scope="col">มผ</th><th scope="col">รวม</th><th scope="col">คงค้าง</th><th scope="col">อัตราความเสี่ยง</th></tr></thead><tbody id="lrRows_teachers"><tr><td colspan="11">ยังไม่มี RPC สรุปรายครูที่ยืนยันได้ จึงยังไม่แสดงตัวเลขหรืออันดับ</td></tr></tbody></table></div>
- <p class="lr-muted" id="lrFoot_teachers">ส่วนรายละเอียดครูและอัตราความเสี่ยงต้องใช้ RPC ใหม่ที่มีตัวหารเป็นผลการเรียนทั้งหมด</p>
- <div id="lrSelected_teachers" class="lr-selected" hidden></div>
- </section></section>
+  <section class="card lr-view-card lr-own-card">
+    <div class="lr-view-head"><div><h2>มุมมองครูผู้สอน</h2><p>กรองกลุ่มสาระแล้วเลือกครูผู้สอน · จัดอันดับหรือแจกแจงผลการเรียนตาม Offering</p></div></div>
+    <div class="lr-own-grid"><label class="lr-own-field" for="lr_teachers_area">กลุ่มสาระการเรียนรู้<select id="lr_teachers_area"><option value="">ทุกกลุ่มสาระ</option></select></label><label class="lr-own-field" for="lr_teachers_entity">ครูผู้สอน<select id="lr_teachers_entity" disabled><option value="">ทุกครูผู้สอน (รอ RPC รายชื่อ)</option></select></label><label class="lr-own-field" for="lr_teachers_year">ปีการศึกษา<select id="lr_teachers_year"><option value="">ทุกปีในช่วง 4 ปีล่าสุด</option></select></label><label class="lr-own-field" for="lr_teachers_term">ภาคเรียน<select id="lr_teachers_term"><option value="">ทุกภาคเรียน</option><option value="1">1</option><option value="2">2</option></select></label><label class="lr-own-field" for="lr_teachers_class">ระดับชั้น<select id="lr_teachers_class"><option value="">ทุกระดับชั้น</option></select></label><label class="lr-own-field" for="lr_teachers_room">ห้องเรียน<select id="lr_teachers_room"><option value="">ทุกห้อง</option></select></label><label class="lr-own-field" for="lr_teachers_type">ประเภทวิชา<select id="lr_teachers_type"><option value="">ทุกประเภท</option></select></label><label class="lr-own-field" for="lr_teachers_status">สถานะการแก้ไข<select id="lr_teachers_status"><option value="">ทุกสถานะ</option><option value="outstanding">ยังมีรายการคงค้าง</option><option value="resolved">แก้สำเร็จ</option><option value="pending">รออนุมัติ</option><option value="unresolved">ยังไม่แก้</option></select></label><label class="lr-own-field" for="lr_teachers_group">การแสดงผล<select id="lr_teachers_group"><option value="summary">สรุปและจัดอันดับ</option><option value="offering">แยกตาม Offering</option></select></label><label class="lr-own-field" for="lr_teachers_sort">เรียงตาม<select id="lr_teachers_sort"><option value="total">จำนวนรายการเสี่ยง</option><option value="rate">ร้อยละรายการเสี่ยง</option><option value="outstanding">จำนวนรายการคงค้าง</option><option value="grade_0">จำนวน 0</option><option value="grade_r">จำนวน ร</option><option value="grade_ms">จำนวน มส</option><option value="grade_mp">จำนวน มผ</option></select></label><label class="lr-own-field" for="lr_teachers_order">ลำดับ<select id="lr_teachers_order"><option value="desc">มาก → น้อย</option><option value="asc">น้อย → มาก</option></select></label></div>
+    <div class="lr-own-actions"><button class="btn-secondary" type="button" id="lrReload_teachers">โหลดตัวเลือก</button><button class="btn-secondary" type="button" id="lrReset_teachers">ล้างตัวกรอง</button><button class="btn-primary" type="button" id="lrRun_teachers" disabled>แสดงข้อมูล (รอเชื่อม RPC)</button></div>
+    <div id="lrViewStatus_teachers" class="lr-status" role="status" aria-live="polite">โหลดตัวเลือกทั่วไปได้จากระบบเดิม · ส่วนข้อมูลรายละเอียดอยู่ระหว่างเชื่อม RPC ใหม่</div>
+    <div class="lr-view-kpis"><div><span>จำนวนรายการที่แสดง</span><strong>—</strong></div><div><span>รายการกลุ่มเสี่ยง</span><strong>—</strong></div><div><span>รายการคงค้าง</span><strong>—</strong></div></div>
+    <div class="lr-table-scroll"><table class="lr-detail-table"><thead><tr><th scope="col">ที่</th><th scope="col">ครูผู้สอน</th><th scope="col">ปี–ภาค</th><th scope="col">รหัส / ชื่อวิชา</th><th scope="col">ชั้น/ห้อง</th><th scope="col">ผลการเรียนทั้งหมด</th><th scope="col">0</th><th scope="col">ร</th><th scope="col">มส</th><th scope="col">มผ</th><th scope="col">รวม</th><th scope="col">คงค้าง</th><th scope="col">ร้อยละ</th></tr></thead><tbody><tr><td colspan="13">ยังไม่ได้เชื่อม RPC รายละเอียด — ไม่ใช่ผลการค้นหา 0 รายการ</td></tr></tbody></table></div>
+    <p class="lr-note">แสดงเฉพาะ 4 ปีการศึกษาล่าสุดตามข้อมูลจริง · รายการเก่ายังคงอยู่ในฐานข้อมูล · อัตรารายการเสี่ยงใช้จำนวนผลการเรียนที่รายงานแล้วเป็นตัวหาร</p>
+  </section>
+</section>
 <section class="lr-detail-page" id="lrPage_subjects" hidden>
- <section class="card lr-view-card"><div class="lr-view-head"><div><h2>มุมมองรายวิชา</h2><p>รายวิชาที่มีรายการเสี่ยงมากที่สุด จาก RPC Top Subjects เดิม (สูงสุด 10 วิชา ไม่ใช่อันดับทุกรายวิชา)</p></div></div>
- <div class="lr-view-kpis" id="lrKpis_subjects"><div><span>จำนวนที่แสดง</span><strong>—</strong></div><div><span>รายการในชุดที่แสดง</span><strong>—</strong></div><div><span>ขอบเขต</span><strong>—</strong></div></div>
- <div class="lr-table-tools"><label>ค้นหาในชุดข้อมูล<input type="search" id="lrSearch_subjects" placeholder="ค้นหาชื่อหรือรหัส…"></label><label>เรียงตาม<select id="lrSort_subjects"><option value="total_records">จำนวนรายการเสี่ยง</option><option value="unique_students">นักเรียนไม่ซ้ำ</option><option value="grade_0_records">0</option><option value="grade_r_records">ร</option><option value="grade_ms_records">มส</option><option value="grade_mp_records">มผ</option></select></label><label>ลำดับ<select id="lrOrder_subjects"><option value="desc">มาก → น้อย</option><option value="asc">น้อย → มาก</option></select></label></div>
- <div id="lrViewStatus_subjects" class="lr-status" role="status" aria-live="polite">ยังไม่ได้ประมวลผล</div>
- <div class="lr-table-scroll"><table class="lr-detail-table"><thead><tr><th scope="col">ที่</th><th scope="col">รหัส / ชื่อวิชา</th><th scope="col">นักเรียนไม่ซ้ำ</th><th scope="col">0</th><th scope="col">ร</th><th scope="col">มส</th><th scope="col">มผ</th><th scope="col">รวม</th><th scope="col">แก้สำเร็จ</th><th scope="col">รออนุมัติ</th><th scope="col">ยังไม่แก้</th></tr></thead><tbody id="lrRows_subjects"><tr><td colspan="11">ยังไม่ได้ประมวลผล</td></tr></tbody></table></div>
- <p class="lr-muted" id="lrFoot_subjects">การค้นหาและเรียงลำดับทำภายในชุดข้อมูลที่ส่งกลับเท่านั้น ไม่ใช่การจัดอันดับทั้งโรงเรียน</p>
- <div id="lrSelected_subjects" class="lr-selected" hidden></div>
- </section></section>
-      <section class="leader-qr-page" id="leaderQrPage" hidden>
-        <div class="leader-qr-shell">
-          <section class="leader-qr-card">
-            <div class="leader-qr-head">
-              <div class="leader-qr-head-icon">🔳</div>
-              <div><h2>QR Code Generator</h2><p>สร้าง QR Code จากลิงก์หรือข้อความ แล้วดาวน์โหลดเป็นไฟล์ PNG ได้ทันที</p></div>
-            </div>
-            <div class="leader-qr-field">
-              <label for="leaderQrText">ลิงก์หรือข้อความ</label>
-              <textarea id="leaderQrText" class="leader-qr-textarea" maxlength="2000" placeholder="เช่น https://example.com หรือข้อความที่ต้องการสร้าง QR Code"></textarea>
-              <div class="leader-qr-helper-row"><span>รองรับทั้ง URL และข้อความทั่วไป</span><span id="leaderQrCharCount">0 / 2000</span></div>
-            </div>
-            <div class="leader-qr-inline-actions">
-              <button class="leader-qr-btn leader-qr-secondary" id="leaderQrUseCurrentUrlBtn" type="button">🔗 ใช้ลิงก์หน้านี้</button>
-              <button class="leader-qr-btn leader-qr-secondary" id="leaderQrPasteBtn" type="button">📋 วางจากคลิปบอร์ด</button>
-            </div>
-            <div class="leader-qr-option-row">
-              <div class="leader-qr-field" style="margin-bottom:0;"><label for="leaderQrSize">ขนาด QR Code</label><select id="leaderQrSize" class="leader-qr-select"><option value="220">220 × 220 px</option><option value="300" selected>300 × 300 px</option><option value="400">400 × 400 px</option><option value="500">500 × 500 px</option></select></div>
-            </div>
-            <div class="leader-qr-actions"><button class="leader-qr-btn leader-qr-secondary" id="leaderQrClearBtn" type="button">ล้างข้อมูล</button><button class="leader-qr-btn leader-qr-generate" id="leaderQrGenerateBtn" type="button">สร้าง QR Code</button></div>
-            <div id="leaderQrStatus" class="leader-qr-status" role="status" aria-live="polite"></div>
-          </section>
-          <section class="leader-qr-card leader-qr-preview-card">
-            <div class="leader-qr-head"><div class="leader-qr-head-icon">👁️</div><div><h2>ตัวอย่าง QR Code</h2><p>ตรวจสอบก่อนดาวน์โหลดและนำไปใช้งาน</p></div></div>
-            <div class="leader-qr-preview-stage"><div class="leader-qr-empty" id="leaderQrEmpty"><span class="leader-qr-empty-icon">▦</span>กรอกลิงก์หรือข้อความด้านซ้าย แล้วกด “สร้าง QR Code”</div><div id="leaderQrCode" hidden aria-label="QR Code ที่สร้างแล้ว"></div></div>
-            <div class="leader-qr-value-preview" id="leaderQrValuePreview">ยังไม่ได้สร้าง QR Code</div>
-            <button class="leader-qr-btn leader-qr-download" id="leaderQrDownloadBtn" type="button" disabled>⬇ ดาวน์โหลด PNG</button>
-          </section>
-        </div>
-      </section>
+  <section class="card lr-view-card lr-own-card">
+    <div class="lr-view-head"><div><h2>มุมมองรายวิชา</h2><p>กรองกลุ่มสาระแล้วเลือกรายวิชา · จัดอันดับหรือแจกแจงผลการเรียนตาม Offering</p></div></div>
+    <div class="lr-own-grid"><label class="lr-own-field" for="lr_subjects_area">กลุ่มสาระการเรียนรู้<select id="lr_subjects_area"><option value="">ทุกกลุ่มสาระ</option></select></label><label class="lr-own-field" for="lr_subjects_entity">รายวิชา<select id="lr_subjects_entity" disabled><option value="">ทุกรายวิชา (รอ RPC รายชื่อ)</option></select></label><label class="lr-own-field" for="lr_subjects_year">ปีการศึกษา<select id="lr_subjects_year"><option value="">ทุกปีในช่วง 4 ปีล่าสุด</option></select></label><label class="lr-own-field" for="lr_subjects_term">ภาคเรียน<select id="lr_subjects_term"><option value="">ทุกภาคเรียน</option><option value="1">1</option><option value="2">2</option></select></label><label class="lr-own-field" for="lr_subjects_class">ระดับชั้น<select id="lr_subjects_class"><option value="">ทุกระดับชั้น</option></select></label><label class="lr-own-field" for="lr_subjects_room">ห้องเรียน<select id="lr_subjects_room"><option value="">ทุกห้อง</option></select></label><label class="lr-own-field" for="lr_subjects_type">ประเภทวิชา<select id="lr_subjects_type"><option value="">ทุกประเภท</option></select></label><label class="lr-own-field" for="lr_subjects_status">สถานะการแก้ไข<select id="lr_subjects_status"><option value="">ทุกสถานะ</option><option value="outstanding">ยังมีรายการคงค้าง</option><option value="resolved">แก้สำเร็จ</option><option value="pending">รออนุมัติ</option><option value="unresolved">ยังไม่แก้</option></select></label><label class="lr-own-field" for="lr_subjects_group">การแสดงผล<select id="lr_subjects_group"><option value="summary">สรุปและจัดอันดับ</option><option value="offering">แยกตาม Offering</option></select></label><label class="lr-own-field" for="lr_subjects_sort">เรียงตาม<select id="lr_subjects_sort"><option value="total">จำนวนรายการเสี่ยง</option><option value="rate">ร้อยละรายการเสี่ยง</option><option value="outstanding">จำนวนรายการคงค้าง</option><option value="grade_0">จำนวน 0</option><option value="grade_r">จำนวน ร</option><option value="grade_ms">จำนวน มส</option><option value="grade_mp">จำนวน มผ</option></select></label><label class="lr-own-field" for="lr_subjects_order">ลำดับ<select id="lr_subjects_order"><option value="desc">มาก → น้อย</option><option value="asc">น้อย → มาก</option></select></label></div>
+    <div class="lr-own-actions"><button class="btn-secondary" type="button" id="lrReload_subjects">โหลดตัวเลือก</button><button class="btn-secondary" type="button" id="lrReset_subjects">ล้างตัวกรอง</button><button class="btn-primary" type="button" id="lrRun_subjects" disabled>แสดงข้อมูล (รอเชื่อม RPC)</button></div>
+    <div id="lrViewStatus_subjects" class="lr-status" role="status" aria-live="polite">โหลดตัวเลือกทั่วไปได้จากระบบเดิม · ส่วนข้อมูลรายละเอียดอยู่ระหว่างเชื่อม RPC ใหม่</div>
+    <div class="lr-view-kpis"><div><span>จำนวนรายการที่แสดง</span><strong>—</strong></div><div><span>รายการกลุ่มเสี่ยง</span><strong>—</strong></div><div><span>รายการคงค้าง</span><strong>—</strong></div></div>
+    <div class="lr-table-scroll"><table class="lr-detail-table"><thead><tr><th scope="col">ที่</th><th scope="col">ครูผู้สอน</th><th scope="col">ปี–ภาค</th><th scope="col">รหัส / ชื่อวิชา</th><th scope="col">ชั้น/ห้อง</th><th scope="col">ผลการเรียนทั้งหมด</th><th scope="col">0</th><th scope="col">ร</th><th scope="col">มส</th><th scope="col">มผ</th><th scope="col">รวม</th><th scope="col">คงค้าง</th><th scope="col">ร้อยละ</th></tr></thead><tbody><tr><td colspan="13">ยังไม่ได้เชื่อม RPC รายละเอียด — ไม่ใช่ผลการค้นหา 0 รายการ</td></tr></tbody></table></div>
+    <p class="lr-note">แสดงเฉพาะ 4 ปีการศึกษาล่าสุดตามข้อมูลจริง · รายการเก่ายังคงอยู่ในฐานข้อมูล · อัตรารายการเสี่ยงใช้จำนวนผลการเรียนที่รายงานแล้วเป็นตัวหาร</p>
+  </section>
+</section>
+<div id="pageQrGenerator" hidden>
 
-      <section class="leader-page-placeholder" id="leaderRetestPage" hidden>
-        <h1>สถิติผลการสอบแก้ตัว</h1>
-        <p>เมนูพร้อมแล้ว ขั้นถัดไปจะเชื่อม KPI กราฟ ตัวกรอง และตารางรายละเอียดจาก Supabase</p>
-      </section>
+  <div class="qrgen-layout">
+
+    <!-- ================= LEFT ================= -->
+    <section class="qrgen-panel">
+
+      <div class="qrgen-heading">
+        <h2>QR Code Generator</h2>
+        <p>
+          สร้าง QR Code สำหรับลิงก์ เอกสาร แบบฝึกหัด
+          และสื่อการเรียนรู้ พร้อมดาวน์โหลดเป็นไฟล์ PNG
+        </p>
+      </div>
+
+      <!-- ข้อมูลหลัก -->
+      <div class="qrgen-field">
+        <label class="qrgen-label" for="qrgenText">
+          ข้อความ / ลิงก์ / ข้อมูล
+        </label>
+
+        <input
+          type="text"
+          id="qrgenText"
+          class="qrgen-input"
+          placeholder="วางลิงก์ หรือพิมพ์ข้อความที่ต้องการสร้าง QR Code"
+        >
+
+        <div class="qrgen-muted">
+          พิมพ์ข้อความหรือวางลิงก์ แล้วระบบจะแสดงตัวอย่างให้อัตโนมัติ
+        </div>
+      </div>
+
+
+      <!-- Caption -->
+      <div class="qrgen-field">
+
+        <div class="qrgen-toggle-row">
+          <input type="checkbox" id="qrgenShowCaption">
+
+          <label for="qrgenShowCaption">
+            แสดงข้อความใต้ QR Code
+          </label>
+        </div>
+
+        <div class="qrgen-caption-grid">
+
+          <div class="qrgen-field" style="margin-bottom:0;">
+            <label
+              class="qrgen-label"
+              for="qrgenCaptionText"
+            >
+              ข้อความใต้ QR
+            </label>
+
+            <input
+              type="text"
+              id="qrgenCaptionText"
+              class="qrgen-input"
+              placeholder="ข้อความใต้ QR Code"
+              disabled
+            >
+          </div>
+
+
+          <div class="qrgen-field" style="margin-bottom:0;">
+            <label
+              class="qrgen-label"
+              for="qrgenCaptionFontSize"
+            >
+              ขนาดตัวอักษร
+            </label>
+
+            <select
+              id="qrgenCaptionFontSize"
+              class="qrgen-select"
+              disabled
+            >
+              <option value="16">16 px</option>
+              <option value="18">18 px</option>
+              <option value="20" selected>20 px</option>
+              <option value="24">24 px</option>
+              <option value="28">28 px</option>
+              <option value="32">32 px</option>
+              <option value="36">36 px</option>
+              <option value="40">40 px</option>
+              <option value="48">48 px</option>
+              <option value="56">56 px</option>
+              <option value="64">64 px</option>
+              <option value="72">72 px</option>
+              <option value="84">84 px</option>
+              <option value="96">96 px</option>
+              <option value="108">108 px</option>
+              <option value="120">120 px</option>
+              <option value="132">132 px</option>
+              <option value="144">144 px</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="qrgen-muted">
+          หากไม่กรอกข้อความ ระบบจะใช้ข้อความจากช่องหลักแทน
+          และแสดงสูงสุดไม่เกิน 4 บรรทัด
+        </div>
+
+      </div>
+
+
+      <!-- Logo -->
+      <div class="qrgen-field">
+
+        <div class="qrgen-toggle-row">
+
+          <input
+            type="checkbox"
+            id="qrgenShowCenterLogo"
+          >
+
+          <label for="qrgenShowCenterLogo">
+            ใส่โลโก้ / รูปตรงกลาง QR Code
+          </label>
+
+        </div>
+
+
+        <div
+          id="qrgenLogoOptionsBox"
+          class="qrgen-subcard qrgen-disabled"
+        >
+
+          <div class="qrgen-radio-row">
+
+            <label class="qrgen-radio-item">
+              <input
+                type="radio"
+                name="qrgenLogoMode"
+                id="qrgenLogoModeSchool"
+                value="school"
+                checked
+              >
+              ใช้โลโก้โรงเรียน
+            </label>
+
+
+            <label class="qrgen-radio-item">
+              <input
+                type="radio"
+                name="qrgenLogoMode"
+                id="qrgenLogoModeUpload"
+                value="upload"
+              >
+              อัปโหลดรูปของตนเอง
+            </label>
+
+          </div>
+
+
+          <div
+            id="qrgenUploadBox"
+            class="qrgen-field qrgen-disabled"
+            style="margin-top:12px;margin-bottom:0;"
+          >
+
+            <label
+              class="qrgen-label"
+              for="qrgenLogoUpload"
+            >
+              อัปโหลดรูป
+            </label>
+
+            <input
+              type="file"
+              id="qrgenLogoUpload"
+              class="qrgen-file-input"
+              accept="image/png,image/jpeg,image/webp,image/svg+xml"
+              disabled
+            >
+
+            <div class="qrgen-muted">
+              รองรับ PNG, JPG, WEBP และ SVG ขนาดไม่เกิน 5 MB
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- OPTIONS -->
+      <div class="qrgen-option-grid">
+
+        <div class="qrgen-field" style="margin-bottom:0;">
+
+          <label
+            class="qrgen-label"
+            for="qrgenSize"
+          >
+            ขนาด QR
+          </label>
+
+          <select
+            id="qrgenSize"
+            class="qrgen-select"
+          >
+            <option value="300">300 px</option>
+            <option value="400" selected>400 px</option>
+            <option value="500">500 px</option>
+            <option value="700">700 px</option>
+          </select>
+
+        </div>
+
+
+        <div class="qrgen-field" style="margin-bottom:0;">
+
+          <label
+            class="qrgen-label"
+            for="qrgenDarkColor"
+          >
+            สี QR
+          </label>
+
+          <input
+            type="color"
+            id="qrgenDarkColor"
+            class="qrgen-color"
+            value="#000000"
+          >
+
+        </div>
+
+
+        <div class="qrgen-field" style="margin-bottom:0;">
+
+          <label
+            class="qrgen-label"
+            for="qrgenBgColor"
+          >
+            สีพื้นหลัง
+          </label>
+
+          <input
+            type="color"
+            id="qrgenBgColor"
+            class="qrgen-color"
+            value="#ffffff"
+          >
+
+        </div>
+
+
+        <div class="qrgen-field" style="margin-bottom:0;">
+
+          <label
+            class="qrgen-label"
+            for="qrgenFileName"
+          >
+            ชื่อไฟล์
+          </label>
+
+          <input
+            type="text"
+            id="qrgenFileName"
+            class="qrgen-input"
+            placeholder="เช่น qr-code"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- Transparent -->
+      <div
+        class="qrgen-field"
+        style="margin-top:14px;margin-bottom:0;"
+      >
+
+        <div class="qrgen-toggle-row">
+
+          <input
+            type="checkbox"
+            id="qrgenTransparentBg"
+          >
+
+          <label for="qrgenTransparentBg">
+            พื้นหลังโปร่งใส
+          </label>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTION -->
+      <div class="qrgen-actions">
+
+        <button
+          type="button"
+          id="qrgenGenerateBtn"
+          class="qrgen-btn qrgen-btn-primary"
+        >
+          🔄 รีเฟรช QR
+        </button>
+
+
+        <button
+          type="button"
+          id="qrgenClearBtn"
+          class="qrgen-btn qrgen-btn-secondary"
+        >
+          ล้างข้อมูล
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= RIGHT ================= -->
+    <aside class="qrgen-preview-card">
+
+      <div class="qrgen-preview-head">
+
+        <h3 class="qrgen-preview-title">
+          ตัวอย่าง QR Code
+        </h3>
+
+        <div
+          id="qrgenPreviewStatus"
+          class="qrgen-preview-status"
+        >
+          ยังไม่มีตัวอย่าง
+        </div>
+
+      </div>
+
+
+      <div class="qrgen-preview-box">
+
+        <div
+          id="qrgenPlaceholder"
+          class="qrgen-placeholder"
+        >
+          <div class="qrgen-placeholder-icon">
+            🔳
+          </div>
+
+          พิมพ์ข้อความหรือลิงก์ด้านซ้าย<br>
+          แล้วตัวอย่าง QR Code จะขึ้นทันที
+        </div>
+
+
+        <img
+          id="qrgenPreviewImage"
+          alt="QR Code Preview"
+        >
+
+      </div>
+
+
+      <button
+        type="button"
+        id="qrgenDownloadBtn"
+        class="qrgen-btn qrgen-btn-primary qrgen-download"
+      >
+        ⬇️ ดาวน์โหลด PNG
+      </button>
+
+
+      <div class="qrgen-mini-tools">
+
+        <button
+          type="button"
+          id="qrgenCopyImageBtn"
+          class="qrgen-btn qrgen-btn-secondary"
+        >
+          📋 คัดลอกรูป
+        </button>
+
+
+        <button
+          type="button"
+          id="qrgenCopyTextBtn"
+          class="qrgen-btn qrgen-btn-secondary"
+        >
+          🔗 คัดลอกข้อความ
+        </button>
+
+      </div>
+
+
+      <div id="qrgenMessage" class="qrgen-muted" role="status" aria-live="polite"></div>
+      <div class="qrgen-footer-note">
+        ระบบใช้ Error Correction ระดับสูง<br>
+        เพื่อช่วยให้ QR Code ยังคงสแกนได้ดีเมื่อมีโลโก้ตรงกลาง
+      </div>
+
+    </aside>
+
+  </div>
+
+</div>
+
     </main>
   </div>
 
@@ -6771,122 +7790,1717 @@ function renderDashboard(){
   // ================================
   // LeaderPR QR Code Generator
   // ================================
-  function setLeaderQrStatus(message = '', type = ''){
-    const node = document.getElementById('leaderQrStatus');
-    if(!node) return;
-    node.className = 'leader-qr-status';
-    if(type) node.classList.add(type);
-    node.textContent = message;
+const QRGEN_SCHOOL_LOGO_URL = './assets/school-logo.png';
+const QRGEN_MAX_UPLOAD_SIZE = 5 * 1024 * 1024;
+const QRGEN_MAX_CAPTION_LINES = 4;
+
+let qrgenUploadedLogoData = null;
+let qrgenGeneratedDataURL = null;
+let qrgenRenderTimer = null;
+let qrgenRenderToken = 0;
+let qrgenInitialized = false;
+let qrgenUploadGeneration=0;
+
+
+/* =====================================================
+   BASIC HELPERS
+   ===================================================== */
+
+function qrgenEl(id){
+  return document.getElementById(id);
+}
+
+
+function qrgenNotify(title, text, type = 'success'){
+  const node=qrgenEl('qrgenMessage');
+  if(node){node.textContent=title+' — '+text;node.dataset.type=type;}
+}
+
+
+function qrgenSetPreviewStatus(text){
+  const node = qrgenEl('qrgenPreviewStatus');
+
+  if(node){
+    node.textContent = text;
   }
+}
 
-  function updateLeaderQrCharCount(){
-    const input = document.getElementById('leaderQrText');
-    const counter = document.getElementById('leaderQrCharCount');
-    if(input && counter) counter.textContent = `${input.value.length} / 2000`;
-  }
 
-  function resetLeaderQrPreview(){
-    const box = document.getElementById('leaderQrCode');
-    const empty = document.getElementById('leaderQrEmpty');
-    const preview = document.getElementById('leaderQrValuePreview');
-    const downloadBtn = document.getElementById('leaderQrDownloadBtn');
-    if(box){ box.innerHTML = ''; box.hidden = true; }
-    if(empty) empty.hidden = false;
-    if(preview) preview.textContent = 'ยังไม่ได้สร้าง QR Code';
-    if(downloadBtn) downloadBtn.disabled = true;
-  }
+function qrgenGetSelectedLogoMode(){
+  const selected = document.querySelector(
+    'input[name="qrgenLogoMode"]:checked'
+  );
 
-  function clearLeaderQrGenerator(){
-    const input = document.getElementById('leaderQrText');
-    if(input) input.value = '';
-    updateLeaderQrCharCount();
-    resetLeaderQrPreview();
-    setLeaderQrStatus();
-    input?.focus();
-  }
+  return selected ? selected.value : 'school';
+}
 
-  function generateLeaderQrCode(){
-    const input = document.getElementById('leaderQrText');
-    const sizeSelect = document.getElementById('leaderQrSize');
-    const box = document.getElementById('leaderQrCode');
-    const empty = document.getElementById('leaderQrEmpty');
-    const preview = document.getElementById('leaderQrValuePreview');
-    const downloadBtn = document.getElementById('leaderQrDownloadBtn');
-    const value = String(input?.value || '').trim();
-    const size = Number(sizeSelect?.value || 300);
 
-    if(!value){
-      setLeaderQrStatus('กรุณากรอกลิงก์หรือข้อความก่อนสร้าง QR Code', 'error');
-      input?.focus();
-      return;
-    }
-    if(typeof QRCode === 'undefined'){
-      setLeaderQrStatus('ไม่สามารถโหลดตัวสร้าง QR Code ได้ กรุณาตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'error');
-      return;
-    }
+/* =====================================================
+   UI STATE
+   ===================================================== */
 
-    try{
-      if(box){ box.innerHTML = ''; box.hidden = false; }
-      if(empty) empty.hidden = true;
-      new QRCode(box, { text:value, width:size, height:size, colorDark:'#17263c', colorLight:'#ffffff', correctLevel:QRCode.CorrectLevel.M });
-      if(preview) preview.textContent = value;
-      if(downloadBtn) downloadBtn.disabled = false;
-      setLeaderQrStatus('สร้าง QR Code สำเร็จแล้ว', 'success');
-    }catch(error){
-      console.error('LeaderPR QR generation error', error);
-      resetLeaderQrPreview();
-      setLeaderQrStatus(error?.message || 'สร้าง QR Code ไม่สำเร็จ', 'error');
-    }
-  }
+function qrgenUpdateCaptionUI(){
+  const enabled =
+    qrgenEl('qrgenShowCaption')?.checked === true;
 
-  function downloadLeaderQrCode(){
-    const box = document.getElementById('leaderQrCode');
-    if(!box) return;
-    const canvas = box.querySelector('canvas');
-    const image = box.querySelector('img');
-    const dataUrl = canvas?.toDataURL('image/png') || image?.src || '';
-    if(!dataUrl){ setLeaderQrStatus('ยังไม่มี QR Code สำหรับดาวน์โหลด', 'error'); return; }
-    const link = document.createElement('a');
-    link.href = dataUrl;
-    link.download = `LeaderPR_QR_${Date.now()}.png`;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    setLeaderQrStatus('ดาวน์โหลด QR Code แล้ว', 'success');
-  }
+  const captionInput =
+    qrgenEl('qrgenCaptionText');
 
-  async function pasteLeaderQrText(){
-    const input = document.getElementById('leaderQrText');
-    if(!input) return;
-    try{
-      if(!navigator.clipboard?.readText) throw new Error('เบราว์เซอร์นี้ไม่รองรับการอ่านคลิปบอร์ดอัตโนมัติ');
-      const value = await navigator.clipboard.readText();
-      input.value = value || '';
-      updateLeaderQrCharCount();
-      setLeaderQrStatus(value ? 'วางข้อความจากคลิปบอร์ดแล้ว' : 'ไม่พบข้อความในคลิปบอร์ด', value ? 'info' : 'error');
-      input.focus();
-    }catch(error){
-      setLeaderQrStatus(error?.message || 'ไม่สามารถอ่านคลิปบอร์ดได้', 'error');
-      input.focus();
+  const fontSize =
+    qrgenEl('qrgenCaptionFontSize');
+
+  if(captionInput){
+    captionInput.disabled = !enabled;
+
+    if(!enabled){
+      captionInput.value = '';
     }
   }
 
-  document.getElementById('leaderQrText')?.addEventListener('input', () => { updateLeaderQrCharCount(); setLeaderQrStatus(); });
-  document.getElementById('leaderQrText')?.addEventListener('keydown', event => { if((event.ctrlKey || event.metaKey) && event.key === 'Enter'){ event.preventDefault(); generateLeaderQrCode(); } });
-  document.getElementById('leaderQrGenerateBtn')?.addEventListener('click', generateLeaderQrCode);
-  document.getElementById('leaderQrClearBtn')?.addEventListener('click', clearLeaderQrGenerator);
-  document.getElementById('leaderQrDownloadBtn')?.addEventListener('click', downloadLeaderQrCode);
-  document.getElementById('leaderQrPasteBtn')?.addEventListener('click', pasteLeaderQrText);
-  document.getElementById('leaderQrUseCurrentUrlBtn')?.addEventListener('click', () => {
-    const input = document.getElementById('leaderQrText');
-    if(!input) return;
-    input.value = window.location.href;
-    updateLeaderQrCharCount();
-    setLeaderQrStatus('ใส่ลิงก์หน้าปัจจุบันแล้ว', 'info');
-    input.focus();
+  if(fontSize){
+    fontSize.disabled = !enabled;
+  }
+}
+
+
+function qrgenUpdateLogoUI(){
+
+  const enabled =
+    qrgenEl('qrgenShowCenterLogo')?.checked === true;
+
+  const mode =
+    qrgenGetSelectedLogoMode();
+
+  const optionsBox =
+    qrgenEl('qrgenLogoOptionsBox');
+
+  const uploadBox =
+    qrgenEl('qrgenUploadBox');
+
+  const uploadInput =
+    qrgenEl('qrgenLogoUpload');
+
+
+  optionsBox?.classList.toggle(
+    'qrgen-disabled',
+    !enabled
+  );
+
+
+  const uploadEnabled =
+    enabled && mode === 'upload';
+
+
+  uploadBox?.classList.toggle(
+    'qrgen-disabled',
+    !uploadEnabled
+  );
+
+
+  if(uploadInput){
+    uploadInput.disabled = !uploadEnabled;
+  }
+}
+
+
+function qrgenUpdateBackgroundUI(){
+
+  const transparent =
+    qrgenEl('qrgenTransparentBg')?.checked === true;
+
+  const bgColor =
+    qrgenEl('qrgenBgColor');
+
+  if(bgColor){
+    bgColor.disabled = transparent;
+  }
+}
+
+
+/* =====================================================
+   PREVIEW
+   ===================================================== */
+
+function qrgenResetPreview(){
+
+  qrgenRenderToken++;
+
+  qrgenGeneratedDataURL = null;
+
+  const image =
+    qrgenEl('qrgenPreviewImage');
+
+  const placeholder =
+    qrgenEl('qrgenPlaceholder');
+
+
+  if(image){
+    image.style.display = 'none';
+    image.removeAttribute('src');
+  }
+
+  if(placeholder){
+    placeholder.style.display = 'block';
+  }
+
+  qrgenSetPreviewStatus('ยังไม่มีตัวอย่าง');
+}
+
+
+function qrgenDebounceGenerate(){
+  qrgenResetPreview();
+
+  clearTimeout(qrgenRenderTimer);
+
+  qrgenRenderTimer = setTimeout(() => {
+
+    const text =
+      qrgenEl('qrgenText')?.value.trim() || '';
+
+    if(text){
+      qrgenGenerateQRCode();
+    }else{
+      qrgenResetPreview();
+    }
+
+  }, 180);
+}
+
+
+/* =====================================================
+   CLEAR
+   ===================================================== */
+
+function qrgenClearAll(){
+  clearTimeout(qrgenRenderTimer);
+  qrgenUploadGeneration++;
+  const message=qrgenEl('qrgenMessage'); if(message)message.textContent='';
+
+  const text =
+    qrgenEl('qrgenText');
+
+  const caption =
+    qrgenEl('qrgenCaptionText');
+
+  const showCaption =
+    qrgenEl('qrgenShowCaption');
+
+  const captionFont =
+    qrgenEl('qrgenCaptionFontSize');
+
+  const showLogo =
+    qrgenEl('qrgenShowCenterLogo');
+
+  const schoolLogo =
+    qrgenEl('qrgenLogoModeSchool');
+
+  const upload =
+    qrgenEl('qrgenLogoUpload');
+
+  const size =
+    qrgenEl('qrgenSize');
+
+  const dark =
+    qrgenEl('qrgenDarkColor');
+
+  const transparent =
+    qrgenEl('qrgenTransparentBg');
+
+  const background =
+    qrgenEl('qrgenBgColor');
+
+  const fileName =
+    qrgenEl('qrgenFileName');
+
+
+  if(text) text.value = '';
+  if(caption) caption.value = '';
+
+  if(showCaption){
+    showCaption.checked = false;
+  }
+
+  if(captionFont){
+    captionFont.value = '20';
+  }
+
+  if(showLogo){
+    showLogo.checked = false;
+  }
+
+  if(schoolLogo){
+    schoolLogo.checked = true;
+  }
+
+  if(upload){
+    upload.value = '';
+  }
+
+  qrgenUploadedLogoData = null;
+
+  if(size){
+    size.value = '400';
+  }
+
+  if(dark){
+    dark.value = '#000000';
+  }
+
+  if(transparent){
+    transparent.checked = false;
+  }
+
+  if(background){
+    background.value = '#ffffff';
+  }
+
+  if(fileName){
+    fileName.value = '';
+  }
+
+
+  qrgenUpdateCaptionUI();
+  qrgenUpdateLogoUI();
+  qrgenUpdateBackgroundUI();
+  qrgenResetPreview();
+}
+
+
+/* =====================================================
+   FILE NAME
+   ===================================================== */
+
+function qrgenSanitizeFileName(name){
+
+  return String(name || '')
+    .replace(/[\\/:*?"<>|]/g, '_')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+
+/* =====================================================
+   CAPTION
+   ===================================================== */
+
+function qrgenIsLikelyURL(text){
+
+  return /^https?:\/\//i.test(text) ||
+         /^www\./i.test(text);
+}
+
+
+function qrgenGetCaptionFallback(text){
+
+  if(!text){
+    return '';
+  }
+
+  if(!qrgenIsLikelyURL(text)){
+    return text;
+  }
+
+
+  try{
+
+    const normalized =
+      text.startsWith('http')
+        ? text
+        : 'https://' + text;
+
+    const url =
+      new URL(normalized);
+
+    return url.hostname.replace(/^www\./i, '');
+
+  }catch(error){
+
+    return text;
+  }
+}
+
+
+/* =====================================================
+   TEXT SEGMENT
+   ===================================================== */
+
+function qrgenSplitCharacters(text){
+
+  try{
+
+    if(
+      typeof Intl !== 'undefined' &&
+      typeof Intl.Segmenter !== 'undefined'
+    ){
+
+      const segmenter =
+        new Intl.Segmenter(
+          'th',
+          { granularity:'grapheme' }
+        );
+
+      return Array
+        .from(segmenter.segment(text))
+        .map(item => item.segment);
+    }
+
+  }catch(error){
+    console.warn(
+      'Intl.Segmenter unavailable',
+      error
+    );
+  }
+
+  return Array.from(text);
+}
+
+
+/* =====================================================
+   WRAP CAPTION
+   ===================================================== */
+
+function qrgenWrapSmartText(
+  ctx,
+  text,
+  maxWidth
+){
+
+  if(!text){
+    return [''];
+  }
+
+
+  /*
+   * กรณีมีเว้นวรรค
+   */
+  if(text.includes(' ')){
+
+    const words =
+      text.split(/\s+/);
+
+    const lines = [];
+
+    let line = '';
+
+
+    for(
+      let i = 0;
+      i < words.length;
+      i++
+    ){
+
+      const testLine =
+        line
+          ? line + ' ' + words[i]
+          : words[i];
+
+      const width =
+        ctx.measureText(testLine).width;
+
+
+      if(
+        width > maxWidth &&
+        line
+      ){
+
+        lines.push(line);
+        line = words[i];
+
+      }else{
+
+        line = testLine;
+      }
+    }
+
+
+    if(line){
+      lines.push(line);
+    }
+
+    return lines;
+  }
+
+
+  /*
+   * ภาษาไทยหรือข้อความไม่มีเว้นวรรค
+   */
+  const chars =
+    qrgenSplitCharacters(text);
+
+  const lines = [];
+
+  let line = '';
+
+
+  for(
+    let i = 0;
+    i < chars.length;
+    i++
+  ){
+
+    const testLine =
+      line + chars[i];
+
+    const width =
+      ctx.measureText(testLine).width;
+
+
+    if(
+      width > maxWidth &&
+      line
+    ){
+
+      lines.push(line);
+      line = chars[i];
+
+    }else{
+
+      line = testLine;
+    }
+  }
+
+
+  if(line){
+    lines.push(line);
+  }
+
+
+  return lines;
+}
+
+
+/* =====================================================
+   TRIM TEXT
+   ===================================================== */
+
+function qrgenTrimTextToWidth(
+  ctx,
+  text,
+  maxWidth,
+  suffix = ''
+){
+
+  const chars =
+    qrgenSplitCharacters(text);
+
+  while(
+    chars.length &&
+    ctx.measureText(
+      chars.join('') + suffix
+    ).width > maxWidth
+  ){
+
+    chars.pop();
+  }
+
+
+  return chars.join('') + suffix;
+}
+
+
+/* =====================================================
+   DRAW CAPTION
+   ===================================================== */
+
+function qrgenDrawCaption(
+  ctx,
+  lines,
+  canvasWidth,
+  canvasHeight,
+  color,
+  fontSize = 20
+){
+
+  ctx.save();
+
+  ctx.fillStyle =
+    color || '#111111';
+
+  ctx.font =
+    `600 ${fontSize}px Kanit, sans-serif`;
+
+  ctx.textAlign =
+    'center';
+
+  ctx.textBaseline =
+    'middle';
+
+
+  const lineHeight =
+    Math.round(fontSize * 1.25);
+
+  const blockHeight =
+    lines.length * lineHeight;
+
+  const startY =
+    canvasHeight -
+    blockHeight +
+    Math.round(fontSize * 0.4);
+
+  const centerX =
+    canvasWidth / 2;
+
+
+  lines.forEach((line, index) => {
+
+    ctx.fillText(
+      line,
+      centerX,
+      startY + (index * lineHeight)
+    );
   });
-  updateLeaderQrCharCount();
 
+
+  ctx.restore();
+}
+
+
+/* =====================================================
+   IMAGE LOADER
+   ===================================================== */
+
+function qrgenLoadImage(src){
+
+  return new Promise(
+    (resolve, reject) => {
+
+      const img =
+        new Image();
+
+      img.crossOrigin =
+        'anonymous';
+
+      img.onload =
+        () => resolve(img);
+
+      img.onerror =
+        () => reject(
+          new Error('Image load failed')
+        );
+
+      img.src = src;
+    }
+  );
+}
+
+
+/* =====================================================
+   ROUND RECT
+   ===================================================== */
+
+function qrgenRoundRect(
+  ctx,
+  x,
+  y,
+  width,
+  height,
+  radius
+){
+
+  const r =
+    Math.min(
+      radius,
+      width / 2,
+      height / 2
+    );
+
+
+  ctx.beginPath();
+
+  ctx.moveTo(
+    x + r,
+    y
+  );
+
+  ctx.lineTo(
+    x + width - r,
+    y
+  );
+
+  ctx.quadraticCurveTo(
+    x + width,
+    y,
+    x + width,
+    y + r
+  );
+
+  ctx.lineTo(
+    x + width,
+    y + height - r
+  );
+
+  ctx.quadraticCurveTo(
+    x + width,
+    y + height,
+    x + width - r,
+    y + height
+  );
+
+  ctx.lineTo(
+    x + r,
+    y + height
+  );
+
+  ctx.quadraticCurveTo(
+    x,
+    y + height,
+    x,
+    y + height - r
+  );
+
+  ctx.lineTo(
+    x,
+    y + r
+  );
+
+  ctx.quadraticCurveTo(
+    x,
+    y,
+    x + r,
+    y
+  );
+
+  ctx.closePath();
+}
+
+
+/* =====================================================
+   CENTER LOGO
+   ===================================================== */
+
+async function qrgenDrawCenterLogo(
+  ctx,
+  logoSrc,
+  qrSize,
+  bgFillColor = '#ffffff'
+){
+
+  const img =
+    await qrgenLoadImage(logoSrc);
+
+
+  const logoSize =
+    qrSize * 0.22;
+
+  const x =
+    (qrSize - logoSize) / 2;
+
+  const y =
+    (qrSize - logoSize) / 2;
+
+
+  ctx.save();
+
+
+  /*
+   * พื้นหลังโลโก้
+   */
+  ctx.fillStyle =
+    bgFillColor || '#ffffff';
+
+  qrgenRoundRect(
+    ctx,
+    x - 8,
+    y - 8,
+    logoSize + 16,
+    logoSize + 16,
+    16
+  );
+
+  ctx.fill();
+
+
+  /*
+   * Clip โลโก้
+   */
+  qrgenRoundRect(
+    ctx,
+    x,
+    y,
+    logoSize,
+    logoSize,
+    12
+  );
+
+  ctx.clip();
+
+
+  ctx.drawImage(
+    img,
+    x,
+    y,
+    logoSize,
+    logoSize
+  );
+
+
+  ctx.restore();
+}
+
+
+/* =====================================================
+   GENERATE QR
+   ===================================================== */
+
+async function qrgenGenerateQRCode(){
+
+  const qrText =
+    qrgenEl('qrgenText')
+      ?.value
+      .trim() || '';
+
+  const showCaption =
+    qrgenEl('qrgenShowCaption')
+      ?.checked === true;
+
+  const captionText =
+    qrgenEl('qrgenCaptionText')
+      ?.value
+      .trim() || '';
+
+  const captionFontSize =
+    parseInt(
+      qrgenEl('qrgenCaptionFontSize')
+        ?.value || '20',
+      10
+    ) || 20;
+
+  const showCenterLogo =
+    qrgenEl('qrgenShowCenterLogo')
+      ?.checked === true;
+
+  const logoMode =
+    qrgenGetSelectedLogoMode();
+
+  const qrSize =
+    parseInt(
+      qrgenEl('qrgenSize')
+        ?.value || '400',
+      10
+    ) || 400;
+
+  const darkColor =
+    qrgenEl('qrgenDarkColor')
+      ?.value || '#000000';
+
+  const transparentBg =
+    qrgenEl('qrgenTransparentBg')
+      ?.checked === true;
+
+  const bgColor =
+    qrgenEl('qrgenBgColor')
+      ?.value || '#ffffff';
+
+
+  if(!qrText){
+
+    qrgenResetPreview();
+    return;
+  }
+
+
+  /*
+   * ตรวจ library
+   */
+  if(
+    typeof QRCode === 'undefined' ||
+    typeof QRCode.toCanvas !== 'function'
+  ){
+
+    qrgenSetPreviewStatus(
+      'ไม่พบ QR Library'
+    );
+
+    qrgenNotify(
+      'สร้าง QR Code ไม่สำเร็จ',
+      'ไม่สามารถโหลด QR Code Library ได้ กรุณาตรวจสอบไฟล์ vendor/qrcode.min.js จาก TeacherPR และลองใหม่',
+      'error'
+    );
+
+    return;
+  }
+
+
+  /*
+   * ป้องกันผล render เก่ามาทับผลใหม่
+   */
+  qrgenResetPreview();
+  const renderToken =
+    ++qrgenRenderToken;
+
+
+  qrgenSetPreviewStatus(
+    'กำลังสร้างตัวอย่าง...'
+  );
+
+
+  try{
+
+    /*
+     * รอ Font
+     */
+    if(document.fonts?.ready){
+      await document.fonts.ready;
+    }
+
+
+    /*
+     * QR Canvas
+     */
+    const qrCanvas =
+      document.createElement('canvas');
+
+
+    await QRCode.toCanvas(
+      qrCanvas,
+      qrText,
+      {
+        width: qrSize,
+        margin: 4,
+
+        errorCorrectionLevel: 'H',
+
+        color: {
+
+          dark:
+            darkColor,
+
+          light:
+            transparentBg
+              ? '#0000'
+              : bgColor
+        }
+      }
+    );
+
+
+    /*
+     * Caption calculation
+     */
+    const tempCanvas =
+      document.createElement('canvas');
+
+    const tempCtx =
+      tempCanvas.getContext('2d');
+
+
+    tempCtx.font =
+      `600 ${captionFontSize}px Kanit, sans-serif`;
+
+
+    let lines = [];
+
+    let extraTextHeight = 0;
+
+
+    if(showCaption){
+
+      const smartCaption =
+        captionText ||
+        qrgenGetCaptionFallback(qrText);
+
+
+      lines =
+        qrgenWrapSmartText(
+          tempCtx,
+          smartCaption,
+          qrSize - 40
+        );
+
+
+      if(
+        lines.length >
+        QRGEN_MAX_CAPTION_LINES
+      ){
+
+        lines =
+          lines.slice(
+            0,
+            QRGEN_MAX_CAPTION_LINES
+          );
+
+
+        const lastIndex =
+          lines.length - 1;
+
+
+        lines[lastIndex] =
+          qrgenTrimTextToWidth(
+            tempCtx,
+            lines[lastIndex],
+            qrSize - 60,
+            '...'
+          );
+      }
+
+
+      const lineHeight =
+        Math.round(
+          captionFontSize * 1.25
+        );
+
+
+      extraTextHeight =
+        Math.max(
+          lineHeight + 26,
+          26 +
+          (lines.length * lineHeight)
+        );
+    }
+
+
+    /*
+     * Final Canvas
+     */
+    const finalCanvas =
+      document.createElement('canvas');
+
+
+    finalCanvas.width =
+      qrSize;
+
+    finalCanvas.height =
+      qrSize + extraTextHeight;
+
+
+    const ctx =
+      finalCanvas.getContext('2d');
+
+
+    if(!transparentBg){
+
+      ctx.fillStyle =
+        bgColor;
+
+      ctx.fillRect(
+        0,
+        0,
+        finalCanvas.width,
+        finalCanvas.height
+      );
+
+    }else{
+
+      ctx.clearRect(
+        0,
+        0,
+        finalCanvas.width,
+        finalCanvas.height
+      );
+    }
+
+
+    /*
+     * Draw QR
+     */
+    ctx.drawImage(
+      qrCanvas,
+      0,
+      0,
+      qrSize,
+      qrSize
+    );
+
+
+    /*
+     * Logo
+     */
+    let missingUploadLogo = false;
+
+
+    if(showCenterLogo){
+
+      let logoSrc = null;
+
+
+      if(
+        logoMode === 'school'
+      ){
+
+        logoSrc =
+          QRGEN_SCHOOL_LOGO_URL;
+
+      }else if(
+        logoMode === 'upload' &&
+        qrgenUploadedLogoData
+      ){
+
+        logoSrc =
+          qrgenUploadedLogoData;
+
+      }else if(
+        logoMode === 'upload'
+      ){
+
+        missingUploadLogo = true;
+      }
+
+
+      if(logoSrc){
+
+        try{
+
+          await qrgenDrawCenterLogo(
+            ctx,
+            logoSrc,
+            qrSize,
+            transparentBg
+              ? '#ffffff'
+              : bgColor
+          );
+
+        }catch(logoError){
+
+          console.error(
+            'QR logo draw failed:',
+            logoError
+          );
+
+
+          qrgenNotify(
+            'ใส่โลโก้ไม่สำเร็จ',
+            'ไม่สามารถวาดโลโก้ตรงกลาง QR Code ได้',
+            'warn'
+          );
+        }
+      }
+    }
+
+
+    /*
+     * Caption
+     */
+    if(
+      showCaption &&
+      lines.length
+    ){
+
+      qrgenDrawCaption(
+        ctx,
+        lines,
+        qrSize,
+        finalCanvas.height,
+        darkColor,
+        captionFontSize
+      );
+    }
+
+
+    /*
+     * ถ้ามี render ใหม่แล้ว
+     * ไม่ให้ render เก่าทับ
+     */
+    if(
+      renderToken !==
+      qrgenRenderToken
+    ){
+      return;
+    }
+
+
+    /*
+     * Export PNG
+     */
+    qrgenGeneratedDataURL =
+      finalCanvas.toDataURL(
+        'image/png'
+      );
+
+
+    const preview =
+      qrgenEl(
+        'qrgenPreviewImage'
+      );
+
+    const placeholder =
+      qrgenEl(
+        'qrgenPlaceholder'
+      );
+
+
+    if(preview){
+
+      preview.src =
+        qrgenGeneratedDataURL;
+
+      preview.style.display =
+        'block';
+    }
+
+
+    if(placeholder){
+
+      placeholder.style.display =
+        'none';
+    }
+
+
+    if(missingUploadLogo){
+
+      qrgenSetPreviewStatus(
+        'พร้อมใช้งาน • ยังไม่ได้เลือกรูป'
+      );
+
+    }else{
+
+      qrgenSetPreviewStatus(
+        'พร้อมดาวน์โหลด'
+      );
+    }
+
+
+  }catch(error){
+
+    console.error(
+      'QR Generator Error:',
+      error
+    );
+
+
+    if(
+      renderToken !==
+      qrgenRenderToken
+    ){
+      return;
+    }
+
+
+    qrgenSetPreviewStatus(
+      'เกิดข้อผิดพลาด'
+    );
+
+
+    qrgenNotify(
+      'สร้าง QR Code ไม่สำเร็จ',
+      'เกิดข้อผิดพลาดในการสร้าง QR Code กรุณาลองใหม่อีกครั้ง',
+      'error'
+    );
+  }
+}
+
+
+/* =====================================================
+   UPLOAD LOGO
+   ===================================================== */
+
+function qrgenHandleLogoUpload(event){
+  const uploadGeneration=++qrgenUploadGeneration;
+  qrgenUploadedLogoData=null;
+  qrgenResetPreview();
+
+  const file =
+    event.target.files?.[0];
+
+
+  if(!file){
+
+    qrgenUploadedLogoData = null;
+
+    qrgenDebounceGenerate();
+
+    return;
+  }
+
+
+  const allowedTypes = [
+    'image/png',
+    'image/jpeg',
+    'image/webp',
+    'image/svg+xml'
+  ];
+
+
+  if(
+    !allowedTypes.includes(
+      file.type
+    )
+  ){
+
+    event.target.value = '';
+
+    qrgenUploadedLogoData =
+      null;
+
+
+    qrgenNotify(
+      'ไฟล์ไม่รองรับ',
+      'กรุณาอัปโหลดไฟล์ PNG, JPG, WEBP หรือ SVG',
+      'warn'
+    );
+
+    return;
+  }
+
+
+  if(
+    file.size >
+    QRGEN_MAX_UPLOAD_SIZE
+  ){
+
+    event.target.value = '';
+
+    qrgenUploadedLogoData =
+      null;
+
+
+    qrgenNotify(
+      'ไฟล์ใหญ่เกินไป',
+      'กรุณาอัปโหลดรูปที่มีขนาดไม่เกิน 5 MB',
+      'warn'
+    );
+
+    return;
+  }
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload = event => {
+    if(uploadGeneration!==qrgenUploadGeneration)return;
+
+    qrgenUploadedLogoData =
+      event.target.result;
+
+    qrgenDebounceGenerate();
+  };
+
+
+  reader.onerror = () => {
+    if(uploadGeneration!==qrgenUploadGeneration)return;
+
+    qrgenUploadedLogoData =
+      null;
+
+    const input =
+      qrgenEl(
+        'qrgenLogoUpload'
+      );
+
+    if(input){
+      input.value = '';
+    }
+
+
+    qrgenNotify(
+      'อ่านไฟล์ไม่สำเร็จ',
+      'ไม่สามารถอ่านรูปที่อัปโหลดได้ กรุณาลองใหม่อีกครั้ง',
+      'error'
+    );
+  };
+
+
+  reader.readAsDataURL(file);
+}
+
+
+/* =====================================================
+   DOWNLOAD
+   ===================================================== */
+
+function qrgenDownloadQRCode(){
+
+  if(!qrgenGeneratedDataURL){
+
+    qrgenNotify(
+      'ยังไม่มี QR Code',
+      'กรุณาสร้าง QR Code ก่อนดาวน์โหลด',
+      'warn'
+    );
+
+    return;
+  }
+
+
+  const rawName =
+    qrgenEl('qrgenFileName')
+      ?.value
+      .trim() || 'qrcode';
+
+
+  const safeName =
+    qrgenSanitizeFileName(
+      rawName
+    ) || 'qrcode';
+
+
+  const link =
+    document.createElement('a');
+
+
+  link.href =
+    qrgenGeneratedDataURL;
+
+  link.download =
+    safeName + '.png';
+
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+
+  qrgenNotify(
+    'ดาวน์โหลดสำเร็จ',
+    `ดาวน์โหลด ${safeName}.png แล้ว`,
+    'success'
+  );
+}
+
+
+/* =====================================================
+   COPY IMAGE
+   ===================================================== */
+
+async function qrgenCopyImage(){
+
+  if(!qrgenGeneratedDataURL){
+
+    qrgenNotify(
+      'ยังไม่มี QR Code',
+      'กรุณาสร้าง QR Code ก่อนคัดลอกรูป',
+      'warn'
+    );
+
+    return;
+  }
+
+
+  if(
+    !navigator.clipboard ||
+    typeof ClipboardItem === 'undefined'
+  ){
+
+    qrgenNotify(
+      'ไม่รองรับการคัดลอกรูป',
+      'เบราว์เซอร์หรืออุปกรณ์นี้ไม่รองรับการคัดลอกรูปลง Clipboard',
+      'warn'
+    );
+
+    return;
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+        qrgenGeneratedDataURL
+      );
+
+    const blob =
+      await response.blob();
+
+
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        'image/png': blob
+      })
+    ]);
+
+
+    qrgenNotify(
+      'คัดลอกสำเร็จ',
+      'คัดลอกรูป QR Code เรียบร้อยแล้ว',
+      'success'
+    );
+
+
+  }catch(error){
+
+    console.error(
+      'Copy QR image failed:',
+      error
+    );
+
+
+    qrgenNotify(
+      'คัดลอกรูปไม่สำเร็จ',
+      'เบราว์เซอร์อาจไม่อนุญาตให้คัดลอกรูป กรุณาใช้ปุ่มดาวน์โหลดแทน',
+      'error'
+    );
+  }
+}
+
+
+/* =====================================================
+   COPY TEXT
+   ===================================================== */
+
+async function qrgenCopyText(){
+
+  const text =
+    qrgenEl('qrgenText')
+      ?.value
+      .trim() || '';
+
+
+  if(!text){
+
+    qrgenNotify(
+      'ยังไม่มีข้อความ',
+      'ยังไม่มีข้อความหรือลิงก์ให้คัดลอก',
+      'warn'
+    );
+
+    return;
+  }
+
+
+  try{
+
+    await navigator.clipboard.writeText(
+      text
+    );
+
+
+    qrgenNotify(
+      'คัดลอกสำเร็จ',
+      'คัดลอกข้อความเรียบร้อยแล้ว',
+      'success'
+    );
+
+
+  }catch(error){
+
+    console.error(
+      'Copy QR text failed:',
+      error
+    );
+
+
+    qrgenNotify(
+      'คัดลอกข้อความไม่สำเร็จ',
+      'เบราว์เซอร์ไม่อนุญาตให้เข้าถึง Clipboard',
+      'error'
+    );
+  }
+}
+
+
+/* =====================================================
+   INITIALIZE
+   ===================================================== */
+
+function qrgenInit(){
+
+  if(qrgenInitialized){
+    return;
+  }
+
+
+  /*
+   * ถ้ายังไม่มีหน้า QR
+   * ไม่ต้อง init
+   */
+  if(
+    !qrgenEl(
+      'pageQrGenerator'
+    )
+  ){
+    return;
+  }
+
+
+  qrgenInitialized = true;
+
+
+  /*
+   * Text input
+   */
+  qrgenEl('qrgenText')
+    ?.addEventListener(
+      'input',
+      qrgenDebounceGenerate
+    );
+
+
+  qrgenEl('qrgenCaptionText')
+    ?.addEventListener(
+      'input',
+      qrgenDebounceGenerate
+    );
+
+
+  /*
+   * Select
+   */
+  qrgenEl('qrgenCaptionFontSize')
+    ?.addEventListener(
+      'change',
+      qrgenDebounceGenerate
+    );
+
+
+  qrgenEl('qrgenSize')
+    ?.addEventListener(
+      'change',
+      qrgenDebounceGenerate
+    );
+
+
+  /*
+   * Colors
+   */
+  qrgenEl('qrgenDarkColor')
+    ?.addEventListener(
+      'input',
+      qrgenDebounceGenerate
+    );
+
+
+  qrgenEl('qrgenBgColor')
+    ?.addEventListener(
+      'input',
+      qrgenDebounceGenerate
+    );
+
+
+  /*
+   * Caption checkbox
+   */
+  qrgenEl('qrgenShowCaption')
+    ?.addEventListener(
+      'change',
+      () => {
+
+        qrgenUpdateCaptionUI();
+        qrgenDebounceGenerate();
+      }
+    );
+
+
+  /*
+   * Logo checkbox
+   */
+  qrgenEl('qrgenShowCenterLogo')
+    ?.addEventListener(
+      'change',
+      () => {
+
+        qrgenUpdateLogoUI();
+        qrgenDebounceGenerate();
+      }
+    );
+
+
+  /*
+   * Transparent background
+   */
+  qrgenEl('qrgenTransparentBg')
+    ?.addEventListener(
+      'change',
+      () => {
+
+        qrgenUpdateBackgroundUI();
+        qrgenDebounceGenerate();
+      }
+    );
+
+
+  /*
+   * Logo mode
+   */
+  [
+    'qrgenLogoModeSchool',
+    'qrgenLogoModeUpload'
+  ]
+  .forEach(id => {
+
+    qrgenEl(id)
+      ?.addEventListener(
+        'change',
+        () => {
+
+          qrgenUpdateLogoUI();
+          qrgenDebounceGenerate();
+        }
+      );
+  });
+
+
+  /*
+   * Upload logo
+   */
+  qrgenEl('qrgenLogoUpload')
+    ?.addEventListener(
+      'change',
+      qrgenHandleLogoUpload
+    );
+
+
+  /*
+   * Buttons
+   */
+  qrgenEl('qrgenGenerateBtn')
+    ?.addEventListener(
+      'click',
+      qrgenGenerateQRCode
+    );
+
+
+  qrgenEl('qrgenClearBtn')
+    ?.addEventListener(
+      'click',
+      qrgenClearAll
+    );
+
+
+  qrgenEl('qrgenDownloadBtn')
+    ?.addEventListener(
+      'click',
+      qrgenDownloadQRCode
+    );
+
+
+  qrgenEl('qrgenCopyImageBtn')
+    ?.addEventListener(
+      'click',
+      qrgenCopyImage
+    );
+
+
+  qrgenEl('qrgenCopyTextBtn')
+    ?.addEventListener(
+      'click',
+      qrgenCopyText
+    );
+
+
+  /*
+   * Initial state
+   */
+  qrgenUpdateCaptionUI();
+
+  qrgenUpdateLogoUI();
+
+  qrgenUpdateBackgroundUI();
+
+  qrgenResetPreview();
+}
+
+
+/* =====================================================
+   START QR GENERATOR
+   ===================================================== */
+
+if(
+  document.readyState === 'loading'
+){
+
+  document.addEventListener(
+    'DOMContentLoaded',
+    qrgenInit,
+    { once:true }
+  );
+
+}else{
+
+  qrgenInit();
+}
 
   // ================================
   // LeaderPR 0 / ร / มส — Phase 1 mock charts
@@ -8841,7 +11455,7 @@ async function loadLeaderRiskTopSubjects(){
     Array.isArray(data)
       ? data
       : [];
-  lrAcceptOverviewRows('subjects', rows);
+
 
 
 
@@ -9094,7 +11708,7 @@ async function loadLeaderRiskUrgentStudents(){
     Array.isArray(data)
       ? data
       : [];
-  lrAcceptOverviewRows('students', rows);
+
 
 
 
@@ -9296,7 +11910,7 @@ async function loadLeaderRiskUrgentStudents(){
       `;
 
     }).join('');
-  tbody.querySelectorAll('.risk-student-btn').forEach((btn,i)=>{btn.addEventListener('click',()=>{if(!lrRiskState.overviewReady||!leaderRepeatedSessionValid(token))return;showLeaderPage('risk-students');lrNode('lrSearch_students').value='';lrRenderPreview('students');lrPreviewRowDetail('students',rows[i]);lrNode('lrSelected_students').scrollIntoView({block:'nearest'});});});
+  tbody.querySelectorAll('.risk-student-btn').forEach((btn,i)=>{btn.addEventListener('click',()=>{if(!lrRiskState.overviewReady||!leaderRepeatedSessionValid(token))return;showLeaderPage('risk-students');lrNode('lrSearch_students').value=String(rows[i]?.student_code||rows[i]?.student_name||'');});});
 
 
 }
@@ -9857,36 +12471,121 @@ function lrStatus(text,kind='') {const node=lrNode('riskLiveStatusText');node.te
 function lrScope(f){return f?`ปี ${f.academic_years.join(', ')||'ทั้งหมด'} · ภาคเรียน ${f.terms.join(', ')||'ทั้งหมด'} · ${f.class_levels.join(', ')||'ทุกระดับชั้น'} · ${f.rooms.join(', ')||'ทุกห้อง'} · ${f.learning_areas.join(', ')||'ทุกกลุ่มสาระ'} · ${f.subject_types.join(', ')||'ทุกประเภท'}`:'ยังไม่ได้ประมวลผล';}
 function lrSetFilterControls(f){if(!f)return;const keys=['academic_years','terms','class_levels','rooms','learning_areas','subject_types'];lrFilterIds.forEach((id,i)=>{if(i===3)renderLeaderRiskRoomOptions();const n=lrNode(id);if(n)n.value=String(f[keys[i]]?.[0]??'');});updateLeaderRiskFilterSummary();}
 function lrSetBusy(b){lrRiskState.busy=b;['lrRiskFilterOpen','lrProcessCurrent','riskProcessBtn',...lrFilterIds].forEach(id=>{const n=lrNode(id);if(n)n.disabled=b;});}
-function lrClearView(key){const body=lrNode('lrRows_'+key),selected=lrNode('lrSelected_'+key);if(body){body.replaceChildren();const tr=body.insertRow();const td=tr.insertCell();td.colSpan=11;td.textContent=key==='teachers'?'รอ RPC รายครู — ยังไม่มีข้อมูลจริง':'ยังไม่ได้ประมวลผล';}if(selected){selected.replaceChildren();selected.hidden=true;}const k=lrNode('lrKpis_'+key);k?.querySelectorAll('strong').forEach(n=>n.textContent='—');const search=lrNode('lrSearch_'+key);if(search)search.value='';lrText('lrViewStatus_'+key,key==='teachers'?'ยังไม่มี RPC สรุปรายครูที่ยืนยันได้':'ยังไม่ได้ประมวลผล');}
 function lrHideOverview(){lrRiskState.overviewReady=false;lrRiskState.summary=null;lrRiskState.urgent=null;lrNode('lrOverviewResults').hidden=true;lrNode('lrOverviewEmpty').hidden=false;lrText('lrOverviewEmpty','เลือกข้อมูลแล้วกดประมวลผลเพื่อแสดงภาพรวมจริง');resetLeaderRepeated();destroyLeaderRiskMockCharts();['riskUrgentStudentsBody','riskRoomHeatmap'].forEach(id=>lrNode(id)?.replaceChildren());['riskKpiStudents','riskKpiRecords','riskKpiGrade0','riskKpiGradeR','riskKpiGradeMs','riskKpiGradeMp','riskKpi3Plus','riskResolutionRate','riskResolvedRecords','riskPendingRecords','riskUnresolvedRecords'].forEach(id=>lrText(id,'—'));lrNode('riskResolutionBar').style.width='0%';lrText('lrRealInsights','รอข้อมูลสรุปจากการประมวลผล');}
-function lrClearResults(){lrRiskState.cache={};lrHideOverview();['students','teachers','subjects'].forEach(lrClearView);}
-function lrResetRiskSession(){lrRiskState.generation++;clearTimeout(lrRiskState.expiryTimer);lrRiskState.expiryTimer=null;lrRiskState.filters=null;lrRiskState.optionsPromise=null;leaderRiskFilterOptionsLoaded=false;lrCloseRiskFilters(false);lrClearResults();lrText('lrAppliedFilterText','ยังไม่ได้ประมวลผล');lrSetBusy(false);}
+function lrClearResults(){lrRiskState.cache={};lrHideOverview();}
+function lrResetRiskSession(){lrRiskState.generation++;clearTimeout(lrRiskState.expiryTimer);lrRiskState.expiryTimer=null;lrRiskState.filters=null;lrRiskState.optionsPromise=null;leaderRiskFilterOptionsLoaded=false;lrCloseRiskFilters(false);lrClearResults();lrResetOwnFilters();qrgenClearAll();lrText('lrAppliedFilterText','ยังไม่ได้ประมวลผล');lrSetBusy(false);}
 function lrWatchRiskSession(token){clearTimeout(lrRiskState.expiryTimer);if(!leaderSessionExpiresAt)return;const gen=lrRiskState.generation;const check=()=>{if(gen!==lrRiskState.generation)return;if(!leaderRepeatedSessionValid(token)){lrResetRiskSession();lrStatus('Session หมดอายุ กรุณาเข้าสู่ระบบใหม่','error');return;}lrRiskState.expiryTimer=setTimeout(check,Math.max(1,Math.min(Date.parse(leaderSessionExpiresAt)-Date.now(),2147483647)));};check();}
 async function lrEnsureRiskOptions(){if(leaderRiskFilterOptionsLoaded)return true;if(lrRiskState.optionsPromise)return lrRiskState.optionsPromise;const token=String(leaderSessionToken||'').trim();const task=(async()=>{await loadLeaderRiskFilterOptions();return leaderRepeatedSessionValid(token)&&leaderRiskFilterOptionsLoaded;})();lrRiskState.optionsPromise=task;try{return await task;}finally{if(lrRiskState.optionsPromise===task)lrRiskState.optionsPromise=null;}}
-async function lrOpenRiskFilters(){if(lrRiskState.busy)return;const token=String(leaderSessionToken||'').trim();if(!leaderRepeatedSessionValid(token)){lrStatus('Session หมดอายุ','error');return;}if(!await lrEnsureRiskOptions()||!leaderRepeatedSessionValid(token)||!lrRiskPages.has(lrRiskState.page))return;if(lrRiskState.filters)lrSetFilterControls(lrRiskState.filters);const overlay=lrNode('lrRiskFilterOverlay');overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');document.body.classList.add('filter-modal-open');lrNode('lrCloseFilters').focus();}
+async function lrOpenRiskFilters(){if(lrRiskState.busy)return;const token=String(leaderSessionToken||'').trim();if(!leaderRepeatedSessionValid(token)){lrStatus('Session หมดอายุ','error');return;}if(!await lrEnsureRiskOptions()||!leaderRepeatedSessionValid(token)||lrRiskState.page!=='risk-analytics')return;if(lrRiskState.filters)lrSetFilterControls(lrRiskState.filters);const overlay=lrNode('lrRiskFilterOverlay');overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');document.body.classList.add('filter-modal-open');lrNode('lrCloseFilters').focus();}
 function lrCloseRiskFilters(restore=true){const overlay=lrNode('lrRiskFilterOverlay');if(restore&&lrRiskState.filters)lrSetFilterControls(lrRiskState.filters);if(overlay.classList.contains('open')){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');document.body.classList.remove('filter-modal-open');if(restore)lrNode('lrRiskFilterOpen').focus();}}
-function lrAcceptOverviewRows(key,rows){if(lrRiskState.busy)lrRiskState.cache[key]=rows;}
 function lrTd(tr,value){const td=tr.insertCell();td.textContent=String(value??'—');return td;}
-function lrPreviewRowDetail(key,row){const selected=lrNode('lrSelected_'+key);selected.replaceChildren();const h=document.createElement('h3');h.textContent=key==='students'?(row.student_name||'—'):`${row.subject_code||'—'} ${row.subject_name||''}`;selected.append(h);const p=document.createElement('p');p.textContent=key==='students'?`ห้อง ${row.room_label||'—'} · ${lrFmt(row.subject_count)} วิชาคงค้าง`:`นักเรียนไม่ซ้ำ ${lrFmt(row.unique_students)} คน`;selected.append(p);const desc=document.createElement('p');desc.textContent=`0: ${lrFmt(row.grade_0_records)} · ร: ${lrFmt(row.grade_r_records)} · มส: ${lrFmt(row.grade_ms_records)} · มผ: ${lrFmt(row.grade_mp_records)} · รวม ${lrFmt(row.total_records)} รายการ`;selected.append(desc);const note=document.createElement('p');note.className='lr-muted';note.textContent='ข้อมูลจาก RPC สรุปเดิม ยังไม่สามารถแจกแจงรายวิชา–ครูผู้สอน หรือเปิดรายละเอียดรายบุคคลข้ามมุมมองได้ จนกว่าจะเชื่อม RPC รายละเอียด';selected.append(note);const close=document.createElement('button');close.type='button';close.className='btn-secondary';close.textContent='ปิดรายละเอียด';close.onclick=()=>{selected.hidden=true;selected.replaceChildren();};selected.append(close);selected.hidden=false;}
-function lrRenderPreview(key){const data=lrRiskState.cache[key];if(!Array.isArray(data))return;const body=lrNode('lrRows_'+key);body.replaceChildren();lrNode('lrSelected_'+key).hidden=true;lrNode('lrSelected_'+key).replaceChildren();const q=lrNode('lrSearch_'+key).value.trim().toLowerCase(),sort=lrNode('lrSort_'+key).value,dir=lrNode('lrOrder_'+key).value==='asc'?1:-1;const isStudent=key==='students';const rows=data.filter(r=>String(isStudent?`${r.student_code||''} ${r.student_name||''} ${r.room_label||''}`:`${r.subject_code||''} ${r.subject_name||''}`).toLowerCase().includes(q)).sort((a,b)=>dir*(Number(a[sort]||0)-Number(b[sort]||0)));const stats=lrNode('lrKpis_'+key).querySelectorAll('strong');stats[0].textContent=lrFmt(rows.length);stats[1].textContent=lrFmt(rows.reduce((n,r)=>n+Number(r.total_records||0),0));stats[2].textContent=isStudent?'Top 20':'Top 10';rows.forEach((row,i)=>{const tr=body.insertRow();lrTd(tr,i+1);const td=lrTd(tr,'');const btn=document.createElement('button');btn.type='button';btn.className='lr-text-link';btn.textContent=isStudent?(row.student_name||'—'):`${row.subject_code||'—'} ${row.subject_name||''}`;btn.onclick=()=>lrPreviewRowDetail(key,row);td.append(btn);if(isStudent){const code=document.createElement('div');code.className='lr-muted';code.textContent=row.student_code||'—';td.append(code);lrTd(tr,row.room_label||'—');}else lrTd(tr,lrFmt(row.unique_students));['grade_0_records','grade_r_records','grade_ms_records','grade_mp_records','total_records'].forEach(k=>lrTd(tr,lrFmt(row[k])));if(isStudent)lrTd(tr,lrFmt(row.subject_count));else lrTd(tr,lrFmt(row.resolved_records));lrTd(tr,lrFmt(row.pending_records));lrTd(tr,lrFmt(row.unresolved_records));});if(!rows.length){const tr=body.insertRow();const td=tr.insertCell();td.colSpan=11;td.textContent=data.length?'ไม่พบข้อมูลตามคำค้น':'ไม่พบรายการตามเงื่อนไข';}lrText('lrViewStatus_'+key,`แสดง ${lrFmt(rows.length)} จาก ${lrFmt(data.length)} รายการที่ RPC ส่งกลับ · ${lrScope(lrRiskState.filters)}`);}
-async function lrLoadPreview(key,filters,token,gen){if(key==='teachers'){lrText('lrViewStatus_teachers','ยังไม่มี RPC สำหรับสรุปรายครูและตัวหารผลการเรียนทั้งหมด — ไม่สร้างอันดับจากข้อมูลที่ไม่ครบ');return;}const rpc=key==='students'?'leader_get_orms_top_students_session':'leader_get_orms_top_subjects_session';const limit=key==='students'?20:10;const {data,error}=await supabaseClient.rpc(rpc,{p_token:token,p_filters:filters,p_limit:limit});if(gen!==lrRiskState.generation||!leaderRepeatedSessionValid(token))return;if(error)throw error;if(!Array.isArray(data)||data.length>limit)throw new Error('รูปแบบข้อมูลไม่ถูกต้อง');lrRiskState.cache[key]=data;lrRenderPreview(key);}
 function lrRenderInsights(){const s=lrRiskState.summary,r=leaderRepeatedState.data;if(!s)return;const box=lrNode('lrRealInsights');box.replaceChildren();const add=t=>{const p=document.createElement('p');p.textContent=t;box.append(p);};add(`พบ ${lrFmt(s.total_risk_records)} รายการ จากนักเรียนไม่ซ้ำ ${lrFmt(s.total_risk_students)} คน ในขอบเขตที่เลือก`);add(`แก้สำเร็จ ${lrFmt(s.resolved_records)} รายการ · รออนุมัติ ${lrFmt(s.pending_records)} · ยังไม่แก้ ${lrFmt(s.unresolved_records)}`);if(r?.status==='ok')add(`นักเรียนเสี่ยงต่อเนื่อง ${lrFmt(r.kpi.total_repeated_students)} คน ภาคเรียนอ้างอิง ${r.reference_period.label} (แยก ม.ต้น / ม.ปลาย)`);}
-async function lrProcessRisk(fromDialog=false){if(lrRiskState.busy)return;const page=lrRiskState.page;if(!lrRiskPages.has(page))return;const token=String(leaderSessionToken||'').trim();if(!leaderRepeatedSessionValid(token)){lrStatus('Session หมดอายุ','error');return;}lrSetBusy(true);const gen=++lrRiskState.generation;const current=()=>gen===lrRiskState.generation&&leaderRepeatedSessionValid(token);try{if(!await lrEnsureRiskOptions()||!current())return;const f=deepClone(fromDialog||!lrRiskState.filters?buildLeaderRiskPayload():lrRiskState.filters);const changed=JSON.stringify(f)!==JSON.stringify(lrRiskState.filters);lrRiskState.filters=f;lrSetFilterControls(f);lrCloseRiskFilters(false);lrText('lrAppliedFilterText',lrScope(f));if(changed)lrClearResults();lrWatchRiskSession(token);lrStatus('กำลังประมวลผลข้อมูล…');if(page==='risk-analytics'){lrRiskState.cache={};['students','subjects'].forEach(lrClearView);lrHideOverview();const repeatGen=leaderRepeatedState.generation;lrNode('lrOverviewEmpty').textContent='กำลังประมวลผลภาพรวม…';initLeaderRiskMockCharts();for(const load of [loadLeaderRiskKpis,loadLeaderRiskClassRoomChart,loadLeaderRiskHeatmap,loadLeaderRiskTopSubjects,loadLeaderRiskLearningAreas,loadLeaderRiskUrgentStudents,loadLeaderRiskTrend]){if(!current())return;await load();}if(!current())return;await loadLeaderRepeated(f,token,repeatGen);if(!current())return;lrRiskState.overviewReady=true;lrNode('lrOverviewResults').hidden=false;lrNode('lrOverviewEmpty').hidden=true;lrRenderInsights();requestAnimationFrame(()=>{if(lrRiskState.page==='risk-analytics')leaderRiskMockCharts.forEach(c=>{try{c.resize();}catch(e){}});});lrStatus(leaderRepeatedState.data?'ประมวลผลภาพรวมเรียบร้อย':'ภาพรวมพร้อมใช้งาน แต่ Repeated Risk ยังไม่สำเร็จ','success');}else{const key=page.slice(5);delete lrRiskState.cache[key];lrClearView(key);await lrLoadPreview(key,f,token,gen);if(!current())return;lrStatus(key==='teachers'?'ตัวกรองพร้อมใช้งาน · รอเชื่อมข้อมูลรายครู':'โหลดชุดข้อมูลจาก RPC เดิมเรียบร้อย','success');}}catch(e){if(current()){if(page==='risk-analytics'){lrRiskState.cache={};['students','subjects'].forEach(lrClearView);lrHideOverview();}else{const key=page.slice(5);delete lrRiskState.cache[key];lrClearView(key);lrText('lrViewStatus_'+key,'ไม่สามารถโหลดข้อมูลได้');}lrStatus('ประมวลผลไม่สำเร็จ กรุณาลองใหม่','error');console.warn('Leader Risk:',e?.code||'NETWORK_OR_VALIDATION_ERROR');}}finally{if(gen===lrRiskState.generation)lrSetBusy(false);}}
-function lrOnPage(page){lrRiskState.page=page;lrCloseRiskFilters(true);lrNode('lrSharedRiskBar').hidden=!lrRiskPages.has(page);lrNode('lrRiskParent').classList.toggle('lr-current',lrRiskPages.has(page));if(lrRiskPages.has(page)){lrSetNavGroup('lrRiskMenu','lrRiskParent',true);lrText('lrAppliedFilterText',lrScope(lrRiskState.filters));if(page==='risk-analytics'&&lrRiskState.overviewReady){requestAnimationFrame(()=>leaderRiskMockCharts.forEach(c=>{try{c.resize();}catch(e){}}));}else if(page!=='risk-analytics'){const key=page.slice(5);if(lrRiskState.cache[key])lrRenderPreview(key);}if(!lrRiskState.busy)lrStatus(lrRiskState.filters?'ใช้ตัวกรองร่วมเดิม · กดประมวลผลเพื่อโหลดใหม่':'เลือกข้อมูลแล้วกดประมวลผล');}else if(['home','retest','qrcode'].includes(page))lrSetNavGroup('lrToolsMenu','lrToolsParent',true);if(page==='dashboard')initLeaderDashboard();}
+async function lrProcessRisk(fromDialog=false){
+ if(lrRiskState.busy||lrRiskState.page!=='risk-analytics')return;
+ const token=String(leaderSessionToken||'').trim();
+ if(!leaderRepeatedSessionValid(token)){lrStatus('Session หมดอายุ','error');return;}
+ lrSetBusy(true); const gen=++lrRiskState.generation;
+ const current=()=>gen===lrRiskState.generation&&leaderRepeatedSessionValid(token);
+ try{
+  if(!await lrEnsureRiskOptions()||!current()||lrRiskState.page!=='risk-analytics')return;
+  const f=deepClone(fromDialog||!lrRiskState.filters?buildLeaderRiskPayload():lrRiskState.filters);
+  lrRiskState.filters=f;lrSetFilterControls(f);lrCloseRiskFilters(false);lrText('lrAppliedFilterText',lrScope(f));
+  lrWatchRiskSession(token);lrStatus('กำลังประมวลผลข้อมูล…');lrHideOverview();
+  const repeatGen=leaderRepeatedState.generation;lrNode('lrOverviewEmpty').textContent='กำลังประมวลผลภาพรวม…';initLeaderRiskMockCharts();
+  for(const load of [loadLeaderRiskKpis,loadLeaderRiskClassRoomChart,loadLeaderRiskHeatmap,loadLeaderRiskTopSubjects,loadLeaderRiskLearningAreas,loadLeaderRiskUrgentStudents,loadLeaderRiskTrend]){if(!current())return;await load();}
+  if(!current())return;await loadLeaderRepeated(f,token,repeatGen);if(!current())return;
+  lrRiskState.overviewReady=true;lrNode('lrOverviewResults').hidden=false;lrNode('lrOverviewEmpty').hidden=true;lrRenderInsights();
+  requestAnimationFrame(()=>{if(lrRiskState.page==='risk-analytics')leaderRiskMockCharts.forEach(c=>{try{c.resize();}catch(e){}});});
+  lrStatus(leaderRepeatedState.data?'ประมวลผลภาพรวมเรียบร้อย':'ภาพรวมพร้อมใช้งาน แต่ Repeated Risk ยังไม่สำเร็จ','success');
+ }catch(e){if(current()){lrHideOverview();lrStatus('ประมวลผลไม่สำเร็จ กรุณาลองใหม่','error');console.warn('Leader Risk:',e?.code||'NETWORK_OR_VALIDATION_ERROR');}}
+ finally{if(gen===lrRiskState.generation)lrSetBusy(false);}
+}
+function lrOnPage(page){
+ lrRiskState.page=page;lrCloseRiskFilters(true);
+ lrNode('lrSharedRiskBar').hidden=page!=='risk-analytics';
+ lrNode('lrRiskParent').classList.toggle('lr-current',lrRiskPages.has(page));
+ if(lrRiskPages.has(page))lrSetNavGroup('lrRiskMenu','lrRiskParent',true);
+ if(page==='risk-analytics'){
+  lrText('lrAppliedFilterText',lrScope(lrRiskState.filters));
+  if(lrRiskState.overviewReady)requestAnimationFrame(()=>leaderRiskMockCharts.forEach(c=>{try{c.resize();}catch(e){}}));
+  if(!lrRiskState.busy)lrStatus(lrRiskState.filters?'ใช้ตัวกรองภาพรวมเดิม · กดประมวลผลเพื่อโหลดใหม่':'เลือกข้อมูลแล้วกดประมวลผล');
+ }else if(lrRiskPages.has(page)){
+  const key=page.slice(5);lrLoadOwnOptions(key);
+ }else if(page==='qrcode')lrSetNavGroup('lrToolsMenu','lrToolsParent',true);
+ if(page==='dashboard')initLeaderDashboard();
+}
 function lrSetNavGroup(group,parent,open){lrNode(group).classList.toggle('open',open);lrNode(parent).setAttribute('aria-expanded',String(open));}
 [['lrRiskMenu','lrRiskParent'],['lrToolsMenu','lrToolsParent']].forEach(([group,parent])=>lrNode(parent).addEventListener('click',()=>{if(window.innerWidth>900&&document.body.classList.contains('leader-sidebar-collapsed')){document.body.classList.remove('leader-sidebar-collapsed');try{localStorage.setItem('leaderpr_sidebar_collapsed','0');}catch(e){}lrSetNavGroup(group,parent,true);return;}lrSetNavGroup(group,parent,!lrNode(group).classList.contains('open'));}));
-lrNode('lrRiskFilterOpen').addEventListener('click',lrOpenRiskFilters);lrNode('lrCloseFilters').addEventListener('click',()=>lrCloseRiskFilters(true));lrNode('lrRiskFilterBackdrop').addEventListener('click',()=>lrCloseRiskFilters(true));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&lrNode('lrRiskFilterOverlay').classList.contains('open'))lrCloseRiskFilters(true);});lrNode('lrProcessCurrent').addEventListener('click',()=>lrProcessRisk(false));lrNode('lrSubjectViewLink').addEventListener('click',()=>showLeaderPage('risk-subjects'));lrNode('riskProcessBtn').addEventListener('click',()=>lrProcessRisk(true));['students','subjects'].forEach(key=>['lrSearch_','lrSort_','lrOrder_'].forEach((prefix,i)=>lrNode(prefix+key).addEventListener(i===0?'input':'change',()=>lrRenderPreview(key))));
+lrNode('lrRiskFilterOpen').addEventListener('click',lrOpenRiskFilters);lrNode('lrCloseFilters').addEventListener('click',()=>lrCloseRiskFilters(true));lrNode('lrRiskFilterBackdrop').addEventListener('click',()=>lrCloseRiskFilters(true));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&lrNode('lrRiskFilterOverlay').classList.contains('open'))lrCloseRiskFilters(true);});lrNode('lrProcessCurrent').addEventListener('click',()=>lrProcessRisk(false));lrNode('lrSubjectViewLink').addEventListener('click',()=>showLeaderPage('risk-subjects'));lrNode('riskProcessBtn').addEventListener('click',()=>lrProcessRisk(true));
 
 
 
+
+
+// ===== Independent detail filter UI (new detail RPCs not deployed) =====
+const lrOwnKeys=['students','teachers','subjects'];
+let lrOwnGeneration=0;
+function lrOwnNode(key,field){return lrNode('lr_'+key+'_'+field);}
+function lrOwnSetOptions(key,field,items,label){
+ const node=lrOwnNode(key,field);if(!node)return;
+ const previous=node.value;setRiskSelectOptions(node.id,items,{allLabel:label,selectedValue:previous});
+}
+function lrOwnRooms(key){
+ const level=lrOwnNode(key,'class').value,items=[];
+ for(const group of leaderRiskFilterOptions.roomsByClass||[]){
+  if(level&&group.class_level!==level)continue;
+  for(const room of group.rooms||[]){const v=String(group.class_level)+'/'+String(room);items.push({value:v,label:v});}
+ }
+ lrOwnSetOptions(key,'room',items,'ทุกห้อง');
+}
+function lrFillOwnOptions(key){
+ const o=leaderRiskFilterOptions;
+ const years=(o.years||[]).map(y=>Number(y?.value??y)).filter(y=>Number.isSafeInteger(y)&&y>=2500&&y<=2700).sort((a,b)=>b-a);
+ const latest=years[0];const limited=key==='students'?years:years.filter(y=>y>=latest-3);
+ lrOwnSetOptions(key,'year',limited,key==='students'?'ทุกปีการศึกษา':'ทุกปีในช่วง 4 ปีล่าสุด');
+ lrOwnSetOptions(key,'term',o.terms,'ทุกภาคเรียน');lrOwnSetOptions(key,'class',o.classLevels,'ทุกระดับชั้น');lrOwnRooms(key);
+ if(key!=='students'){lrOwnSetOptions(key,'area',o.learningAreas,'ทุกกลุ่มสาระ');lrOwnSetOptions(key,'type',o.subjectTypes,'ทุกประเภท');}
+ lrText('lrViewStatus_'+key, 'ตัวเลือกทั่วไปพร้อมใช้งาน · รอ RPC รายละเอียด'+(key!=='students'&&latest?' · ขอบเขตปีที่เสนอ '+(latest-3)+'–'+latest:''));
+}
+async function lrLoadOwnOptions(key){
+ const token=String(leaderSessionToken||'').trim(),gen=lrOwnGeneration;
+ if(!leaderRepeatedSessionValid(token))return;
+ lrText('lrViewStatus_'+key,'กำลังโหลดตัวเลือกทั่วไป…');
+ try{
+  const ready=await lrEnsureRiskOptions();
+  if(gen!==lrOwnGeneration||!leaderRepeatedSessionValid(token))return;
+  if(!ready){lrText('lrViewStatus_'+key,'โหลดตัวเลือกไม่สำเร็จ กรุณากดโหลดตัวเลือกใหม่');return;}
+  lrFillOwnOptions(key);
+ }catch(e){if(gen===lrOwnGeneration&&leaderRepeatedSessionValid(token))lrText('lrViewStatus_'+key,'โหลดตัวเลือกไม่สำเร็จ');}
+}
+function lrResetOwnPage(key){
+ const page=lrNode('lrPage_'+key);
+ page.querySelectorAll('select').forEach(n=>n.selectedIndex=0);
+ page.querySelectorAll('input').forEach(n=>n.value='');
+ if(leaderRiskFilterOptionsLoaded)lrOwnRooms(key);
+}
+function lrResetOwnFilters(){
+ lrOwnGeneration++;
+ lrOwnKeys.forEach(key=>{
+  lrResetOwnPage(key);
+  for(const [field,label] of [['year',key==='students'?'ทุกปีการศึกษา':'ทุกปีในช่วง 4 ปีล่าสุด'],['class','ทุกระดับชั้น'],['room','ทุกห้อง'],['area','ทุกกลุ่มสาระ'],['type','ทุกประเภท']]){
+   const n=lrOwnNode(key,field);if(n)setRiskSelectOptions(n.id,[],{allLabel:label});
+  }
+  lrText('lrViewStatus_'+key,'รอโหลดตัวเลือกและเชื่อม RPC รายละเอียด');
+ });
+}
+lrOwnKeys.forEach(key=>{
+ lrNode('lrReload_'+key).addEventListener('click',()=>lrLoadOwnOptions(key));
+ lrNode('lrReset_'+key).addEventListener('click',()=>lrResetOwnPage(key));
+ lrOwnNode(key,'class').addEventListener('change',()=>{lrOwnNode(key,'room').value='';lrOwnRooms(key);});
+});
+// ===== End independent filters =====
 
   // ================================
   // LeaderPR sidebar navigation
   // ================================
 
 const leaderPageMap = {
-  home:
-    document.getElementById('leaderHomePage'),
 
   dashboard:
     document.getElementById('leaderDashboardPage'),
@@ -9897,18 +12596,11 @@ const leaderPageMap = {
   'risk-students': document.getElementById('lrPage_students'),
   'risk-teachers': document.getElementById('lrPage_teachers'),
   'risk-subjects': document.getElementById('lrPage_subjects'),
-  retest:
-    document.getElementById('leaderRetestPage'),
 
   qrcode:
-    document.getElementById('leaderQrPage')
+    document.getElementById('pageQrGenerator')
 };
 const leaderPageMeta = {
-  home: {
-    title: 'หน้าแรก',
-    subtitle:
-      'โรงเรียนท่าใหม่ “พูลสวัสดิ์ราษฎร์นุกูล”'
-  },
 
   dashboard: {
     title: 'สถิติผลการเรียน',
@@ -9925,11 +12617,6 @@ const leaderPageMeta = {
   'risk-students': {title:'มุมมองนักเรียน',subtitle:'สถิติ 0 ร มส และ มผ'},
   'risk-teachers': {title:'มุมมองครูผู้สอน',subtitle:'สถิติ 0 ร มส และ มผ'},
   'risk-subjects': {title:'มุมมองรายวิชา',subtitle:'สถิติ 0 ร มส และ มผ'},
-  retest: {
-    title: 'สถิติผลการสอบแก้ตัว',
-    subtitle:
-      'ติดตามสถานะการแก้ไขผลการเรียน 0 ร มส และ มผ'
-  },
 
   qrcode: {
     title: 'สร้าง QR Code',
@@ -9943,7 +12630,8 @@ const leaderPageMeta = {
   }
 
   function showLeaderPage(pageName){
-    const target = leaderPageMap[pageName] || leaderPageMap.dashboard;
+    if(!leaderPageMap[pageName]) pageName='dashboard';
+    const target = leaderPageMap[pageName];
 
     Object.values(leaderPageMap).forEach(page => {
       if(page) page.hidden = page !== target;
@@ -9982,7 +12670,7 @@ if(pageSubtitleNode){
 
     if(pageName === 'qrcode'){
       window.setTimeout(() => {
-        document.getElementById('leaderQrText')?.focus();
+        document.getElementById('qrgenText')?.focus();
       }, 120);
     }
 
