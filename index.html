@@ -4,7 +4,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LeaderPR - สถิติผลการเรียน</title>
+  <title>LeaderPR - ระบบสารสนเทศสำหรับผู้บริหาร</title>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -4068,6 +4068,23 @@ body.filter-modal-open{
 .risk-repeat-card span{ display:block; margin-top:4px; color:#6b7a90; font-size:11px; line-height:1.5; }
 .risk-repeat-count{ margin-top:7px !important; color:#b42318 !important; font:900 22px 'Sarabun',sans-serif !important; }
 
+/* ===== LEADER REPEATED RISK ===== */
+#leaderRepeatedSection{min-width:0;width:100%;box-sizing:border-box}
+#leaderRepeatedSection [hidden]{display:none!important}
+#leaderRepeatedSection .lr-note{margin:10px 0;font-size:13px;line-height:1.7;color:#52667e;overflow-wrap:anywhere}
+#leaderRepeatedSection .lr-overview{padding:14px;margin:14px 0;border:1px solid #dbe7f3;border-radius:16px;background:#f8fbff}
+#leaderRepeatedSection .lr-bar{display:flex;height:22px;border-radius:999px;overflow:hidden;background:#e2e8f0;margin:10px 0}
+#leaderRepeatedOutstandingBar{background:#dc2626;width:0%}
+#leaderRepeatedClearedBar{background:#16a34a;width:0%}
+#leaderRepeatedNotice{white-space:pre-line;background:#fffbeb;color:#92400e;padding:12px;border-radius:12px;font-size:13px;line-height:1.7}
+#leaderRepeatedSection .risk-table{min-width:1120px}
+#leaderRepeatedSection .risk-table td{white-space:nowrap}
+#leaderRepeatedSection .risk-table td:nth-child(2){text-align:left;white-space:normal;min-width:200px;overflow-wrap:anywhere}
+#leaderRepeatedSection .risk-repeat-card:nth-child(1){background:#fffbeb}
+#leaderRepeatedSection .risk-repeat-card:nth-child(2){background:#fff7ed}
+#leaderRepeatedSection .risk-repeat-card:nth-child(3){background:#fff1f2}
+/* ===== END LEADER REPEATED RISK ===== */
+
 .risk-insight-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
 .risk-insight{
   display:grid;
@@ -4108,6 +4125,31 @@ body.filter-modal-open{
 @media (max-width:480px){
   .risk-filter-grid,.risk-kpi-grid{ grid-template-columns:1fr; }
 }
+
+
+/* ===== LeaderPR single-file layout, TeacherPR design vocabulary ===== */
+:root{--leader-sidebar-width:292px;--line:#d9e3ee;--shadow:0 10px 30px rgba(18,38,63,.08);--soft-shadow:0 6px 18px rgba(18,38,63,.05)}
+body{background:#f5f7fb!important;font-family:'Kanit',sans-serif!important}
+.leader-sidebar{background:#fff!important;border-right:1px solid var(--line)!important;box-shadow:none!important}
+.leader-main{padding:18px!important}
+.leader-main .wrap{padding:0!important;max-width:none}
+.leader-topbar,.leader-main .card,.risk-panel,.risk-filter-card,.risk-kpi-card,.risk-progress-main,.risk-mini-stat{background:#fff!important;border:1px solid var(--line)!important;box-shadow:var(--soft-shadow)!important;backdrop-filter:none!important}
+.leader-topbar{border-radius:20px!important;margin-bottom:18px!important}
+.leader-main .card,.risk-panel,.risk-filter-card{border-radius:18px!important}
+.leader-menu{gap:6px!important}.leader-sidebar-link{min-height:48px!important;border-radius:14px!important;font-size:15px!important}
+.lr-nav-group .lr-submenu{display:none;padding-left:9px;margin:6px 0 8px 35px;border-left:2px solid #d8e4ef;gap:5px}
+.lr-nav-group.open .lr-submenu{display:grid}.lr-submenu .leader-sidebar-link{min-height:42px!important;font-size:13px!important;padding:0 9px!important;gap:8px!important}
+.lr-submenu .leader-sidebar-icon{font-size:16px!important;width:20px!important;flex-basis:20px!important}.lr-caret{margin-left:auto}.lr-nav-group.open .lr-caret{transform:rotate(180deg)}
+.lr-parent.lr-current:not(.active){background:#eef4ff!important;color:#1d4ed8!important}
+@media(min-width:901px){body.leader-sidebar-collapsed .lr-submenu{display:none!important}body.leader-sidebar-collapsed .lr-caret{display:none!important}}
+#lrSharedRiskBar{margin-bottom:14px}.lr-filterbar{display:flex;gap:14px;align-items:center;justify-content:space-between;background:white;border:1px solid var(--line);border-radius:18px;padding:15px 16px}.lr-filtertitle{font-size:16px;font-weight:700;color:#17263c}.lr-muted{color:#64748b;font-size:13px;line-height:1.7}.lr-actions{display:flex;gap:8px;flex-wrap:wrap}.lr-status{color:#52667e;font-size:13px;line-height:1.6;padding:10px 2px;overflow-wrap:anywhere}.lr-status.lr-error{color:#b91c1c}.lr-status.lr-success{color:#15803d}
+#lrRiskFilterOverlay .lr-filter-dialog{position:relative;width:min(780px,96vw);max-height:90vh;overflow:auto;padding:20px;z-index:1;background:#fff!important;overscroll-behavior:contain}.lr-filter-dialog .risk-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.lr-filter-dialog .risk-filter-btn{grid-column:1/-1;height:44px!important}.lr-filter-dialog .risk-filter-field label{font-size:14px}.lr-filter-dialog .risk-filter-field select{font-size:15px}
+.lr-empty{text-align:center;color:#64748b;padding:38px 16px!important}.lr-view-card{padding:18px!important}.lr-view-head h2{margin:0;font-size:21px}.lr-view-head p{margin:5px 0 15px;color:#64748b;font-size:14px}.lr-view-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:15px 0}.lr-view-kpis>div{min-width:0;border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}.lr-view-kpis span{display:block;color:#64748b;font-size:13px}.lr-view-kpis strong{display:block;color:#17263c;font-size:24px;overflow-wrap:anywhere}.lr-table-tools{display:flex;align-items:end;gap:12px;flex-wrap:wrap}.lr-table-tools label{display:grid;gap:6px;font-size:13px;color:#41536c}.lr-table-tools label:first-child{flex:1;min-width:180px}.lr-table-tools input,.lr-table-tools select{min-height:42px;border:1px solid var(--line);border-radius:11px;padding:8px 12px;background:white;font:inherit;color:#17263c;width:100%}.lr-table-scroll{overflow:auto;border:1px solid var(--line);border-radius:14px;max-width:100%;-webkit-overflow-scrolling:touch}.lr-detail-table{width:100%;min-width:950px;border-collapse:collapse;font-size:14px}.lr-detail-table th,.lr-detail-table td{padding:12px 10px;border-bottom:1px solid #e5edf4;text-align:center;white-space:nowrap}.lr-detail-table th{background:#f1f5f9;font-weight:700;color:#334155}.lr-detail-table td:nth-child(2){text-align:left;white-space:normal;min-width:190px}.lr-detail-table tbody tr:nth-child(even){background:#f8fafc}.lr-detail-table button.lr-text-link{background:none!important;border:0!important;box-shadow:none!important;color:#1d4ed8!important;padding:0!important;font:inherit!important;text-align:left!important;min-height:0!important;height:auto!important;white-space:normal!important;cursor:pointer}.lr-text-link:focus-visible{outline:2px solid #2563eb}.lr-selected{border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:12px;background:#f8fbff}.lr-selected h3{margin:0 0 8px;font-size:17px}.lr-selected p{margin:4px 0}.lr-selected .lr-actions{margin-top:10px}.risk-panel-head .risk-tag,.risk-kpi-icon{display:none}.risk-kpi-card{min-height:100px!important}.risk-kpi-card::before{width:3px}.risk-kpi-label{font-size:14px}.risk-kpi-sub{font-size:12px}.risk-kpi-value{font-size:30px}.risk-panel-head p{font-size:13px}.risk-panel{min-width:0}.risk-chart-grid-2,.risk-chart-grid-equal{grid-template-columns:repeat(2,minmax(0,1fr))}
+[hidden]{display:none!important}
+@media(max-width:1100px){.risk-chart-grid-2,.risk-chart-grid-equal{grid-template-columns:1fr}.lr-filterbar{align-items:flex-start;flex-direction:column}}
+@media(max-width:900px){.leader-main{padding:14px!important}.lr-view-card{padding:12px!important}.lr-view-kpis{gap:7px}.lr-view-kpis>div{padding:10px}.lr-view-kpis strong{font-size:19px}.lr-table-tools{gap:8px}.lr-table-tools label:first-child{flex-basis:100%}.lr-filter-dialog .risk-filter-grid{gap:10px}.lr-filter-dialog .risk-filter-field select{font-size:14px}.lr-actions button{max-width:100%;white-space:normal}}
+@media(max-width:380px){.lr-filter-dialog .risk-filter-grid{grid-template-columns:1fr}.lr-view-kpis{grid-template-columns:1fr}}
+@media print{#lrSharedRiskBar,#lrRiskFilterOverlay,.lr-overview-link,.lr-table-tools,.lr-selected .lr-actions,.leader-topbar{display:none!important}.leader-main{padding:0!important}.lr-table-scroll{overflow:visible}.lr-detail-table{min-width:0;font-size:10px}.lr-detail-table td,.lr-detail-table th{padding:4px;white-space:normal}.leader-main .card,.risk-panel{box-shadow:none!important}}
 
 </style>
 </head>
@@ -4263,51 +4305,25 @@ body.filter-modal-open{
 </button>
 
         <nav class="leader-menu" aria-label="เมนู LeaderPR">
-          <button class="leader-sidebar-link" type="button" data-leader-page="home">
-            <span class="leader-sidebar-icon">🏠</span>
-            <span>หน้าแรก</span>
-            <span class="leader-sidebar-chevron"></span>
-          </button>
-
-          <div class="leader-menu-section">
-            <span class="leader-dot"></span>
-            <span>ข้อมูลเพื่อการบริหาร</span>
+          <button class="leader-sidebar-link" type="button" data-leader-page="dashboard" title="สถิติผลการเรียน"><span class="leader-sidebar-icon">📈</span><span>สถิติผลการเรียน</span><span class="leader-sidebar-chevron"></span></button>
+          <div id="lrRiskMenu" class="lr-nav-group open">
+            <button class="leader-sidebar-link lr-parent" id="lrRiskParent" type="button" aria-expanded="true" aria-controls="lrRiskSubmenu" title="สถิติ 0 ร มส และ มผ"><span class="leader-sidebar-icon">📊</span><span>สถิติ 0 ร มส และ มผ</span><span class="lr-caret" aria-hidden="true">⌄</span></button>
+            <div id="lrRiskSubmenu" class="lr-submenu">
+              <button class="leader-sidebar-link" type="button" data-leader-page="risk-analytics" title="ภาพรวม"><span class="leader-sidebar-icon">▥</span><span>ภาพรวม</span></button>
+              <button class="leader-sidebar-link" type="button" data-leader-page="risk-students" title="มุมมองนักเรียน"><span class="leader-sidebar-icon">👥</span><span>มุมมองนักเรียน</span></button>
+              <button class="leader-sidebar-link" type="button" data-leader-page="risk-teachers" title="มุมมองครูผู้สอน"><span class="leader-sidebar-icon">👤</span><span>มุมมองครูผู้สอน</span></button>
+              <button class="leader-sidebar-link" type="button" data-leader-page="risk-subjects" title="มุมมองรายวิชา"><span class="leader-sidebar-icon">📚</span><span>มุมมองรายวิชา</span></button>
+            </div>
           </div>
-
-          <button class="leader-sidebar-link active" type="button" data-leader-page="dashboard">
-            <span class="leader-sidebar-icon">📈</span>
-            <span>สถิติผลการเรียน</span>
-            <span class="leader-sidebar-chevron"></span>
-          </button>
-
-          <button class="leader-sidebar-link" type="button" data-leader-page="risk-analytics">
-            <span class="leader-sidebar-icon">⚠️</span>
-            <span>วิเคราะห์ 0 / ร / มส</span>
-            <span class="leader-sidebar-chevron"></span>
-          </button>
-
-          <button class="leader-sidebar-link" type="button" data-leader-page="retest">
-            <span class="leader-sidebar-icon">🧾</span>
-            <span>สถิติผลการสอบแก้ตัว</span>
-            <span class="leader-sidebar-chevron"></span>
-          </button>
-
-          <div class="leader-menu-section">
-            <span class="leader-dot green"></span>
-            <span>งานทั่วไป</span>
+          <div class="lr-nav-group" id="lrToolsMenu">
+            <button class="leader-sidebar-link lr-parent" id="lrToolsParent" type="button" aria-expanded="false" aria-controls="lrToolsSubmenu" title="เครื่องมืออื่น ๆ"><span class="leader-sidebar-icon">⚙️</span><span>เครื่องมืออื่น ๆ</span><span class="lr-caret">⌄</span></button>
+            <div class="lr-submenu" id="lrToolsSubmenu">
+              <button class="leader-sidebar-link" type="button" data-leader-page="home" title="หน้าแรก"><span class="leader-sidebar-icon">🏠</span><span>หน้าแรก</span></button>
+              <button class="leader-sidebar-link" type="button" data-leader-page="retest" title="สถิติผลการสอบแก้ตัว"><span class="leader-sidebar-icon">🧾</span><span>สถิติผลการสอบแก้ตัว</span></button>
+              <button class="leader-sidebar-link" type="button" data-leader-page="qrcode" title="สร้าง QR Code"><span class="leader-sidebar-icon">▦</span><span>สร้าง QR Code</span></button>
+              <button class="leader-sidebar-link" type="button" id="leaderChangePasswordBtn" title="เปลี่ยนรหัสผ่าน"><span class="leader-sidebar-icon">🔐</span><span>เปลี่ยนรหัสผ่าน</span></button>
+            </div>
           </div>
-
-          <button class="leader-sidebar-link" type="button" data-leader-page="qrcode">
-            <span class="leader-sidebar-icon">🔳</span>
-            <span>สร้าง QR Code</span>
-            <span class="leader-sidebar-chevron"></span>
-          </button>
-
-          <button class="leader-sidebar-link" type="button" id="leaderChangePasswordBtn">
-            <span class="leader-sidebar-icon">🔐</span>
-            <span>เปลี่ยนรหัสผ่าน</span>
-            <span class="leader-sidebar-chevron"></span>
-          </button>
         </nav>
       </div>
 
@@ -4697,25 +4713,18 @@ body.filter-modal-open{
       </section>
 
 
-      <section class="risk-analytics-page" id="leaderRiskAnalyticsPage" hidden>
-        <div class="risk-shell">
-         <div class="risk-demo-banner" id="riskLiveBanner">
-  <div>
-    <strong>📊 วิเคราะห์ 0 / ร / มส จากข้อมูลจริง</strong>
-    <small id="riskLiveStatusText">
-      เลือกเงื่อนไขแล้วกด “ประมวลผล” เพื่ออ่านข้อมูลจาก Supabase
-    </small>
-  </div>
-  <span class="risk-demo-badge" id="riskDataBadge">LIVE DATA</span>
+<div id="lrSharedRiskBar" hidden>
+  <div class="lr-filterbar"><div><div class="lr-filtertitle">ข้อมูลที่ใช้ประมวลผล</div><div id="lrAppliedFilterText" class="lr-muted">ยังไม่ได้ประมวลผล</div></div>
+  <div class="lr-actions"><button id="lrRiskFilterOpen" class="btn-secondary" type="button">⚙ เลือกตัวกรอง</button><button id="lrProcessCurrent" class="btn-primary" type="button">ประมวลผลข้อมูล</button></div></div>
+  <div id="riskLiveStatusText" class="lr-status" role="status" aria-live="polite">เลือกตัวกรองแล้วประมวลผล</div>
 </div>
-
-<section class="risk-filter-card">
+<div id="lrRiskFilterOverlay" class="filter-overlay" aria-hidden="true"><div class="filter-overlay-backdrop" id="lrRiskFilterBackdrop"></div><section class="risk-filter-card lr-filter-dialog" role="dialog" aria-modal="true" aria-labelledby="lrFilterTitle">
   <div class="risk-filter-head">
     <div>
-      <h2>🔎 ข้อมูลที่ใช้วิเคราะห์</h2>
-      <p>เลือกเงื่อนไขสำหรับวิเคราะห์ผลการเรียน 0 / ร / มส</p>
+      <h2 id="lrFilterTitle">เลือกข้อมูลที่ต้องการประมวลผล</h2>
+      <p>ใช้ตัวกรองร่วมกันทั้ง 4 มุมมอง</p>
     </div>
-    <span class="risk-tag">Executive Filter</span>
+    <button type="button" class="btn-secondary" id="lrCloseFilters" aria-label="ปิดตัวกรอง">✕</button>
   </div>
 
   <div class="risk-filter-grid">
@@ -4769,7 +4778,7 @@ body.filter-modal-open{
       id="riskProcessBtn"
       type="button"
     >
-      ประมวลผล
+      ใช้ตัวกรองและประมวลผล
     </button>
 
   </div>
@@ -4782,15 +4791,17 @@ body.filter-modal-open{
       รอเลือกข้อมูล
     </span>
   </div>
-</section>
-
+</section></div>
+      <section class="risk-analytics-page" id="leaderRiskAnalyticsPage" hidden>
+        <div class="risk-shell">
+<div id="lrOverviewEmpty" class="card lr-empty">เลือกข้อมูลแล้วกดประมวลผลเพื่อแสดงภาพรวมจริง</div><div id="lrOverviewResults" class="risk-shell" hidden>
 <div class="risk-kpi-grid">
 
   <article class="risk-kpi-card dark">
     <div class="risk-kpi-icon">👥</div>
     <div class="risk-kpi-label">นักเรียนที่มี 0 / ร / มส / มผ</div>
     <div class="risk-kpi-value" id="riskKpiStudents">0</div>
-    <div class="risk-kpi-sub">นับรหัสนักเรียนไม่ซ้ำ</div>
+    <div class="risk-kpi-sub">นับนักเรียนไม่ซ้ำตาม RPC เดิม</div>
   </article>
 
   <article class="risk-kpi-card">
@@ -4929,7 +4940,7 @@ body.filter-modal-open{
 
           <div class="risk-chart-grid-2">
             <section class="risk-panel">
-              <div class="risk-panel-head"><div><h2>0 / ร / มส / มผ แยกตามระดับชั้น / ห้อง</h2>เปรียบเทียบจำนวนรายการเพื่อหาจุดที่ควรเจาะต่อ</p></div><span class="risk-tag">Stacked Bar</span></div>
+              <div class="risk-panel-head"><div><h2>0 / ร / มส / มผ แยกตามระดับชั้น / ห้อง</h2><p>เปรียบเทียบจำนวนรายการเพื่อหาจุดที่ควรเจาะต่อ</p></div><span class="risk-tag">Stacked Bar</span></div>
               <div class="risk-chart-box"><canvas id="riskClassChart"></canvas></div>
             </section>
             <section class="risk-panel">
@@ -5012,7 +5023,7 @@ body.filter-modal-open{
     <h2>Top 10 รายวิชาที่พบปัญหา</h2>
     <p>เรียงตามจำนวนรายการ 0 / ร / มส / มผ</p>
   </div>
-  <span class="risk-tag">Subject</span>
+  <button type="button" class="btn-secondary lr-overview-link" id="lrSubjectViewLink">เปิดมุมมองรายวิชา</button>
 </div>
               <div class="risk-chart-box tall"><canvas id="riskSubjectChart"></canvas></div>
             </section>
@@ -5059,33 +5070,73 @@ body.filter-modal-open{
             </div>
           </section>
 
-          <div class="risk-chart-grid-2">
             <section class="risk-panel">
               <div class="risk-panel-head"><div><h2>แนวโน้มย้อนหลัง</h2><p>เปรียบเทียบจำนวน 0 / ร / มส / มผ ย้อนหลังหลายภาคเรียน</p></div><span class="risk-tag">Trend</span></div>
               <div class="risk-chart-box"><canvas id="riskTrendChart"></canvas></div>
             </section>
-            <section class="risk-panel">
-              <div class="risk-panel-head"><div><h2>นักเรียนที่มีปัญหาซ้ำ</h2><p>พบ 0 / ร / มส ต่อเนื่องตั้งแต่ 2 ภาคเรียนขึ้นไป</p></div><span class="risk-tag">Repeated Risk</span></div>
-              <div class="risk-repeat-grid">
-                <div class="risk-repeat-card"><b>ต่อเนื่อง 2 ภาคเรียน</b><span>ควรตรวจประวัติและแผนช่วยเหลือเดิม</span><span class="risk-repeat-count">14 คน</span></div>
-                <div class="risk-repeat-card"><b>ต่อเนื่อง 3 ภาคเรียน</b><span>ควรส่งต่อระดับงานวิชาการ/ครูที่ปรึกษา</span><span class="risk-repeat-count">6 คน</span></div>
-                <div class="risk-repeat-card"><b>ต่อเนื่อง ≥ 4 ภาคเรียน</b><span>กลุ่มติดตามเร่งด่วนเชิงระบบ</span><span class="risk-repeat-count">2 คน</span></div>
-              </div>
-            </section>
-          </div>
 
-          <section class="risk-panel">
-            <div class="risk-panel-head"><div><h2>💡 ข้อสังเกตอัตโนมัติ</h2><p>ตัวอย่างข้อความที่ระบบสามารถสร้างจากผลวิเคราะห์จริงใน Phase เชื่อมฐานข้อมูล</p></div><span class="risk-tag">Auto Insight</span></div>
-            <div class="risk-insight-grid">
-              <div class="risk-insight"><div class="risk-insight-icon">🚨</div><div><b>ระดับชั้นที่ควรติดตาม</b><span>ม.4 มีจำนวนรายการ 0 / ร / มส สูงสุดจากข้อมูลตัวอย่าง โดยเฉพาะห้อง ม.4/3</span></div></div>
-              <div class="risk-insight"><div class="risk-insight-icon">📚</div><div><b>รายวิชาที่ควรตรวจรายละเอียด</b><span>คณิตศาสตร์พื้นฐาน 4 มีนักเรียนพบปัญหาสูงสุดในชุดข้อมูลตัวอย่าง</span></div></div>
-              <div class="risk-insight"><div class="risk-insight-icon">📉</div><div><b>แนวโน้มดีขึ้น</b><span>จำนวน 0 / ร / มส ในตัวอย่างลดลงจากภาคเรียนก่อน ควรแสดงทั้งจำนวนและร้อยละเปลี่ยนแปลง</span></div></div>
-              <div class="risk-insight"><div class="risk-insight-icon">🔁</div><div><b>พบความเสี่ยงต่อเนื่อง</b><span>มีนักเรียนตัวอย่าง 22 คนที่พบปัญหาต่อเนื่องตั้งแต่ 2 ภาคเรียนขึ้นไป</span></div></div>
+          <section class="risk-panel" id="leaderRepeatedSection">
+            <div class="risk-panel-head"><div><h2>🔁 นักเรียนที่มีความเสี่ยงต่อเนื่อง</h2><p>ติดตาม 0 / ร / มส / มผ ในช่วงระดับการศึกษาเดียวกัน ไม่รวมประวัติ ม.ต้น กับ ม.ปลาย</p></div><span class="risk-tag">Repeated Risk</span></div>
+            <div id="leaderRepeatedStatus" class="lr-note" role="status" aria-live="polite">รอประมวลผลข้อมูล</div>
+            <div id="leaderRepeatedContent" hidden>
+              <div id="leaderRepeatedReference" class="lr-note"></div>
+              <div class="risk-repeat-grid">
+                <div class="risk-repeat-card"><b>ต่อเนื่อง 2 ภาคเรียน</b><span>จำนวนภาคเรียนพอดี</span><span id="leaderRepeated2" class="risk-repeat-count">—</span></div>
+                <div class="risk-repeat-card"><b>ต่อเนื่อง 3 ภาคเรียน</b><span>จำนวนภาคเรียนพอดี</span><span id="leaderRepeated3" class="risk-repeat-count">—</span></div>
+                <div class="risk-repeat-card"><b>ต่อเนื่อง ≥ 4 ภาคเรียน</b><span>ตั้งแต่ 4 ภาคเรียนขึ้นไป</span><span id="leaderRepeated4Plus" class="risk-repeat-count">—</span></div>
+              </div>
+              <div class="lr-overview">
+                <b>นักเรียนเสี่ยงต่อเนื่องทั้งหมด <span id="leaderRepeatedTotal">—</span></b>
+                <div id="leaderRepeatedCohort" class="lr-note"></div>
+                <div class="lr-bar" aria-hidden="true"><div id="leaderRepeatedOutstandingBar"></div><div id="leaderRepeatedClearedBar"></div></div>
+                <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px">
+                  <b style="color:#b91c1c">ยังมีรายการคงค้าง <span id="leaderRepeatedOutstanding">—</span></b>
+                  <b style="color:#15803d">ไม่มีรายการคงค้าง <span id="leaderRepeatedCleared">—</span></b>
+                </div>
+              </div>
+              <div id="leaderRepeatedNotice" hidden></div>
+              <h3>รายชื่อนักเรียนที่มีความเสี่ยงต่อเนื่อง</h3>
+              <div class="risk-table-wrap"><table class="risk-table">
+                <thead><tr><th>ที่</th><th>นักเรียน</th><th>ชั้น/ห้อง</th><th>ต่อเนื่อง</th><th>เริ่ม–สิ้นสุด</th><th>รายการเสี่ยงสะสม</th><th>แก้สำเร็จ</th><th>รออนุมัติ</th><th>ยังไม่แก้</th><th>คงค้าง</th></tr></thead>
+                <tbody id="leaderRepeatedBody"></tbody>
+              </table></div>
+              <div id="leaderRepeatedSummary" class="lr-note"></div>
+              <div class="lr-note">ใช้ชั้นและห้อง ณ ภาคเรียนอ้างอิง ติดตามด้วย student_id เฉพาะระดับการศึกษาเดียวกัน ประวัติรวมรายการที่แก้สำเร็จแล้ว สถานะการแก้เป็นสถานะล่าสุด ไม่ใช่สถานะ ณ วันสิ้นภาคเรียน ข้อมูลที่ขาดหายไม่ถือว่าไม่มีความเสี่ยง</div>
             </div>
           </section>
+
+          <section class="risk-panel"><h2>ข้อสังเกตอัตโนมัติ</h2><div id="lrRealInsights" class="lr-muted">รอข้อมูลสรุปจากการประมวลผล</div></section>
+          </div><!-- lrOverviewResults -->
         </div>
       </section>
 
+<section class="lr-detail-page" id="lrPage_students" hidden>
+ <section class="card lr-view-card"><div class="lr-view-head"><div><h2>มุมมองนักเรียน</h2><p>รายชื่อนักเรียนที่ยังมีรายการคงค้าง จาก RPC นักเรียนเร่งด่วนเดิม (สูงสุด 20 คน ไม่ใช่รายชื่อทั้งหมด)</p></div></div>
+ <div class="lr-view-kpis" id="lrKpis_students"><div><span>จำนวนที่แสดง</span><strong>—</strong></div><div><span>รายการในชุดที่แสดง</span><strong>—</strong></div><div><span>ขอบเขต</span><strong>—</strong></div></div>
+ <div class="lr-table-tools"><label>ค้นหาในชุดข้อมูล<input type="search" id="lrSearch_students" placeholder="ค้นหาชื่อหรือรหัส…"></label><label>เรียงตาม<select id="lrSort_students"><option value="subject_count">จำนวนวิชาคงค้าง</option><option value="total_records">จำนวนรายการคงค้าง</option><option value="grade_0_records">0</option><option value="grade_r_records">ร</option><option value="grade_ms_records">มส</option><option value="grade_mp_records">มผ</option></select></label><label>ลำดับ<select id="lrOrder_students"><option value="desc">มาก → น้อย</option><option value="asc">น้อย → มาก</option></select></label></div>
+ <div id="lrViewStatus_students" class="lr-status" role="status" aria-live="polite">ยังไม่ได้ประมวลผล</div>
+ <div class="lr-table-scroll"><table class="lr-detail-table"><thead><tr><th scope="col">ที่</th><th scope="col">นักเรียน / รหัส</th><th scope="col">ชั้น/ห้อง</th><th scope="col">0</th><th scope="col">ร</th><th scope="col">มส</th><th scope="col">มผ</th><th scope="col">รวมคงค้าง</th><th scope="col">จำนวนวิชา</th><th scope="col">รออนุมัติ</th><th scope="col">ยังไม่แก้</th></tr></thead><tbody id="lrRows_students"><tr><td colspan="11">ยังไม่ได้ประมวลผล</td></tr></tbody></table></div>
+ <p class="lr-muted" id="lrFoot_students">การค้นหาและเรียงลำดับทำภายในชุดข้อมูลที่ส่งกลับเท่านั้น ไม่ใช่การจัดอันดับทั้งโรงเรียน</p>
+ <div id="lrSelected_students" class="lr-selected" hidden></div>
+ </section></section>
+<section class="lr-detail-page" id="lrPage_teachers" hidden>
+ <section class="card lr-view-card"><div class="lr-view-head"><div><h2>มุมมองครูผู้สอน</h2><p>เตรียมโครงสร้างสำหรับเปรียบเทียบครูตามรายวิชา ห้องเรียน จำนวนผลการเรียน และอัตราความเสี่ยง</p></div></div>
+ <div class="lr-view-kpis" id="lrKpis_teachers"><div><span>จำนวนที่แสดง</span><strong>—</strong></div><div><span>รายการในชุดที่แสดง</span><strong>—</strong></div><div><span>ขอบเขต</span><strong>—</strong></div></div>
+ <div class="lr-table-tools"><label>ค้นหาในชุดข้อมูล<input type="search" id="lrSearch_teachers" placeholder="ค้นหาชื่อหรือรหัส…" disabled></label><label>เรียงตาม<select id="lrSort_teachers" disabled><option value="total_records">จำนวนรายการเสี่ยง</option><option value="rate">อัตราความเสี่ยง</option><option value="grade_0_records">0</option><option value="grade_r_records">ร</option><option value="grade_ms_records">มส</option><option value="grade_mp_records">มผ</option></select></label><label>ลำดับ<select id="lrOrder_teachers" disabled><option value="desc">มาก → น้อย</option><option value="asc">น้อย → มาก</option></select></label></div>
+ <div id="lrViewStatus_teachers" class="lr-status" role="status" aria-live="polite">ยังไม่มี RPC สรุปรายครูที่ยืนยันได้ จึงยังไม่แสดงตัวเลขหรืออันดับ</div>
+ <div class="lr-table-scroll"><table class="lr-detail-table"><thead><tr><th scope="col">อันดับ</th><th scope="col">ครูผู้สอน</th><th scope="col">จำนวนวิชา</th><th scope="col">ผลการเรียนทั้งหมด</th><th scope="col">0</th><th scope="col">ร</th><th scope="col">มส</th><th scope="col">มผ</th><th scope="col">รวม</th><th scope="col">คงค้าง</th><th scope="col">อัตราความเสี่ยง</th></tr></thead><tbody id="lrRows_teachers"><tr><td colspan="11">ยังไม่มี RPC สรุปรายครูที่ยืนยันได้ จึงยังไม่แสดงตัวเลขหรืออันดับ</td></tr></tbody></table></div>
+ <p class="lr-muted" id="lrFoot_teachers">ส่วนรายละเอียดครูและอัตราความเสี่ยงต้องใช้ RPC ใหม่ที่มีตัวหารเป็นผลการเรียนทั้งหมด</p>
+ <div id="lrSelected_teachers" class="lr-selected" hidden></div>
+ </section></section>
+<section class="lr-detail-page" id="lrPage_subjects" hidden>
+ <section class="card lr-view-card"><div class="lr-view-head"><div><h2>มุมมองรายวิชา</h2><p>รายวิชาที่มีรายการเสี่ยงมากที่สุด จาก RPC Top Subjects เดิม (สูงสุด 10 วิชา ไม่ใช่อันดับทุกรายวิชา)</p></div></div>
+ <div class="lr-view-kpis" id="lrKpis_subjects"><div><span>จำนวนที่แสดง</span><strong>—</strong></div><div><span>รายการในชุดที่แสดง</span><strong>—</strong></div><div><span>ขอบเขต</span><strong>—</strong></div></div>
+ <div class="lr-table-tools"><label>ค้นหาในชุดข้อมูล<input type="search" id="lrSearch_subjects" placeholder="ค้นหาชื่อหรือรหัส…"></label><label>เรียงตาม<select id="lrSort_subjects"><option value="total_records">จำนวนรายการเสี่ยง</option><option value="unique_students">นักเรียนไม่ซ้ำ</option><option value="grade_0_records">0</option><option value="grade_r_records">ร</option><option value="grade_ms_records">มส</option><option value="grade_mp_records">มผ</option></select></label><label>ลำดับ<select id="lrOrder_subjects"><option value="desc">มาก → น้อย</option><option value="asc">น้อย → มาก</option></select></label></div>
+ <div id="lrViewStatus_subjects" class="lr-status" role="status" aria-live="polite">ยังไม่ได้ประมวลผล</div>
+ <div class="lr-table-scroll"><table class="lr-detail-table"><thead><tr><th scope="col">ที่</th><th scope="col">รหัส / ชื่อวิชา</th><th scope="col">นักเรียนไม่ซ้ำ</th><th scope="col">0</th><th scope="col">ร</th><th scope="col">มส</th><th scope="col">มผ</th><th scope="col">รวม</th><th scope="col">แก้สำเร็จ</th><th scope="col">รออนุมัติ</th><th scope="col">ยังไม่แก้</th></tr></thead><tbody id="lrRows_subjects"><tr><td colspan="11">ยังไม่ได้ประมวลผล</td></tr></tbody></table></div>
+ <p class="lr-muted" id="lrFoot_subjects">การค้นหาและเรียงลำดับทำภายในชุดข้อมูลที่ส่งกลับเท่านั้น ไม่ใช่การจัดอันดับทั้งโรงเรียน</p>
+ <div id="lrSelected_subjects" class="lr-selected" hidden></div>
+ </section></section>
       <section class="leader-qr-page" id="leaderQrPage" hidden>
         <div class="leader-qr-shell">
           <section class="leader-qr-card">
@@ -6075,6 +6126,8 @@ function closeFilterOverlay(){
 }
 
 async function processDashboard(){
+  const requestToken=String(leaderSessionToken||'').trim();
+  if(!leaderRepeatedSessionValid(requestToken))return;
   const payload = buildPayload();
 
   $('processBtn').disabled = true;
@@ -6120,6 +6173,7 @@ async function processDashboard(){
         'กำลังประมวลผล Dashboard กรุณารอสักครู่...'
     }
   );
+    if(!leaderRepeatedSessionValid(requestToken))return;
     const raw = data && data.data ? data.data : data;
     dashboardData = normalizeDashboardData(raw);
 
@@ -6790,25 +6844,25 @@ function renderDashboard(){
 datasets:[
   {
     label:'0',
-    data:[22,28,39,55,41,25],
+    data:[],
     backgroundColor:'#ef4444',
     borderRadius:5
   },
   {
     label:'ร',
-    data:[14,17,25,31,22,12],
+    data:[],
     backgroundColor:'#f59e0b',
     borderRadius:5
   },
   {
     label:'มส',
-    data:[8,11,16,24,18,9],
+    data:[],
     backgroundColor:'#7c3aed',
     borderRadius:5
   },
   {
     label:'มผ',
-    data:[0,0,0,0,0,0],
+    data:[],
     backgroundColor:'#0f9d58',
     borderRadius:5
   }
@@ -6824,7 +6878,7 @@ datasets:[
 
     const resolutionChart = new Chart(document.getElementById('riskResolutionChart'), {
       type:'doughnut',
-      data:{labels:['แก้ไขแล้ว','คงค้าง'],datasets:[{data:[121,65],backgroundColor:['#22c55e','#ef4444'],borderColor:'#ffffff',borderWidth:4}]},
+      data:{labels:['แก้ไขแล้ว','คงค้าง'],datasets:[{data:[],backgroundColor:['#22c55e','#ef4444'],borderColor:'#ffffff',borderWidth:4}]},
       options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{position:'bottom',labels:{usePointStyle:true,font:baseFont}},tooltip:{callbacks:{label:(c)=>`${c.label}: ${c.raw} คน`}}}}
     });
 
@@ -7662,6 +7716,8 @@ async function loadLeaderRiskKpis(){
   ]);
 
 
+  if(!leaderRepeatedSessionValid(token)) throw new Error('Session เปลี่ยนแปลง');
+
   if(summaryRes.error){
     throw summaryRes.error;
   }
@@ -7676,6 +7732,8 @@ async function loadLeaderRiskKpis(){
 
   const urgent =
     urgentRes.data || {};
+  lrRiskState.summary=summary;
+  lrRiskState.urgent=urgent;
 
 
 
@@ -7917,17 +7975,6 @@ if(noteNode){
 
 }
 
-
-  console.log(
-    'RISK KPI SUMMARY:',
-    summary
-  );
-
-  console.log(
-    'RISK KPI URGENT:',
-    urgent
-  );
-
 }
 
 async function loadLeaderRiskClassRoomChart(){
@@ -7984,6 +8031,8 @@ async function loadLeaderRiskClassRoomChart(){
     );
 
 
+  if(!leaderRepeatedSessionValid(token)) throw new Error('Session เปลี่ยนแปลง');
+
   if(error){
     throw error;
   }
@@ -7993,14 +8042,6 @@ async function loadLeaderRiskClassRoomChart(){
     Array.isArray(data)
       ? data
       : [];
-
-
-  console.log(
-    roomMode
-      ? 'RISK BY ROOM:'
-      : 'RISK BY CLASS:',
-    rows
-  );
 
 
   let chartRows = [];
@@ -8299,6 +8340,8 @@ async function loadLeaderRiskHeatmap(){
   ]);
 
 
+  if(!leaderRepeatedSessionValid(token)) throw new Error('Session เปลี่ยนแปลง');
+
   if(riskRes.error){
     throw riskRes.error;
   }
@@ -8318,17 +8361,6 @@ async function loadLeaderRiskHeatmap(){
     Array.isArray(structureRes.data)
       ? structureRes.data
       : [];
-
-
-  console.log(
-    'RISK HEATMAP:',
-    rows
-  );
-
-  console.log(
-    'RISK ROOM STRUCTURE:',
-    roomStructure
-  );
 
 
   const box =
@@ -8669,7 +8701,7 @@ async function loadLeaderRiskHeatmap(){
                 <small>
                   ${
                     value === 0
-                      ? 'ปลอด 0 / ร / มส / มผ'
+                      ? 'ไม่พบรายการ'
                       : 'คน'
                   }
                 </small>
@@ -8724,6 +8756,8 @@ async function loadLeaderRiskTopSubjects(){
     );
 
 
+  if(!leaderRepeatedSessionValid(token)) throw new Error('Session เปลี่ยนแปลง');
+
   if(error){
     throw error;
   }
@@ -8733,12 +8767,8 @@ async function loadLeaderRiskTopSubjects(){
     Array.isArray(data)
       ? data
       : [];
+  lrAcceptOverviewRows('subjects', rows);
 
-
-  console.log(
-    'RISK TOP SUBJECTS:',
-    rows
-  );
 
 
   const chart =
@@ -8853,6 +8883,8 @@ async function loadLeaderRiskLearningAreas(){
     );
 
 
+  if(!leaderRepeatedSessionValid(token)) throw new Error('Session เปลี่ยนแปลง');
+
   if(error){
     throw error;
   }
@@ -8875,10 +8907,7 @@ async function loadLeaderRiskLearningAreas(){
   );
 
 
-  console.log(
-    'RISK BY LEARNING AREA:',
-    rows
-  );
+
 
 
   const chart =
@@ -8980,6 +9009,8 @@ async function loadLeaderRiskUrgentStudents(){
     );
 
 
+  if(!leaderRepeatedSessionValid(token)) throw new Error('Session เปลี่ยนแปลง');
+
   if(error){
     throw error;
   }
@@ -8989,12 +9020,8 @@ async function loadLeaderRiskUrgentStudents(){
     Array.isArray(data)
       ? data
       : [];
+  lrAcceptOverviewRows('students', rows);
 
-
-  console.log(
-    'RISK URGENT STUDENTS:',
-    rows
-  );
 
 
   const tbody =
@@ -9195,6 +9222,8 @@ async function loadLeaderRiskUrgentStudents(){
       `;
 
     }).join('');
+  tbody.querySelectorAll('.risk-student-btn').forEach((btn,i)=>{btn.addEventListener('click',()=>{if(!lrRiskState.overviewReady||!leaderRepeatedSessionValid(token))return;showLeaderPage('risk-students');lrNode('lrSearch_students').value='';lrRenderPreview('students');lrPreviewRowDetail('students',rows[i]);lrNode('lrSelected_students').scrollIntoView({block:'nearest'});});});
+
 
 }
 
@@ -9247,6 +9276,8 @@ async function loadLeaderRiskTrend(){
     );
 
 
+  if(!leaderRepeatedSessionValid(token)) throw new Error('Session เปลี่ยนแปลง');
+
   if(error){
     throw error;
   }
@@ -9279,12 +9310,6 @@ async function loadLeaderRiskTrend(){
       );
 
     }
-  );
-
-
-  console.log(
-    'RISK TREND:',
-    rows
   );
 
 
@@ -9352,6 +9377,112 @@ async function loadLeaderRiskTrend(){
 
 
 
+// ===== LEADER REPEATED RISK CONTROLLER =====
+const leaderRepeatedState = {data:null, filters:null, limit:20, generation:0, expiryTimer:null};
+const lrNode = id => document.getElementById(id);
+const lrFmt = n => Number(n).toLocaleString('th-TH');
+const lrText = (id,v) => { const node=lrNode(id); if(node) node.textContent=String(v); };
+const leaderRepeatedKpiIds = {
+  leaderRepeated2:'repeat_2_students', leaderRepeated3:'repeat_3_students',
+  leaderRepeated4Plus:'repeat_4plus_students', leaderRepeatedTotal:'total_repeated_students',
+  leaderRepeatedOutstanding:'repeated_with_outstanding_students', leaderRepeatedCleared:'repeated_without_outstanding_students'
+};
+function resetLeaderRepeated(message='รอประมวลผลข้อมูล'){
+  leaderRepeatedState.generation++;
+  leaderRepeatedState.data=null; leaderRepeatedState.filters=null;
+  clearTimeout(leaderRepeatedState.expiryTimer); leaderRepeatedState.expiryTimer=null;
+  Object.keys(leaderRepeatedKpiIds).forEach(id=>lrText(id,'—'));
+  ['leaderRepeatedReference','leaderRepeatedCohort','leaderRepeatedNotice','leaderRepeatedSummary'].forEach(id=>lrText(id,''));
+  ['leaderRepeatedOutstandingBar','leaderRepeatedClearedBar'].forEach(id=>{if(lrNode(id))lrNode(id).style.width='0%';});
+  lrNode('leaderRepeatedBody')?.replaceChildren();
+  for(const id of ['leaderRepeatedContent','leaderRepeatedNotice']){if(lrNode(id))lrNode(id).hidden=true;}
+  lrText('leaderRepeatedStatus',message);
+}
+function leaderRepeatedSessionValid(token){
+  if(!token || token!==String(leaderSessionToken||'').trim() || !String(leaderCurrentUser?.teacher_code||'').trim().toUpperCase().startsWith('L'))return false;
+  if(!leaderSessionExpiresAt)return true;
+  const expiry=Date.parse(leaderSessionExpiresAt);
+  return Number.isFinite(expiry)&&expiry>Date.now();
+}
+function validateLeaderRepeated(data,filters,limit){
+  const fail=()=>{throw new Error('Repeated Risk response validation failed');};
+  const count=v=>Number.isSafeInteger(v)&&v>=0;
+  if(!data||!['ok','no_reference_data','no_cohort'].includes(data.status))fail();
+  const k=data.kpi, rows=data.students, ref=data.reference_period;
+  const keys=['cohort_students','reference_risk_students','reference_no_risk_students','reference_unknown_students','repeat_2_students','repeat_3_students','repeat_4plus_students','total_repeated_students','repeated_with_outstanding_students','repeated_without_outstanding_students','repeated_unknown_boundary_students','room_conflict_students','room_ambiguous_students'];
+  if(!k||!keys.every(key=>count(k[key]))||!Array.isArray(rows)||!count(data.reference_total_students)||data.list_limit!==limit||data.returned_students!==rows.length||rows.length!==Math.min(k.total_repeated_students,limit)||data.list_truncated!==(k.total_repeated_students>limit))fail();
+  if(k.cohort_students>data.reference_total_students||k.reference_risk_students+k.reference_no_risk_students+k.reference_unknown_students!==k.cohort_students||k.repeat_2_students+k.repeat_3_students+k.repeat_4plus_students!==k.total_repeated_students||k.repeated_with_outstanding_students+k.repeated_without_outstanding_students!==k.total_repeated_students||k.total_repeated_students>k.reference_risk_students||k.repeated_unknown_boundary_students>k.total_repeated_students||k.room_conflict_students>k.cohort_students||k.room_ambiguous_students>k.cohort_students)fail();
+  if(data.status!=='ok'){if(k.cohort_students!==0||rows.length!==0)fail();return;}
+  if(!ref||!Number.isSafeInteger(ref.academic_year)||![1,2].includes(ref.term)||ref.label!==`${ref.academic_year}/${ref.term}`||ref.period_index!==ref.academic_year*2+ref.term||(filters.academic_years.length&&!filters.academic_years.includes(ref.academic_year))||(filters.terms.length&&!filters.terms.includes(ref.term)))fail();
+  const seen=new Set();
+  const idx=s=>{const m=/^(\d+)\/([12])$/.exec(String(s||''));return m?Number(m[1])*2+Number(m[2]):null;};
+  const counts=['risk_periods','current_consecutive_periods','total_risk_records','resolved_records','pending_records','unresolved_records','outstanding_records','outstanding_subjects'];
+  rows.forEach((r,i)=>{
+    if(!r||typeof r.student_id!=='string'||!r.student_id||seen.has(r.student_id)||!counts.every(key=>count(r[key])))fail();
+    seen.add(r.student_id);
+    const start=idx(r.streak_start_period), end=idx(r.streak_end_period);
+    if(r.current_consecutive_periods<2||r.risk_periods<r.current_consecutive_periods||start===null||end!==ref.period_index||end-start+1!==r.current_consecutive_periods||r.total_risk_records<r.risk_periods||r.resolved_records+r.pending_records+r.unresolved_records!==r.total_risk_records||r.pending_records+r.unresolved_records!==r.outstanding_records||r.outstanding_subjects>r.outstanding_records||(i>0&&rows[i-1].current_consecutive_periods<r.current_consecutive_periods))fail();
+  });
+}
+function renderLeaderRepeated(){
+  const d=leaderRepeatedState.data;
+  if(!d)return;
+  if(d.status!=='ok'){lrText('leaderRepeatedStatus',d.status==='no_reference_data'?'ไม่พบข้อมูลภาคเรียนอ้างอิง':'ไม่พบกลุ่มนักเรียนตามตัวกรอง');return;}
+  const k=d.kpi, rows=d.students, f=leaderRepeatedState.filters;
+  lrText('leaderRepeatedReference',`ภาคเรียนอ้างอิง ${d.reference_period.label} · ${f.class_levels.join(', ')||'ทุกระดับชั้น'} · ${f.rooms.join(', ')||'ทุกห้อง'} · ${f.learning_areas.join(', ')||'ทุกกลุ่มสาระ'} · ${f.subject_types.join(', ')||'ทุกประเภทวิชา'}`);
+  Object.entries(leaderRepeatedKpiIds).forEach(([id,key])=>lrText(id,`${lrFmt(k[key])} คน`));
+  lrText('leaderRepeatedCohort',`จากนักเรียนตามตัวกรอง ${lrFmt(k.cohort_students)} คน (ทั้งโรงเรียน ${lrFmt(d.reference_total_students)} คน)`);
+  const total=k.total_repeated_students;
+  lrNode('leaderRepeatedOutstandingBar').style.width=`${total?k.repeated_with_outstanding_students/total*100:0}%`;
+  lrNode('leaderRepeatedClearedBar').style.width=`${total?k.repeated_without_outstanding_students/total*100:0}%`;
+  const notes=[];
+  if(k.reference_unknown_students)notes.push(`นักเรียน ${lrFmt(k.reference_unknown_students)} คน มีข้อมูลภาคเรียนอ้างอิงไม่เพียงพอ`);
+  if(k.repeated_unknown_boundary_students)notes.push(`นักเรียนเสี่ยงต่อเนื่อง ${lrFmt(k.repeated_unknown_boundary_students)} คน มีขอบเขตข้อมูลย้อนหลังที่ยังยืนยันเพิ่มเติมไม่ได้`);
+  if(k.room_conflict_students)notes.push(`ข้อมูลชั้นหรือห้องหลายค่า ${lrFmt(k.room_conflict_students)} คน`);
+  if(k.room_ambiguous_students)notes.push(`ไม่สามารถยืนยันชั้นหรือห้อง ${lrFmt(k.room_ambiguous_students)} คน`);
+  lrText('leaderRepeatedNotice',notes.join('\n'));lrNode('leaderRepeatedNotice').hidden=!notes.length;
+  const body=lrNode('leaderRepeatedBody');body.replaceChildren();
+  const cell=(tr,v)=>{const td=document.createElement('td');td.textContent=String(v);tr.append(td);return td;};
+  rows.forEach((r,i)=>{
+    const tr=document.createElement('tr');cell(tr,i+1);
+    const name=cell(tr,r.student_name||'—');const code=document.createElement('div');code.textContent=`รหัสนักเรียน ${r.student_code||'—'}`;code.style.fontSize='12px';name.append(code);
+    cell(tr,r.room_ambiguous?'ไม่ยืนยันห้อง':r.room_label||'—');
+    cell(tr,`${r.current_consecutive_periods} ภาคเรียน`);cell(tr,`${r.streak_start_period}–${r.streak_end_period}`);
+    [r.total_risk_records,r.resolved_records,r.pending_records,r.unresolved_records].forEach(v=>cell(tr,lrFmt(v)));
+    const out=cell(tr,`${lrFmt(r.outstanding_records)} รายการ / ${lrFmt(r.outstanding_subjects)} วิชา`);out.style.color=r.outstanding_records?'#b91c1c':'#15803d';body.append(tr);
+  });
+  if(!rows.length){const tr=document.createElement('tr');cell(tr,'ไม่พบนักเรียนที่มีความเสี่ยงต่อเนื่อง').colSpan=10;body.append(tr);}
+  lrText('leaderRepeatedSummary',`แสดง ${lrFmt(rows.length)} จาก ${lrFmt(total)} คน · ${d.list_truncated?'จำกัดรายชื่อ 20 คน โดย KPI คำนวณจากทั้งหมด':'แสดงรายชื่อครบทั้งหมด'}`);
+  lrNode('leaderRepeatedContent').hidden=false;lrText('leaderRepeatedStatus','แสดงผลประมวลผลล่าสุด');
+}
+async function loadLeaderRepeated(snapshot,token,generation){
+  const state=leaderRepeatedState;
+  const current=()=>generation===state.generation&&leaderRepeatedSessionValid(token);
+  if(!current())return;
+  lrText('leaderRepeatedStatus','กำลังวิเคราะห์ความเสี่ยงต่อเนื่อง...');
+  try{
+    const {data,error}=await supabaseClient.rpc('leader_get_dashboard_repeated_risk_session',{p_token:token,p_filters:snapshot,p_limit:state.limit});
+    if(!current())return;
+    if(error)throw error;
+    validateLeaderRepeated(data,snapshot,state.limit);
+    state.data=data;state.filters=JSON.parse(JSON.stringify(snapshot));renderLeaderRepeated();
+  }catch(error){
+    if(!current())return;
+    resetLeaderRepeated('ไม่สามารถวิเคราะห์ความเสี่ยงต่อเนื่องได้ กรุณาประมวลผลใหม่');
+    console.warn('Leader Repeated Risk:',error?.code||'VALIDATION_OR_NETWORK_ERROR');
+  }
+}
+function watchLeaderRepeatedExpiry(token,generation){
+  if(!leaderSessionExpiresAt)return;
+  const check=()=>{
+    if(generation!==leaderRepeatedState.generation)return;
+    if(!leaderRepeatedSessionValid(token)){resetLeaderRepeated('Session หมดอายุ กรุณาเข้าสู่ระบบใหม่');return;}
+    const remaining=Date.parse(leaderSessionExpiresAt)-Date.now();
+    leaderRepeatedState.expiryTimer=setTimeout(check,Math.min(remaining,2147483647));
+  };check();
+}
+// ===== END LEADER REPEATED RISK CONTROLLER =====
+
 async function loadLeaderRiskFilterOptions(){
 
   if(
@@ -9396,7 +9527,9 @@ async function loadLeaderRiskFilterOptions(){
       );
 
 
-    if(error){
+    if(!leaderRepeatedSessionValid(token)) throw new Error('Session เปลี่ยนแปลง');
+
+  if(error){
       throw error;
     }
 
@@ -9568,12 +9701,6 @@ async function loadLeaderRiskFilterOptions(){
     }
 
 
-    console.log(
-      'RISK FILTER OPTIONS:',
-      leaderRiskFilterOptions
-    );
-
-
   }catch(error){
 
     console.error(
@@ -9591,6 +9718,7 @@ async function loadLeaderRiskFilterOptions(){
 
   }
 }
+
 
 
 // เปลี่ยนชั้น → โหลดห้องเฉพาะชั้นนั้น
@@ -9646,82 +9774,34 @@ document
 // ================================================
 // ทดสอบ Payload ของหน้า Risk
 // ================================================
-document
-  .getElementById('riskProcessBtn')
-  ?.addEventListener(
-    'click',
-    async () => {
 
-      const btn =
-        document.getElementById(
-          'riskProcessBtn'
-        );
-
-      const statusText =
-        document.getElementById(
-          'riskLiveStatusText'
-        );
-
-      try{
-
-        if(btn){
-          btn.disabled = true;
-          btn.textContent =
-            'กำลังประมวลผล...';
-        }
-
-        if(statusText){
-          statusText.textContent =
-            'กำลังอ่านข้อมูล 0 / ร / มส จากฐานข้อมูล...';
-        }
-
-        updateLeaderRiskFilterSummary();
-
-        console.log(
-          'RISK PAYLOAD:',
-          buildLeaderRiskPayload()
-        );
-
-        await loadLeaderRiskKpis();
-        await loadLeaderRiskClassRoomChart();
-        await loadLeaderRiskHeatmap();
-        await loadLeaderRiskTopSubjects();
-        await loadLeaderRiskLearningAreas();
-        await loadLeaderRiskUrgentStudents();
-        await loadLeaderRiskTrend();
-
-        if(statusText){
-          statusText.textContent =
-            'ประมวลผลข้อมูลเรียบร้อยแล้ว';
-        }
-
-      }catch(error){
-
-        console.error(
-          'RISK PROCESS ERROR:',
-          error
-        );
-
-        if(statusText){
-          statusText.textContent =
-            `ประมวลผลไม่สำเร็จ: ${
-              error?.message ||
-              error
-            }`;
-        }
-
-      }finally{
-
-        if(btn){
-          btn.disabled = false;
-          btn.textContent =
-            'ประมวลผล';
-        }
-
-      }
-
-    }
-  );
+// Shared risk filters and limited previews. No new/unverified RPCs are called.
+const lrRiskPages = new Set(['risk-analytics','risk-students','risk-teachers','risk-subjects']);
+const lrFilterIds=['riskYear','riskTerm','riskClass','riskRoom','riskLearningArea','riskSubjectType'];
+const lrRiskState={page:'dashboard',filters:null,cache:{},summary:null,urgent:null,overviewReady:false,busy:false,generation:0,optionsPromise:null,expiryTimer:null};
+function lrStatus(text,kind='') {const node=lrNode('riskLiveStatusText');node.textContent=text;node.className='lr-status'+(kind?' lr-'+kind:'');}
+function lrScope(f){return f?`ปี ${f.academic_years.join(', ')||'ทั้งหมด'} · ภาคเรียน ${f.terms.join(', ')||'ทั้งหมด'} · ${f.class_levels.join(', ')||'ทุกระดับชั้น'} · ${f.rooms.join(', ')||'ทุกห้อง'} · ${f.learning_areas.join(', ')||'ทุกกลุ่มสาระ'} · ${f.subject_types.join(', ')||'ทุกประเภท'}`:'ยังไม่ได้ประมวลผล';}
+function lrSetFilterControls(f){if(!f)return;const keys=['academic_years','terms','class_levels','rooms','learning_areas','subject_types'];lrFilterIds.forEach((id,i)=>{if(i===3)renderLeaderRiskRoomOptions();const n=lrNode(id);if(n)n.value=String(f[keys[i]]?.[0]??'');});updateLeaderRiskFilterSummary();}
+function lrSetBusy(b){lrRiskState.busy=b;['lrRiskFilterOpen','lrProcessCurrent','riskProcessBtn',...lrFilterIds].forEach(id=>{const n=lrNode(id);if(n)n.disabled=b;});}
+function lrClearView(key){const body=lrNode('lrRows_'+key),selected=lrNode('lrSelected_'+key);if(body){body.replaceChildren();const tr=body.insertRow();const td=tr.insertCell();td.colSpan=11;td.textContent=key==='teachers'?'รอ RPC รายครู — ยังไม่มีข้อมูลจริง':'ยังไม่ได้ประมวลผล';}if(selected){selected.replaceChildren();selected.hidden=true;}const k=lrNode('lrKpis_'+key);k?.querySelectorAll('strong').forEach(n=>n.textContent='—');const search=lrNode('lrSearch_'+key);if(search)search.value='';lrText('lrViewStatus_'+key,key==='teachers'?'ยังไม่มี RPC สรุปรายครูที่ยืนยันได้':'ยังไม่ได้ประมวลผล');}
+function lrHideOverview(){lrRiskState.overviewReady=false;lrRiskState.summary=null;lrRiskState.urgent=null;lrNode('lrOverviewResults').hidden=true;lrNode('lrOverviewEmpty').hidden=false;lrText('lrOverviewEmpty','เลือกข้อมูลแล้วกดประมวลผลเพื่อแสดงภาพรวมจริง');resetLeaderRepeated();destroyLeaderRiskMockCharts();['riskUrgentStudentsBody','riskRoomHeatmap'].forEach(id=>lrNode(id)?.replaceChildren());['riskKpiStudents','riskKpiRecords','riskKpiGrade0','riskKpiGradeR','riskKpiGradeMs','riskKpiGradeMp','riskKpi3Plus','riskResolutionRate','riskResolvedRecords','riskPendingRecords','riskUnresolvedRecords'].forEach(id=>lrText(id,'—'));lrNode('riskResolutionBar').style.width='0%';lrText('lrRealInsights','รอข้อมูลสรุปจากการประมวลผล');}
+function lrClearResults(){lrRiskState.cache={};lrHideOverview();['students','teachers','subjects'].forEach(lrClearView);}
+function lrResetRiskSession(){lrRiskState.generation++;clearTimeout(lrRiskState.expiryTimer);lrRiskState.expiryTimer=null;lrRiskState.filters=null;lrRiskState.optionsPromise=null;leaderRiskFilterOptionsLoaded=false;lrCloseRiskFilters(false);lrClearResults();lrText('lrAppliedFilterText','ยังไม่ได้ประมวลผล');lrSetBusy(false);}
+function lrWatchRiskSession(token){clearTimeout(lrRiskState.expiryTimer);if(!leaderSessionExpiresAt)return;const gen=lrRiskState.generation;const check=()=>{if(gen!==lrRiskState.generation)return;if(!leaderRepeatedSessionValid(token)){lrResetRiskSession();lrStatus('Session หมดอายุ กรุณาเข้าสู่ระบบใหม่','error');return;}lrRiskState.expiryTimer=setTimeout(check,Math.max(1,Math.min(Date.parse(leaderSessionExpiresAt)-Date.now(),2147483647)));};check();}
+async function lrEnsureRiskOptions(){if(leaderRiskFilterOptionsLoaded)return true;if(lrRiskState.optionsPromise)return lrRiskState.optionsPromise;const token=String(leaderSessionToken||'').trim();const task=(async()=>{await loadLeaderRiskFilterOptions();return leaderRepeatedSessionValid(token)&&leaderRiskFilterOptionsLoaded;})();lrRiskState.optionsPromise=task;try{return await task;}finally{if(lrRiskState.optionsPromise===task)lrRiskState.optionsPromise=null;}}
+async function lrOpenRiskFilters(){if(lrRiskState.busy)return;const token=String(leaderSessionToken||'').trim();if(!leaderRepeatedSessionValid(token)){lrStatus('Session หมดอายุ','error');return;}if(!await lrEnsureRiskOptions()||!leaderRepeatedSessionValid(token)||!lrRiskPages.has(lrRiskState.page))return;if(lrRiskState.filters)lrSetFilterControls(lrRiskState.filters);const overlay=lrNode('lrRiskFilterOverlay');overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');document.body.classList.add('filter-modal-open');lrNode('lrCloseFilters').focus();}
+function lrCloseRiskFilters(restore=true){const overlay=lrNode('lrRiskFilterOverlay');if(restore&&lrRiskState.filters)lrSetFilterControls(lrRiskState.filters);if(overlay.classList.contains('open')){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');document.body.classList.remove('filter-modal-open');if(restore)lrNode('lrRiskFilterOpen').focus();}}
+function lrAcceptOverviewRows(key,rows){if(lrRiskState.busy)lrRiskState.cache[key]=rows;}
+function lrTd(tr,value){const td=tr.insertCell();td.textContent=String(value??'—');return td;}
+function lrPreviewRowDetail(key,row){const selected=lrNode('lrSelected_'+key);selected.replaceChildren();const h=document.createElement('h3');h.textContent=key==='students'?(row.student_name||'—'):`${row.subject_code||'—'} ${row.subject_name||''}`;selected.append(h);const p=document.createElement('p');p.textContent=key==='students'?`ห้อง ${row.room_label||'—'} · ${lrFmt(row.subject_count)} วิชาคงค้าง`:`นักเรียนไม่ซ้ำ ${lrFmt(row.unique_students)} คน`;selected.append(p);const desc=document.createElement('p');desc.textContent=`0: ${lrFmt(row.grade_0_records)} · ร: ${lrFmt(row.grade_r_records)} · มส: ${lrFmt(row.grade_ms_records)} · มผ: ${lrFmt(row.grade_mp_records)} · รวม ${lrFmt(row.total_records)} รายการ`;selected.append(desc);const note=document.createElement('p');note.className='lr-muted';note.textContent='ข้อมูลจาก RPC สรุปเดิม ยังไม่สามารถแจกแจงรายวิชา–ครูผู้สอน หรือเปิดรายละเอียดรายบุคคลข้ามมุมมองได้ จนกว่าจะเชื่อม RPC รายละเอียด';selected.append(note);const close=document.createElement('button');close.type='button';close.className='btn-secondary';close.textContent='ปิดรายละเอียด';close.onclick=()=>{selected.hidden=true;selected.replaceChildren();};selected.append(close);selected.hidden=false;}
+function lrRenderPreview(key){const data=lrRiskState.cache[key];if(!Array.isArray(data))return;const body=lrNode('lrRows_'+key);body.replaceChildren();lrNode('lrSelected_'+key).hidden=true;lrNode('lrSelected_'+key).replaceChildren();const q=lrNode('lrSearch_'+key).value.trim().toLowerCase(),sort=lrNode('lrSort_'+key).value,dir=lrNode('lrOrder_'+key).value==='asc'?1:-1;const isStudent=key==='students';const rows=data.filter(r=>String(isStudent?`${r.student_code||''} ${r.student_name||''} ${r.room_label||''}`:`${r.subject_code||''} ${r.subject_name||''}`).toLowerCase().includes(q)).sort((a,b)=>dir*(Number(a[sort]||0)-Number(b[sort]||0)));const stats=lrNode('lrKpis_'+key).querySelectorAll('strong');stats[0].textContent=lrFmt(rows.length);stats[1].textContent=lrFmt(rows.reduce((n,r)=>n+Number(r.total_records||0),0));stats[2].textContent=isStudent?'Top 20':'Top 10';rows.forEach((row,i)=>{const tr=body.insertRow();lrTd(tr,i+1);const td=lrTd(tr,'');const btn=document.createElement('button');btn.type='button';btn.className='lr-text-link';btn.textContent=isStudent?(row.student_name||'—'):`${row.subject_code||'—'} ${row.subject_name||''}`;btn.onclick=()=>lrPreviewRowDetail(key,row);td.append(btn);if(isStudent){const code=document.createElement('div');code.className='lr-muted';code.textContent=row.student_code||'—';td.append(code);lrTd(tr,row.room_label||'—');}else lrTd(tr,lrFmt(row.unique_students));['grade_0_records','grade_r_records','grade_ms_records','grade_mp_records','total_records'].forEach(k=>lrTd(tr,lrFmt(row[k])));if(isStudent)lrTd(tr,lrFmt(row.subject_count));else lrTd(tr,lrFmt(row.resolved_records));lrTd(tr,lrFmt(row.pending_records));lrTd(tr,lrFmt(row.unresolved_records));});if(!rows.length){const tr=body.insertRow();const td=tr.insertCell();td.colSpan=11;td.textContent=data.length?'ไม่พบข้อมูลตามคำค้น':'ไม่พบรายการตามเงื่อนไข';}lrText('lrViewStatus_'+key,`แสดง ${lrFmt(rows.length)} จาก ${lrFmt(data.length)} รายการที่ RPC ส่งกลับ · ${lrScope(lrRiskState.filters)}`);}
+async function lrLoadPreview(key,filters,token,gen){if(key==='teachers'){lrText('lrViewStatus_teachers','ยังไม่มี RPC สำหรับสรุปรายครูและตัวหารผลการเรียนทั้งหมด — ไม่สร้างอันดับจากข้อมูลที่ไม่ครบ');return;}const rpc=key==='students'?'leader_get_orms_top_students_session':'leader_get_orms_top_subjects_session';const limit=key==='students'?20:10;const {data,error}=await supabaseClient.rpc(rpc,{p_token:token,p_filters:filters,p_limit:limit});if(gen!==lrRiskState.generation||!leaderRepeatedSessionValid(token))return;if(error)throw error;if(!Array.isArray(data)||data.length>limit)throw new Error('รูปแบบข้อมูลไม่ถูกต้อง');lrRiskState.cache[key]=data;lrRenderPreview(key);}
+function lrRenderInsights(){const s=lrRiskState.summary,r=leaderRepeatedState.data;if(!s)return;const box=lrNode('lrRealInsights');box.replaceChildren();const add=t=>{const p=document.createElement('p');p.textContent=t;box.append(p);};add(`พบ ${lrFmt(s.total_risk_records)} รายการ จากนักเรียนไม่ซ้ำ ${lrFmt(s.total_risk_students)} คน ในขอบเขตที่เลือก`);add(`แก้สำเร็จ ${lrFmt(s.resolved_records)} รายการ · รออนุมัติ ${lrFmt(s.pending_records)} · ยังไม่แก้ ${lrFmt(s.unresolved_records)}`);if(r?.status==='ok')add(`นักเรียนเสี่ยงต่อเนื่อง ${lrFmt(r.kpi.total_repeated_students)} คน ภาคเรียนอ้างอิง ${r.reference_period.label} (แยก ม.ต้น / ม.ปลาย)`);}
+async function lrProcessRisk(fromDialog=false){if(lrRiskState.busy)return;const page=lrRiskState.page;if(!lrRiskPages.has(page))return;const token=String(leaderSessionToken||'').trim();if(!leaderRepeatedSessionValid(token)){lrStatus('Session หมดอายุ','error');return;}lrSetBusy(true);const gen=++lrRiskState.generation;const current=()=>gen===lrRiskState.generation&&leaderRepeatedSessionValid(token);try{if(!await lrEnsureRiskOptions()||!current())return;const f=deepClone(fromDialog||!lrRiskState.filters?buildLeaderRiskPayload():lrRiskState.filters);const changed=JSON.stringify(f)!==JSON.stringify(lrRiskState.filters);lrRiskState.filters=f;lrSetFilterControls(f);lrCloseRiskFilters(false);lrText('lrAppliedFilterText',lrScope(f));if(changed)lrClearResults();lrWatchRiskSession(token);lrStatus('กำลังประมวลผลข้อมูล…');if(page==='risk-analytics'){lrRiskState.cache={};['students','subjects'].forEach(lrClearView);lrHideOverview();const repeatGen=leaderRepeatedState.generation;lrNode('lrOverviewEmpty').textContent='กำลังประมวลผลภาพรวม…';initLeaderRiskMockCharts();for(const load of [loadLeaderRiskKpis,loadLeaderRiskClassRoomChart,loadLeaderRiskHeatmap,loadLeaderRiskTopSubjects,loadLeaderRiskLearningAreas,loadLeaderRiskUrgentStudents,loadLeaderRiskTrend]){if(!current())return;await load();}if(!current())return;await loadLeaderRepeated(f,token,repeatGen);if(!current())return;lrRiskState.overviewReady=true;lrNode('lrOverviewResults').hidden=false;lrNode('lrOverviewEmpty').hidden=true;lrRenderInsights();requestAnimationFrame(()=>{if(lrRiskState.page==='risk-analytics')leaderRiskMockCharts.forEach(c=>{try{c.resize();}catch(e){}});});lrStatus(leaderRepeatedState.data?'ประมวลผลภาพรวมเรียบร้อย':'ภาพรวมพร้อมใช้งาน แต่ Repeated Risk ยังไม่สำเร็จ','success');}else{const key=page.slice(5);delete lrRiskState.cache[key];lrClearView(key);await lrLoadPreview(key,f,token,gen);if(!current())return;lrStatus(key==='teachers'?'ตัวกรองพร้อมใช้งาน · รอเชื่อมข้อมูลรายครู':'โหลดชุดข้อมูลจาก RPC เดิมเรียบร้อย','success');}}catch(e){if(current()){if(page==='risk-analytics'){lrRiskState.cache={};['students','subjects'].forEach(lrClearView);lrHideOverview();}else{const key=page.slice(5);delete lrRiskState.cache[key];lrClearView(key);lrText('lrViewStatus_'+key,'ไม่สามารถโหลดข้อมูลได้');}lrStatus('ประมวลผลไม่สำเร็จ กรุณาลองใหม่','error');console.warn('Leader Risk:',e?.code||'NETWORK_OR_VALIDATION_ERROR');}}finally{if(gen===lrRiskState.generation)lrSetBusy(false);}}
+function lrOnPage(page){lrRiskState.page=page;lrCloseRiskFilters(true);lrNode('lrSharedRiskBar').hidden=!lrRiskPages.has(page);lrNode('lrRiskParent').classList.toggle('lr-current',lrRiskPages.has(page));if(lrRiskPages.has(page)){lrSetNavGroup('lrRiskMenu','lrRiskParent',true);lrText('lrAppliedFilterText',lrScope(lrRiskState.filters));if(page==='risk-analytics'&&lrRiskState.overviewReady){requestAnimationFrame(()=>leaderRiskMockCharts.forEach(c=>{try{c.resize();}catch(e){}}));}else if(page!=='risk-analytics'){const key=page.slice(5);if(lrRiskState.cache[key])lrRenderPreview(key);}if(!lrRiskState.busy)lrStatus(lrRiskState.filters?'ใช้ตัวกรองร่วมเดิม · กดประมวลผลเพื่อโหลดใหม่':'เลือกข้อมูลแล้วกดประมวลผล');}else if(['home','retest','qrcode'].includes(page))lrSetNavGroup('lrToolsMenu','lrToolsParent',true);if(page==='dashboard')initLeaderDashboard();}
+function lrSetNavGroup(group,parent,open){lrNode(group).classList.toggle('open',open);lrNode(parent).setAttribute('aria-expanded',String(open));}
+[['lrRiskMenu','lrRiskParent'],['lrToolsMenu','lrToolsParent']].forEach(([group,parent])=>lrNode(parent).addEventListener('click',()=>{if(window.innerWidth>900&&document.body.classList.contains('leader-sidebar-collapsed')){document.body.classList.remove('leader-sidebar-collapsed');try{localStorage.setItem('leaderpr_sidebar_collapsed','0');}catch(e){}lrSetNavGroup(group,parent,true);return;}lrSetNavGroup(group,parent,!lrNode(group).classList.contains('open'));}));
+lrNode('lrRiskFilterOpen').addEventListener('click',lrOpenRiskFilters);lrNode('lrCloseFilters').addEventListener('click',()=>lrCloseRiskFilters(true));lrNode('lrRiskFilterBackdrop').addEventListener('click',()=>lrCloseRiskFilters(true));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&lrNode('lrRiskFilterOverlay').classList.contains('open'))lrCloseRiskFilters(true);});lrNode('lrProcessCurrent').addEventListener('click',()=>lrProcessRisk(false));lrNode('lrSubjectViewLink').addEventListener('click',()=>showLeaderPage('risk-subjects'));lrNode('riskProcessBtn').addEventListener('click',()=>lrProcessRisk(true));['students','subjects'].forEach(key=>['lrSearch_','lrSort_','lrOrder_'].forEach((prefix,i)=>lrNode(prefix+key).addEventListener(i===0?'input':'change',()=>lrRenderPreview(key))));
 
 
 
@@ -9740,6 +9820,9 @@ const leaderPageMap = {
   'risk-analytics':
     document.getElementById('leaderRiskAnalyticsPage'),
 
+  'risk-students': document.getElementById('lrPage_students'),
+  'risk-teachers': document.getElementById('lrPage_teachers'),
+  'risk-subjects': document.getElementById('lrPage_subjects'),
   retest:
     document.getElementById('leaderRetestPage'),
 
@@ -9760,11 +9843,14 @@ const leaderPageMeta = {
   },
 
   'risk-analytics': {
-    title: 'วิเคราะห์ 0 / ร / มส',
+    title: 'ภาพรวม 0 ร มส และ มผ',
     subtitle:
       'ภาพรวมกลุ่มเสี่ยง แนวโน้ม และข้อมูลสำหรับจัดลำดับการติดตาม'
   },
 
+  'risk-students': {title:'มุมมองนักเรียน',subtitle:'สถิติ 0 ร มส และ มผ'},
+  'risk-teachers': {title:'มุมมองครูผู้สอน',subtitle:'สถิติ 0 ร มส และ มผ'},
+  'risk-subjects': {title:'มุมมองรายวิชา',subtitle:'สถิติ 0 ร มส และ มผ'},
   retest: {
     title: 'สถิติผลการสอบแก้ตัว',
     subtitle:
@@ -9826,24 +9912,7 @@ if(pageSubtitleNode){
       }, 120);
     }
 
-if(pageName === 'risk-analytics'){
-
-  loadLeaderRiskFilterOptions();
-
-  window.requestAnimationFrame(() => {
-
-    initLeaderRiskMockCharts();
-
-    leaderRiskMockCharts.forEach(
-      chart => {
-        try{
-          chart.resize();
-        }catch(_err){}
-      }
-    );
-
-  });
-}
+lrOnPage(pageName);
   }
 
   document.querySelectorAll('[data-leader-page]').forEach(btn => {
@@ -10604,6 +10673,10 @@ function saveLeaderSession(
 }
 
 function clearLeaderSession(){
+  lrResetRiskSession();
+  leaderDashboardInitialized=false;
+  dashboardData=deepClone(emptyDashboardData); appliedFilterSummary='ยังไม่ได้ประมวลผล'; subjectOptions=[];
+  try{renderDashboard();}catch(e){}
   leaderSessionToken = '';
   leaderSessionExpiresAt = null;
 
@@ -10864,8 +10937,7 @@ async function openLeaderApp(user){
 
 
   // ตอนนี้ Session Token พร้อมแล้ว
-  await initLeaderDashboard();
-
+  // โหลดข้อมูลเฉพาะหน้าที่เปิดใช้งาน
 
   // ค่อยเปิดหน้าที่ผู้ใช้ใช้งานล่าสุด
   showLeaderPage(
@@ -10948,6 +11020,8 @@ async function openLeaderApp(user){
   }
 
 async function handleLeaderLogout(){
+  lrResetRiskSession();
+  document.getElementById('leaderAppView')?.classList.add('leader-hidden');
 
   /*
    * เก็บ token ไว้ก่อน
